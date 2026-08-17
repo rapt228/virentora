@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Virentora — AI-агенты, Telegram-боты и автоматизация</title>
+<meta name="description" content="Virentora — разработка AI-агентов, Telegram-ботов и интеграций. Автоматизируем приём заявок, поддержку клиентов и рутину. Запуск от 7 дней.">
+<meta property="og:title" content="Virentora — AI-агенты и автоматизация">
+<meta property="og:description" content="Telegram-боты, AI-агенты на базе знаний, интеграции с CRM и таблицами. Запуск от 7 дней.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><path d='M11 20Q11 15 16 15L25 15Q29 15 31 19L59 76Q61 81 59 86L56 91Q53 95 50.5 92Z' fill='%230A0A0B'/><path d='M89 11L89 45L55 92L68 36Z' fill='%230A0A0B'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ============ RESET & TOKENS ============ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#ffffff;
+  --bg-soft:#f7f7f8;
+  --bg-tint:#fbfbfc;
+  --ink:#0a0a0b;
+  --ink-2:#56565e;
+  --ink-3:#9a9aa4;
+  --line:#e9e9ed;
+  --line-2:#f1f1f4;
+  --white:#fff;
+  --r-sm:12px; --r-md:18px; --r-lg:26px; --r-xl:34px;
+  --shadow-sm:0 1px 2px rgba(10,10,11,.04), 0 4px 12px rgba(10,10,11,.04);
+  --shadow-md:0 2px 4px rgba(10,10,11,.03), 0 12px 32px rgba(10,10,11,.07);
+  --shadow-lg:0 4px 8px rgba(10,10,11,.04), 0 24px 64px rgba(10,10,11,.10);
+  --max:1200px;
+  --ease:cubic-bezier(.22,1,.36,1);
+}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  background:var(--bg); color:var(--ink);
+  font-size:16px; line-height:1.6;
+  -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+  overflow-x:hidden;
+}
+img,svg{display:block; max-width:100%}
+a{color:inherit; text-decoration:none}
+button{font:inherit; color:inherit; background:none; border:none; cursor:pointer}
+::selection{background:var(--ink); color:var(--white)}
+
+/* ============ LAYOUT ============ */
+.wrap{width:100%; max-width:var(--max); margin:0 auto; padding:0 24px}
+section{position:relative}
+.sec-pad{padding:120px 0}
+@media(max-width:860px){.sec-pad{padding:80px 0}}
+
+/* ============ TYPE ============ */
+.display{
+  font-weight:700; letter-spacing:-.04em; line-height:1.02;
+  font-size:clamp(2.7rem,7.2vw,5.6rem);
+}
+.h2{
+  font-weight:700; letter-spacing:-.035em; line-height:1.08;
+  font-size:clamp(2rem,4.4vw,3.4rem);
+}
+.h3{font-weight:650; letter-spacing:-.02em; font-size:1.22rem; line-height:1.35}
+.lead{font-size:clamp(1.02rem,1.6vw,1.2rem); color:var(--ink-2); line-height:1.65; font-weight:400}
+.muted{color:var(--ink-2)}
+.grad-text{
+  background:linear-gradient(115deg,#0a0a0b 8%,#6d6d78 46%,#b6b6c0 74%,#0a0a0b 96%);
+  background-size:220% 100%;
+  -webkit-background-clip:text; background-clip:text;
+  -webkit-text-fill-color:transparent; color:transparent;
+  animation:sheen 7s ease-in-out infinite;
+}
+@keyframes sheen{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+
+/* ============ EYEBROW / BADGE ============ */
+.eyebrow{
+  display:inline-flex; align-items:center; gap:9px;
+  font-size:.73rem; font-weight:600; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--ink-3); margin-bottom:20px;
+}
+.eyebrow::before{content:''; width:22px; height:1px; background:var(--ink-3); opacity:.5}
+.badge{
+  display:inline-flex; align-items:center; gap:9px;
+  padding:7px 15px 7px 11px; border:1px solid var(--line);
+  border-radius:999px; background:rgba(255,255,255,.7); backdrop-filter:blur(10px);
+  font-size:.83rem; font-weight:500; color:var(--ink-2);
+  box-shadow:var(--shadow-sm);
+}
+.dot{width:7px; height:7px; border-radius:50%; background:#16a34a; position:relative; flex:none}
+.dot::after{content:''; position:absolute; inset:-4px; border-radius:50%; background:#16a34a; opacity:.28; animation:ping 2s ease-out infinite}
+@keyframes ping{0%{transform:scale(.6); opacity:.45}70%,100%{transform:scale(1.9); opacity:0}}
+
+/* ============ BUTTONS ============ */
+.btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:9px;
+  padding:15px 27px; border-radius:999px;
+  font-size:.94rem; font-weight:560; letter-spacing:-.01em;
+  transition:transform .45s var(--ease), box-shadow .45s var(--ease), background .3s, color .3s, border-color .3s;
+  will-change:transform; position:relative; overflow:hidden; white-space:nowrap;
+}
+.btn-primary{background:var(--ink); color:var(--white); box-shadow:0 6px 20px rgba(10,10,11,.22)}
+.btn-primary:hover{transform:translateY(-3px); box-shadow:0 14px 34px rgba(10,10,11,.28)}
+.btn-ghost{border:1px solid var(--line); background:var(--white); color:var(--ink); box-shadow:var(--shadow-sm)}
+.btn-ghost:hover{transform:translateY(-3px); border-color:#d3d3da; box-shadow:var(--shadow-md)}
+.btn-sm{padding:11px 20px; font-size:.87rem}
+.btn .arw{transition:transform .4s var(--ease)}
+.btn:hover .arw{transform:translateX(4px)}
+
+/* ============ HEADER ============ */
+header{
+  position:fixed; top:0; left:0; right:0; z-index:100;
+  transition:background .4s, border-color .4s, box-shadow .4s, padding .4s;
+  border-bottom:1px solid transparent; padding:16px 0;
+}
+header.stuck{
+  background:rgba(255,255,255,.82); backdrop-filter:blur(18px) saturate(180%);
+  border-bottom-color:var(--line); padding:10px 0;
+}
+.nav{display:flex; align-items:center; justify-content:space-between; gap:24px}
+.brand{display:flex; align-items:center; gap:11px; font-weight:700; font-size:1.16rem; letter-spacing:-.03em}
+.brand svg{width:27px; height:27px; flex:none; transition:transform .6s var(--ease)}
+.brand:hover svg{transform:rotate(-8deg) scale(1.08)}
+.nav-links{display:flex; align-items:center; gap:4px}
+.nav-links a{
+  padding:9px 15px; border-radius:999px; font-size:.9rem; font-weight:480; color:var(--ink-2);
+  transition:color .25s, background .25s;
+}
+.nav-links a:hover{color:var(--ink); background:var(--bg-soft)}
+.nav-right{display:flex; align-items:center; gap:11px}
+.lang{
+  display:flex; align-items:center; padding:3px; gap:2px;
+  border:1px solid var(--line); border-radius:999px; background:var(--white);
+}
+.lang button{
+  padding:5px 11px; border-radius:999px; font-size:.76rem; font-weight:650; letter-spacing:.02em;
+  color:var(--ink-3); transition:all .3s var(--ease);
+}
+.lang button.on{background:var(--ink); color:var(--white)}
+.burger{display:none; width:42px; height:42px; border:1px solid var(--line); border-radius:12px; align-items:center; justify-content:center; background:var(--white)}
+.burger span{display:block; width:17px; height:1.6px; background:var(--ink); border-radius:2px; transition:transform .4s var(--ease), opacity .3s}
+.burger span+span{margin-top:4.5px}
+.burger.x span:nth-child(1){transform:translateY(6.1px) rotate(45deg)}
+.burger.x span:nth-child(2){opacity:0}
+.burger.x span:nth-child(3){transform:translateY(-6.1px) rotate(-45deg)}
+.mobile-menu{
+  position:fixed; inset:0 0 auto; top:0; z-index:99;
+  background:rgba(255,255,255,.97); backdrop-filter:blur(24px);
+  padding:96px 24px 40px; display:none; flex-direction:column; gap:2px;
+  border-bottom:1px solid var(--line);
+}
+.mobile-menu.open{display:flex; animation:slideDown .45s var(--ease)}
+@keyframes slideDown{from{opacity:0; transform:translateY(-14px)}to{opacity:1; transform:none}}
+.mobile-menu a{padding:15px 4px; font-size:1.28rem; font-weight:600; letter-spacing:-.025em; border-bottom:1px solid var(--line-2)}
+.mobile-menu .btn{margin-top:22px}
+@media(max-width:940px){
+  .nav-links{display:none}
+  .burger{display:flex}
+}
+
+/* ============ HERO ============ */
+.hero{padding:172px 0 90px; position:relative; overflow:hidden}
+.hero-inner{max-width:940px}
+.hero h1{margin:22px 0 26px}
+.hero .lead{max-width:620px}
+.hero-cta{display:flex; flex-wrap:wrap; gap:13px; margin-top:38px}
+.hero-note{margin-top:20px; font-size:.85rem; color:var(--ink-3); display:flex; align-items:center; gap:8px}
+
+/* ambient background */
+.orb{position:absolute; border-radius:50%; filter:blur(70px); pointer-events:none; z-index:-1}
+.orb-1{width:520px; height:520px; top:-140px; right:-120px; background:radial-gradient(circle,rgba(10,10,11,.07),transparent 66%); animation:drift 22s ease-in-out infinite}
+.orb-2{width:400px; height:400px; top:280px; left:-160px; background:radial-gradient(circle,rgba(120,120,140,.09),transparent 68%); animation:drift 27s ease-in-out infinite reverse}
+@keyframes drift{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(46px,-34px) scale(1.1)}}
+.grid-bg{
+  position:absolute; inset:0; z-index:-2; pointer-events:none;
+  background-image:linear-gradient(var(--line-2) 1px,transparent 1px),linear-gradient(90deg,var(--line-2) 1px,transparent 1px);
+  background-size:64px 64px;
+  mask-image:radial-gradient(ellipse 78% 58% at 50% 32%,#000 12%,transparent 74%);
+  -webkit-mask-image:radial-gradient(ellipse 78% 58% at 50% 32%,#000 12%,transparent 74%);
+}
+
+/* floating chips */
+.chips{position:absolute; inset:0; pointer-events:none; z-index:1}
+.chip{
+  position:absolute; display:flex; align-items:center; gap:9px;
+  padding:11px 17px; border-radius:15px;
+  background:rgba(255,255,255,.86); backdrop-filter:blur(14px);
+  border:1px solid var(--line); box-shadow:var(--shadow-md);
+  font-size:.82rem; font-weight:550; letter-spacing:-.01em; white-space:nowrap;
+  opacity:0; animation:chipIn .9s var(--ease) forwards;
+}
+.chip svg{width:16px; height:16px; flex:none; opacity:.72}
+@keyframes chipIn{from{opacity:0; transform:translateY(18px) scale(.94)}to{opacity:1; transform:none}}
+@keyframes float1{0%,100%{transform:translateY(0)}50%{transform:translateY(-15px)}}
+@keyframes float2{0%,100%{transform:translateY(0)}50%{transform:translateY(13px)}}
+/* two chained animations: entrance, then perpetual float (delayed so they never overlap) */
+.chip.f1{top:16%; right:5%;  animation-name:chipIn,float1; animation-duration:.9s,7s;   animation-delay:.9s,1.8s;  animation-iteration-count:1,infinite}
+.chip.f2{top:41%; right:14%; animation-name:chipIn,float2; animation-duration:.9s,8.5s; animation-delay:1.1s,2.0s; animation-iteration-count:1,infinite}
+.chip.f3{top:64%; right:3%;  animation-name:chipIn,float1; animation-duration:.9s,9.5s; animation-delay:1.3s,2.2s; animation-iteration-count:1,infinite}
+.chip.f4{top:80%; left:6%;   animation-name:chipIn,float2; animation-duration:.9s,7.8s; animation-delay:1.5s,2.4s; animation-iteration-count:1,infinite}
+@media(max-width:1080px){.chips{display:none}}
+
+/* ============ STATS ============ */
+.stats{display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:var(--r-lg); overflow:hidden; margin-top:76px}
+.stat{background:var(--white); padding:30px 26px; transition:background .35s}
+.stat:hover{background:var(--bg-tint)}
+.stat b{display:block; font-size:clamp(1.9rem,3.4vw,2.7rem); font-weight:700; letter-spacing:-.045em; line-height:1.1}
+.stat span{font-size:.85rem; color:var(--ink-2); margin-top:5px; display:block}
+@media(max-width:760px){.stats{grid-template-columns:1fr 1fr}}
+
+/* ============ MARQUEE ============ */
+.marquee{border-top:1px solid var(--line); border-bottom:1px solid var(--line); padding:26px 0; overflow:hidden; background:var(--bg-tint)}
+.marquee-track{display:flex; gap:52px; width:max-content; animation:scroll 34s linear infinite}
+.marquee:hover .marquee-track{animation-play-state:paused}
+@keyframes scroll{to{transform:translateX(-50%)}}
+.mq-item{display:flex; align-items:center; gap:11px; font-size:.94rem; font-weight:550; color:var(--ink-3); letter-spacing:-.015em; white-space:nowrap; transition:color .3s}
+.mq-item:hover{color:var(--ink)}
+.mq-item::before{content:''; width:5px; height:5px; border-radius:50%; background:currentColor; opacity:.45}
+
+/* ============ SECTION HEAD ============ */
+.sec-head{max-width:760px; margin-bottom:62px}
+.sec-head .lead{margin-top:18px}
+.sec-head.center{margin-left:auto; margin-right:auto; text-align:center}
+.sec-head.center .eyebrow::before{display:none}
+
+/* ============ CARD GRID ============ */
+.grid-3{display:grid; grid-template-columns:repeat(3,1fr); gap:22px}
+.grid-2{display:grid; grid-template-columns:repeat(2,1fr); gap:22px}
+@media(max-width:980px){.grid-3{grid-template-columns:1fr 1fr}}
+@media(max-width:700px){.grid-3,.grid-2{grid-template-columns:1fr}}
+
+.card{
+  position:relative; padding:34px 32px 32px;
+  background:var(--white); border:1px solid var(--line); border-radius:var(--r-lg);
+  transition:transform .55s var(--ease), box-shadow .55s var(--ease), border-color .4s;
+  overflow:hidden; will-change:transform;
+}
+.card::after{
+  content:''; position:absolute; inset:0; border-radius:inherit; pointer-events:none;
+  background:radial-gradient(360px circle at var(--mx,50%) var(--my,0%),rgba(10,10,11,.045),transparent 62%);
+  opacity:0; transition:opacity .45s;
+}
+.card:hover{transform:translateY(-7px); box-shadow:var(--shadow-lg); border-color:#dededf}
+.card:hover::after{opacity:1}
+.card-ico{
+  width:50px; height:50px; border-radius:15px; display:flex; align-items:center; justify-content:center;
+  background:var(--ink); color:var(--white); margin-bottom:24px;
+  transition:transform .55s var(--ease), border-radius .55s var(--ease);
+}
+.card:hover .card-ico{transform:translateY(-4px) rotate(-7deg) scale(1.06); border-radius:19px}
+.card-ico svg{width:23px; height:23px}
+.card h3{margin-bottom:11px}
+.card p{font-size:.94rem; color:var(--ink-2); line-height:1.62}
+.tags{display:flex; flex-wrap:wrap; gap:7px; margin-top:20px}
+.tag{padding:5px 11px; border-radius:999px; background:var(--bg-soft); border:1px solid var(--line-2); font-size:.755rem; font-weight:520; color:var(--ink-2)}
+.card-price{margin-top:22px; padding-top:19px; border-top:1px solid var(--line-2); font-size:.86rem; color:var(--ink-3)}
+.card-price b{color:var(--ink); font-weight:650; font-size:1rem}
+
+/* ============ CASES ============ */
+.case{display:flex; flex-direction:column; height:100%}
+.case-visual{
+  height:186px; margin:-34px -32px 26px; border-bottom:1px solid var(--line);
+  background:linear-gradient(160deg,#fafafb,#f1f1f4);
+  position:relative; overflow:hidden; display:flex; align-items:center; justify-content:center;
+}
+.case-visual::before{
+  content:''; position:absolute; inset:0;
+  background-image:linear-gradient(var(--line-2) 1px,transparent 1px),linear-gradient(90deg,var(--line-2) 1px,transparent 1px);
+  background-size:26px 26px; opacity:.75;
+}
+.bubbles{position:relative; z-index:1; display:flex; flex-direction:column; gap:9px; width:78%}
+.bub{padding:9px 14px; border-radius:14px; font-size:.76rem; font-weight:480; box-shadow:var(--shadow-sm); opacity:0; animation:bubIn .55s var(--ease) forwards}
+.bub.you{align-self:flex-end; background:var(--ink); color:var(--white); border-bottom-right-radius:5px}
+.bub.bot{align-self:flex-start; background:var(--white); border:1px solid var(--line); border-bottom-left-radius:5px}
+.card:hover .bub{animation:bubIn .55s var(--ease) forwards}
+.bub:nth-child(1){animation-delay:.05s} .bub:nth-child(2){animation-delay:.25s} .bub:nth-child(3){animation-delay:.45s}
+@keyframes bubIn{from{opacity:0; transform:translateY(9px) scale(.96)}to{opacity:1; transform:none}}
+.case-body{flex:1; display:flex; flex-direction:column}
+.case .card-price{margin-top:auto}
+.pill-live{
+  position:absolute; top:14px; right:14px; z-index:2;
+  display:inline-flex; align-items:center; gap:6px; padding:5px 11px; border-radius:999px;
+  background:rgba(255,255,255,.9); border:1px solid var(--line); backdrop-filter:blur(8px);
+  font-size:.7rem; font-weight:620; letter-spacing:.04em; text-transform:uppercase; color:var(--ink-2);
+}
+
+/* ============ PROCESS ============ */
+.steps{display:grid; grid-template-columns:repeat(4,1fr); gap:22px; counter-reset:s}
+@media(max-width:980px){.steps{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.steps{grid-template-columns:1fr}}
+.step{position:relative; padding-top:30px; border-top:1.5px solid var(--ink); transition:padding .4s var(--ease)}
+.step:hover{padding-top:22px}
+.step-n{font-size:.74rem; font-weight:700; letter-spacing:.14em; color:var(--ink-3); margin-bottom:13px}
+.step h3{margin-bottom:9px; font-size:1.1rem}
+.step p{font-size:.9rem; color:var(--ink-2); line-height:1.6}
+
+/* ============ PRICING ============ */
+.plan{display:flex; flex-direction:column}
+.plan.feat{background:var(--ink); border-color:var(--ink); color:var(--white)}
+.plan.feat p,.plan.feat .card-price{color:rgba(255,255,255,.66)}
+.plan.feat .tag{background:rgba(255,255,255,.09); border-color:rgba(255,255,255,.14); color:rgba(255,255,255,.82)}
+.plan.feat .card-ico{background:var(--white); color:var(--ink)}
+.plan.feat .card-price{border-top-color:rgba(255,255,255,.13)}
+.plan.feat .card-price b{color:var(--white)}
+.plan.feat::after{background:radial-gradient(360px circle at var(--mx,50%) var(--my,0%),rgba(255,255,255,.09),transparent 62%)}
+.plan .price{font-size:2.15rem; font-weight:700; letter-spacing:-.045em; line-height:1.1; margin-bottom:6px}
+.plan .price small{font-size:.92rem; font-weight:450; color:var(--ink-3); letter-spacing:-.01em}
+.plan.feat .price small{color:rgba(255,255,255,.55)}
+.feats{list-style:none; margin:24px 0; display:flex; flex-direction:column; gap:11px; flex:1}
+.feats li{display:flex; gap:10px; font-size:.9rem; color:var(--ink-2); line-height:1.5}
+.plan.feat .feats li{color:rgba(255,255,255,.78)}
+.feats svg{width:16px; height:16px; flex:none; margin-top:3px; opacity:.62}
+.ribbon{
+  position:absolute; top:20px; right:20px; padding:5px 12px; border-radius:999px;
+  background:var(--white); color:var(--ink); font-size:.7rem; font-weight:680; letter-spacing:.05em; text-transform:uppercase;
+}
+
+/* ============ FAQ ============ */
+.faq{max-width:820px; margin:0 auto; border-top:1px solid var(--line)}
+.qa{border-bottom:1px solid var(--line)}
+.qa-q{
+  width:100%; display:flex; align-items:center; justify-content:space-between; gap:24px;
+  padding:26px 4px; text-align:left; font-size:1.06rem; font-weight:580; letter-spacing:-.02em;
+  transition:color .3s;
+}
+.qa-q:hover{color:var(--ink-2)}
+.qa-ico{width:26px; height:26px; flex:none; border:1px solid var(--line); border-radius:50%; position:relative; transition:transform .5s var(--ease), background .35s, border-color .35s}
+.qa-ico::before,.qa-ico::after{content:''; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); background:var(--ink); transition:opacity .35s, background .35s}
+.qa-ico::before{width:10px; height:1.5px}
+.qa-ico::after{width:1.5px; height:10px}
+.qa.open .qa-ico{transform:rotate(180deg); background:var(--ink); border-color:var(--ink)}
+.qa.open .qa-ico::before,.qa.open .qa-ico::after{background:var(--white)}
+.qa.open .qa-ico::after{opacity:0}
+.qa-a{max-height:0; overflow:hidden; transition:max-height .55s var(--ease)}
+.qa-a p{padding:0 4px 28px; font-size:.96rem; color:var(--ink-2); line-height:1.7; max-width:660px}
+
+/* ============ CTA BAND ============ */
+.cta-band{
+  position:relative; overflow:hidden;
+  background:var(--ink); color:var(--white); border-radius:var(--r-xl);
+  padding:78px 56px; text-align:center;
+}
+.cta-band::before{
+  content:''; position:absolute; inset:0;
+  background-image:linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px);
+  background-size:56px 56px;
+  mask-image:radial-gradient(ellipse 70% 70% at 50% 50%,#000,transparent 72%);
+  -webkit-mask-image:radial-gradient(ellipse 70% 70% at 50% 50%,#000,transparent 72%);
+}
+.cta-band>*{position:relative; z-index:1}
+.cta-band h2{margin-bottom:18px}
+.cta-band p{color:rgba(255,255,255,.68); max-width:520px; margin:0 auto 34px; font-size:1.05rem}
+.cta-band .btn-primary{background:var(--white); color:var(--ink); box-shadow:0 8px 30px rgba(0,0,0,.3)}
+.cta-band .btn-ghost{background:transparent; border-color:rgba(255,255,255,.22); color:var(--white)}
+.cta-band .btn-ghost:hover{border-color:rgba(255,255,255,.45); background:rgba(255,255,255,.06)}
+.cta-actions{display:flex; gap:13px; justify-content:center; flex-wrap:wrap}
+@media(max-width:700px){.cta-band{padding:56px 26px}}
+
+/* ============ FOOTER ============ */
+footer{border-top:1px solid var(--line); padding:62px 0 34px; margin-top:120px}
+.f-top{display:flex; justify-content:space-between; gap:48px; flex-wrap:wrap; margin-bottom:52px}
+.f-brand{max-width:320px}
+.f-brand p{font-size:.9rem; color:var(--ink-2); margin-top:16px; line-height:1.62}
+.f-cols{display:flex; gap:64px; flex-wrap:wrap}
+.f-col h4{font-size:.74rem; font-weight:650; letter-spacing:.13em; text-transform:uppercase; color:var(--ink-3); margin-bottom:16px}
+.f-col a{display:block; font-size:.92rem; color:var(--ink-2); padding:5px 0; transition:color .25s, transform .3s var(--ease)}
+.f-col a:hover{color:var(--ink); transform:translateX(3px)}
+.f-bot{display:flex; justify-content:space-between; gap:18px; flex-wrap:wrap; padding-top:26px; border-top:1px solid var(--line-2); font-size:.83rem; color:var(--ink-3)}
+
+/* ============ REVEAL ============ */
+.reveal{opacity:0; transform:translateY(26px); transition:opacity .85s var(--ease), transform .85s var(--ease)}
+.reveal.in{opacity:1; transform:none}
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important; transition-duration:.01ms!important}
+  .reveal{opacity:1; transform:none}
+}
+
+/* ============ SPOTLIGHT ============ */
+#spot{position:fixed; width:520px; height:520px; border-radius:50%; pointer-events:none; z-index:0;
+  background:radial-gradient(circle,rgba(10,10,11,.028),transparent 62%); transform:translate(-50%,-50%);
+  transition:opacity .5s; opacity:0}
+@media(max-width:1080px){#spot{display:none}}
+</style>
+</head>
+<body>
+
+<div id="spot"></div>
+
+<!-- ===================== HEADER ===================== -->
+<header id="hdr">
+  <div class="wrap nav">
+    <a href="#top" class="brand" aria-label="Virentora">
+      <svg viewBox="0 0 100 100" aria-hidden="true">
+        <path d="M11 20Q11 15 16 15L25 15Q29 15 31 19L59 76Q61 81 59 86L56 91Q53 95 50.5 92Z" fill="#0a0a0b"/>
+        <path d="M72 32L79 39L57 64L49 64Z" fill="#a3a3ad"/>
+        <path d="M89 11L89 45L55 92L68 36Z" fill="#0a0a0b"/>
+      </svg>
+      <span>Virentora</span>
+    </a>
+    <nav class="nav-links">
+      <a href="#services" data-i="nav1"></a>
+      <a href="#cases"    data-i="nav2"></a>
+      <a href="#process"  data-i="nav3"></a>
+      <a href="#pricing"  data-i="nav4"></a>
+      <a href="#faq"      data-i="nav5"></a>
+    </nav>
+    <div class="nav-right">
+      <div class="lang" role="group" aria-label="Language">
+        <button class="on" data-lang="ru">RU</button>
+        <button data-lang="en">EN</button>
+      </div>
+      <a href="#contact" class="btn btn-primary btn-sm magnet" data-i="navcta"></a>
+      <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mm">
+  <a href="#services" data-i="nav1"></a>
+  <a href="#cases"    data-i="nav2"></a>
+  <a href="#process"  data-i="nav3"></a>
+  <a href="#pricing"  data-i="nav4"></a>
+  <a href="#faq"      data-i="nav5"></a>
+  <a href="#contact" class="btn btn-primary" data-i="navcta"></a>
+</div>
+
+<!-- ===================== HERO ===================== -->
+<section class="hero" id="top">
+  <div class="grid-bg"></div>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+
+  <div class="chips" aria-hidden="true">
+    <div class="chip f1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M4.9 4.9l2.9 2.9M16.2 16.2l2.9 2.9M2 12h4M18 12h4M4.9 19.1l2.9-2.9M16.2 7.8l2.9-2.9"/></svg><span data-i="chip1"></span></div>
+    <div class="chip f2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg><span data-i="chip2"></span></div>
+    <div class="chip f3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg><span data-i="chip3"></span></div>
+    <div class="chip f4"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 8V4H8"/><rect x="4" y="8" width="16" height="12" rx="2"/><path d="M2 14h2M20 14h2M15 13v2M9 13v2"/></svg><span data-i="chip4"></span></div>
+  </div>
+
+  <div class="wrap hero-inner">
+    <div class="badge reveal"><span class="dot"></span><span data-i="badge"></span></div>
+    <h1 class="display reveal" data-i="h1"></h1>
+    <p class="lead reveal" data-i="sub"></p>
+    <div class="hero-cta reveal">
+      <a href="#contact" class="btn btn-primary magnet"><span data-i="cta1"></span><span class="arw">→</span></a>
+      <a href="#cases" class="btn btn-ghost magnet" data-i="cta2"></a>
+    </div>
+    <div class="hero-note reveal">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>
+      <span data-i="note"></span>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="stats reveal">
+      <div class="stat"><b><span class="cnt" data-to="7">0</span></b><span data-i="st1"></span></div>
+      <div class="stat"><b><span class="cnt" data-to="24">0</span>/7</b><span data-i="st2"></span></div>
+      <div class="stat"><b><span class="cnt" data-to="50">0</span>+</b><span data-i="st3"></span></div>
+      <div class="stat"><b><span class="cnt" data-to="14">0</span></b><span data-i="st4"></span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== MARQUEE ===================== -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track" id="mq"></div>
+</div>
+
+<!-- ===================== SERVICES ===================== -->
+<section class="sec-pad" id="services">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow" data-i="s1eye"></div>
+      <h2 class="h2" data-i="s1h"></h2>
+      <p class="lead" data-i="s1p"></p>
+    </div>
+    <div class="grid-3">
+      <article class="card tilt reveal">
+        <div class="card-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 8V4H8"/><rect x="4" y="8" width="16" height="12" rx="2"/><path d="M2 14h2M20 14h2M15 13v2M9 13v2"/></svg></div>
+        <h3 class="h3" data-i="sv1t"></h3>
+        <p data-i="sv1d"></p>
+        <div class="tags"><span class="tag">Aiogram</span><span class="tag">Webhooks</span><span class="tag">Payments</span></div>
+        <div class="card-price"><span data-i="from"></span> <b>15 000 ₽</b></div>
+      </article>
+      <article class="card tilt reveal">
+        <div class="card-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2a3 3 0 0 0-3 3v1a3 3 0 0 0-3 3v1a3 3 0 0 0 0 6v1a3 3 0 0 0 3 3 3 3 0 0 0 6 0 3 3 0 0 0 3-3v-1a3 3 0 0 0 0-6V9a3 3 0 0 0-3-3V5a3 3 0 0 0-3-3Z"/></svg></div>
+        <h3 class="h3" data-i="sv2t"></h3>
+        <p data-i="sv2d"></p>
+        <div class="tags"><span class="tag">RAG</span><span class="tag">Embeddings</span><span class="tag">LLM</span></div>
+        <div class="card-price"><span data-i="from"></span> <b>40 000 ₽</b></div>
+      </article>
+      <article class="card tilt reveal">
+        <div class="card-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></svg></div>
+        <h3 class="h3" data-i="sv3t"></h3>
+        <p data-i="sv3d"></p>
+        <div class="tags"><span class="tag">n8n</span><span class="tag">CRM</span><span class="tag">Sheets</span></div>
+        <div class="card-price"><span data-i="from"></span> <b>12 000 ₽</b></div>
+      </article>
+      <article class="card tilt reveal">
+        <div class="card-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.8-3.8a6 6 0 0 1-7.9 7.9l-6.9 6.9a2.1 2.1 0 0 1-3-3l6.9-6.9a6 6 0 0 1 7.9-7.9l-3.7 3.8Z"/></svg></div>
+        <h3 class="h3" data-i="sv4t"></h3>
+        <p data-i="sv4d"></p>
+        <div class="tags"><span class="tag">Debug</span><span class="tag">Refactor</span><span class="tag">Deploy</span></div>
+        <div class="card-price"><span data-i="from"></span> <b>3 000 ₽</b></div>
+      </article>
+      <article class="card tilt reveal">
+        <div class="card-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg></div>
+        <h3 class="h3" data-i="sv5t"></h3>
+        <p data-i="sv5d"></p>
+        <div class="tags"><span class="tag">Reports</span><span class="tag">Alerts</span><span class="tag">Cron</span></div>
+        <div class="card-price"><span data-i="from"></span> <b>18 000 ₽</b></div>
+      </article>
+      <article class="card tilt reveal">
+        <div class="card-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 13c0 5-3.5 7.5-7.7 8.9a1 1 0 0 1-.6 0C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.2-2.7a1 1 0 0 1 1.6 0C14.5 3.8 17 5 19 5a1 1 0 0 1 1 1Z"/></svg></div>
+        <h3 class="h3" data-i="sv6t"></h3>
+        <p data-i="sv6d"></p>
+        <div class="tags"><span class="tag">Uptime</span><span class="tag">Backups</span><span class="tag">SLA</span></div>
+        <div class="card-price"><span data-i="from"></span> <b>5 000 ₽/мес</b></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CASES ===================== -->
+<section class="sec-pad" id="cases" style="background:var(--bg-tint); border-top:1px solid var(--line); border-bottom:1px solid var(--line)">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow" data-i="s2eye"></div>
+      <h2 class="h2" data-i="s2h"></h2>
+      <p class="lead" data-i="s2p"></p>
+    </div>
+    <div class="grid-3">
+      <article class="card case tilt reveal">
+        <div class="case-visual">
+          <span class="pill-live" data-i="live"></span>
+          <div class="bubbles">
+            <div class="bub you" data-i="cs1b1"></div>
+            <div class="bub bot" data-i="cs1b2"></div>
+            <div class="bub bot" data-i="cs1b3"></div>
+          </div>
+        </div>
+        <div class="case-body">
+          <h3 class="h3" data-i="cs1t"></h3>
+          <p data-i="cs1d"></p>
+          <div class="tags"><span class="tag">RAG</span><span class="tag">Telegram</span></div>
+          <div class="card-price"><a href="#contact" style="font-weight:600;color:var(--ink)" data-i="opendemo"></a></div>
+        </div>
+      </article>
+      <article class="card case tilt reveal">
+        <div class="case-visual">
+          <span class="pill-live" data-i="live"></span>
+          <div class="bubbles">
+            <div class="bub bot" data-i="cs2b1"></div>
+            <div class="bub you" data-i="cs2b2"></div>
+            <div class="bub bot" data-i="cs2b3"></div>
+          </div>
+        </div>
+        <div class="case-body">
+          <h3 class="h3" data-i="cs2t"></h3>
+          <p data-i="cs2d"></p>
+          <div class="tags"><span class="tag">Sheets</span><span class="tag">CRM</span></div>
+          <div class="card-price"><a href="#contact" style="font-weight:600;color:var(--ink)" data-i="opendemo"></a></div>
+        </div>
+      </article>
+      <article class="card case tilt reveal">
+        <div class="case-visual">
+          <span class="pill-live" data-i="live"></span>
+          <div class="bubbles">
+            <div class="bub bot" data-i="cs3b1"></div>
+            <div class="bub bot" data-i="cs3b2"></div>
+            <div class="bub you" data-i="cs3b3"></div>
+          </div>
+        </div>
+        <div class="case-body">
+          <h3 class="h3" data-i="cs3t"></h3>
+          <p data-i="cs3d"></p>
+          <div class="tags"><span class="tag">Cron</span><span class="tag">LLM</span></div>
+          <div class="card-price"><a href="#contact" style="font-weight:600;color:var(--ink)" data-i="opendemo"></a></div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== PROCESS ===================== -->
+<section class="sec-pad" id="process">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow" data-i="s3eye"></div>
+      <h2 class="h2" data-i="s3h"></h2>
+      <p class="lead" data-i="s3p"></p>
+    </div>
+    <div class="steps">
+      <div class="step reveal"><div class="step-n">01</div><h3 data-i="p1t"></h3><p data-i="p1d"></p></div>
+      <div class="step reveal"><div class="step-n">02</div><h3 data-i="p2t"></h3><p data-i="p2d"></p></div>
+      <div class="step reveal"><div class="step-n">03</div><h3 data-i="p3t"></h3><p data-i="p3d"></p></div>
+      <div class="step reveal"><div class="step-n">04</div><h3 data-i="p4t"></h3><p data-i="p4d"></p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== PRICING ===================== -->
+<section class="sec-pad" id="pricing" style="background:var(--bg-tint); border-top:1px solid var(--line); border-bottom:1px solid var(--line)">
+  <div class="wrap">
+    <div class="sec-head center reveal">
+      <div class="eyebrow" data-i="s4eye"></div>
+      <h2 class="h2" data-i="s4h"></h2>
+      <p class="lead" data-i="s4p"></p>
+    </div>
+    <div class="grid-3">
+      <article class="card plan tilt reveal">
+        <div class="card-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.8-3.8a6 6 0 0 1-7.9 7.9l-6.9 6.9a2.1 2.1 0 0 1-3-3l6.9-6.9a6 6 0 0 1 7.9-7.9l-3.7 3.8Z"/></svg></div>
+        <h3 class="h3" data-i="pl1n"></h3>
+        <div class="price" style="margin-top:14px">3 000 ₽<small> / <span data-i="task"></span></small></div>
+        <p data-i="pl1d"></p>
+        <ul class="feats">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg><span data-i="pl1f1"></span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg><span data-i="pl1f2"></span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg><span data-i="pl1f3"></span></li>
+        </ul>
+        <a href="#contact" class="btn btn-ghost magnet" data-i="choose"></a>
+      </article>
+
+      <article class="card plan feat tilt reveal">
+        <span class="ribbon" data-i="popular"></span>
+        <div class="card-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 8V4H8"/><rect x="4" y="8" width="16" height="12" rx="2"/><path d="M2 14h2M20 14h2M15 13v2M9 13v2"/></svg></div>
+        <h3 class="h3" data-i="pl2n"></h3>
+        <div class="price" style="margin-top:14px">15 000 ₽<small> / <span data-i="project"></span></small></div>
+        <p data-i="pl2d"></p>
+        <ul class="feats">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg><span data-i="pl2f1"></span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg><span data-i="pl2f2"></span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg><span data-i="pl2f3"></span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg><span data-i="pl2f4"></span></li>
+        </ul>
+        <a href="#contact" class="btn btn-primary magnet" data-i="choose"></a>
+      </article>
+
+      <article class="card plan tilt reveal">
+        <div class="card-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2a3 3 0 0 0-3 3v1a3 3 0 0 0-3 3v1a3 3 0 0 0 0 6v1a3 3 0 0 0 3 3 3 3 0 0 0 6 0 3 3 0 0 0 3-3v-1a3 3 0 0 0 0-6V9a3 3 0 0 0-3-3V5a3 3 0 0 0-3-3Z"/></svg></div>
+        <h3 class="h3" data-i="pl3n"></h3>
+        <div class="price" style="margin-top:14px">40 000 ₽<small> / <span data-i="project"></span></small></div>
+        <p data-i="pl3d"></p>
+        <ul class="feats">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg><span data-i="pl3f1"></span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg><span data-i="pl3f2"></span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg><span data-i="pl3f3"></span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg><span data-i="pl3f4"></span></li>
+        </ul>
+        <a href="#contact" class="btn btn-ghost magnet" data-i="choose"></a>
+      </article>
+    </div>
+    <p class="reveal" style="text-align:center;margin-top:30px;font-size:.86rem;color:var(--ink-3)" data-i="pricenote"></p>
+  </div>
+</section>
+
+<!-- ===================== FAQ ===================== -->
+<section class="sec-pad" id="faq">
+  <div class="wrap">
+    <div class="sec-head center reveal">
+      <div class="eyebrow" data-i="s5eye"></div>
+      <h2 class="h2" data-i="s5h"></h2>
+    </div>
+    <div class="faq reveal">
+      <div class="qa"><button class="qa-q"><span data-i="q1"></span><span class="qa-ico"></span></button><div class="qa-a"><p data-i="a1"></p></div></div>
+      <div class="qa"><button class="qa-q"><span data-i="q2"></span><span class="qa-ico"></span></button><div class="qa-a"><p data-i="a2"></p></div></div>
+      <div class="qa"><button class="qa-q"><span data-i="q3"></span><span class="qa-ico"></span></button><div class="qa-a"><p data-i="a3"></p></div></div>
+      <div class="qa"><button class="qa-q"><span data-i="q4"></span><span class="qa-ico"></span></button><div class="qa-a"><p data-i="a4"></p></div></div>
+      <div class="qa"><button class="qa-q"><span data-i="q5"></span><span class="qa-ico"></span></button><div class="qa-a"><p data-i="a5"></p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CTA ===================== -->
+<section id="contact" style="padding-bottom:20px">
+  <div class="wrap">
+    <div class="cta-band reveal">
+      <h2 class="h2" data-i="ctah"></h2>
+      <p data-i="ctap"></p>
+      <div class="cta-actions">
+        <a href="https://t.me/virentora" target="_blank" rel="noopener" class="btn btn-primary magnet">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M21.9 4.3 18.7 19.4c-.2 1.1-.9 1.3-1.8.8l-5-3.7-2.4 2.3c-.3.3-.5.5-1 .5l.4-5.1 9.3-8.4c.4-.4-.1-.6-.6-.2L6.1 12.8l-4.9-1.5c-1.1-.3-1.1-1 .2-1.5l19.2-7.4c.9-.3 1.7.2 1.3 1.9Z"/></svg>
+          <span data-i="ctab1"></span>
+        </a>
+        <a href="mailto:hello@virentora.com" class="btn btn-ghost magnet" data-i="ctab2"></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FOOTER ===================== -->
+<footer>
+  <div class="wrap">
+    <div class="f-top">
+      <div class="f-brand">
+        <a href="#top" class="brand">
+          <svg viewBox="0 0 100 100" aria-hidden="true">
+            <path d="M11 20Q11 15 16 15L25 15Q29 15 31 19L59 76Q61 81 59 86L56 91Q53 95 50.5 92Z" fill="#0a0a0b"/>
+            <path d="M72 32L79 39L57 64L49 64Z" fill="#a3a3ad"/>
+            <path d="M89 11L89 45L55 92L68 36Z" fill="#0a0a0b"/>
+          </svg>
+          <span>Virentora</span>
+        </a>
+        <p data-i="ftag"></p>
+      </div>
+      <div class="f-cols">
+        <div class="f-col">
+          <h4 data-i="fc1"></h4>
+          <a href="#services" data-i="nav1"></a>
+          <a href="#cases" data-i="nav2"></a>
+          <a href="#pricing" data-i="nav4"></a>
+        </div>
+        <div class="f-col">
+          <h4 data-i="fc2"></h4>
+          <a href="https://t.me/virentora" target="_blank" rel="noopener">Telegram</a>
+          <a href="mailto:hello@virentora.com">Email</a>
+          <a href="https://github.com/" target="_blank" rel="noopener">GitHub</a>
+        </div>
+      </div>
+    </div>
+    <div class="f-bot">
+      <span>© <span id="yr"></span> Virentora</span>
+      <span data-i="fmade"></span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ===================== I18N ===================== */
+const I = {
+ru:{
+ nav1:"Услуги", nav2:"Кейсы", nav3:"Процесс", nav4:"Цены", nav5:"FAQ", navcta:"Обсудить задачу",
+ badge:"Беру 2 проекта в этом месяце",
+ h1:'Автоматизируем то,<br>на что у вас <span class="grad-text">уходит день</span>',
+ sub:"Telegram-боты, AI-агенты и интеграции для малого бизнеса. Приём заявок, поддержка клиентов и отчёты работают без вашего участия. Запуск от 7 дней.",
+ cta1:"Обсудить задачу", cta2:"Смотреть кейсы",
+ note:"Бесплатная диагностика процесса — без обязательств",
+ chip1:"AI-агенты", chip2:"Telegram", chip3:"Интеграции", chip4:"Боты 24/7",
+ st1:"дней до запуска", st2:"работа ботов", st3:"часов рутины в месяц", st4:"дней правок бесплатно",
+ s1eye:"Услуги", s1h:"Что мы делаем", s1p:"Собираем решения под конкретный процесс, а не «бота вообще». Сначала считаем, что это вам сэкономит.",
+ from:"от",
+ sv1t:"Telegram-боты", sv1d:"Приём заявок, каталог, запись, оплата, рассылки и админ-панель. Всё в одном боте, который не падает.",
+ sv2t:"AI-агенты и RAG", sv2d:"Бот отвечает клиентам по вашим документам и прайсам со ссылкой на источник. Не выдумывает — цитирует.",
+ sv3t:"Интеграции", sv3d:"Связываем сайт, CRM, таблицы и мессенджеры. Данные перестают жить в пяти местах одновременно.",
+ sv4t:"Доработка ботов", sv4d:"Ваш бот сломался или разработчик пропал? Разбираем чужой код, чиним, дописываем функции.",
+ sv5t:"Отчёты и аналитика", sv5d:"Агент сам собирает данные и присылает сводку человеческим языком: что выросло, что упало, куда смотреть.",
+ sv6t:"Поддержка", sv6d:"Хостинг, мониторинг, бэкапы и мелкие правки. Вы не думаете, работает ли всё — просто работает.",
+ s2eye:"Кейсы", s2h:"Живые демо, а не скриншоты", s2p:"Каждое решение можно открыть в Telegram прямо сейчас и потыкать. Ничего не придётся представлять.",
+ live:"Live",
+ cs1b1:"Есть доставка в Казань?", cs1b2:"Да, 2–3 дня, 350 ₽", cs1b3:"Источник: Условия доставки, п. 4",
+ cs1t:"Бот-консультант по базе знаний", cs1d:"Загружаете прайс и регламенты — бот отвечает клиентам за 3 секунды и всегда ссылается на документ.",
+ cs2b1:"Оставьте номер телефона", cs2b2:"+7 900 000-00-00", cs2b3:"✓ Заявка №142 в CRM",
+ cs2t:"Приём заявок в CRM", cs2d:"Заявка собирается по шагам, падает в таблицу и в чат менеджеру. Не обработана за 2 часа — напоминание.",
+ cs3b1:"Сводка за 16 августа", cs3b2:"Заявок 34 (+12% к среднему)", cs3b3:"Покажи по источникам",
+ cs3t:"Агент-отчётчик", cs3d:"Каждое утро собирает цифры из ваших систем и присылает разбор: что изменилось и на что смотреть.",
+ opendemo:"Открыть демо →",
+ s3eye:"Процесс", s3h:"Как идёт работа", s3p:"Без сюрпризов по срокам и без «а это в смету не входило».",
+ p1t:"Диагностика", p1d:"Созваниваемся на 20 минут. Разбираю процесс и говорю, что реально стоит автоматизировать, а что нет. Бесплатно.",
+ p2t:"ТЗ и смета", p2d:"Присылаю документ: что делаю, за сколько, к какому сроку и что НЕ входит. Цена после этого не меняется.",
+ p3t:"Разработка", p3d:"Предоплата 50%, дальше работа. Показываю промежуточный результат каждые 2–3 дня, вы правите на ходу.",
+ p4t:"Запуск и поддержка", p4d:"Разворачиваю, обучаю вашу команду, 14 дней правок бесплатно. Дальше — поддержка по желанию.",
+ s4eye:"Цены", s4h:"Прозрачные пакеты", s4p:"Фиксированная стоимость за результат, а не почасовка. Знаете финальную сумму до старта.",
+ task:"задача", project:"проект", choose:"Выбрать", popular:"Популярное",
+ pl1n:"Правка", pl1d:"Точечная доработка существующего бота или починка того, что сломалось.",
+ pl1f1:"Разбор чужого кода", pl1f2:"Фикс багов и мелкие функции", pl1f3:"Срок 1–3 дня",
+ pl2n:"Бот под задачу", pl2d:"Telegram-бот под конкретный процесс: заявки, каталог, запись, рассылка.",
+ pl2f1:"Логика, меню, админка", pl2f2:"Интеграция с таблицей или CRM", pl2f3:"Хостинг и деплой", pl2f4:"14 дней правок бесплатно",
+ pl3n:"AI-агент", pl3d:"Агент на базе знаний: отвечает по вашим документам, а не общими фразами.",
+ pl3f1:"База знаний из ваших файлов", pl3f2:"Ответы со ссылкой на источник", pl3f3:"Дообучение на ваших данных", pl3f4:"Месяц поддержки в подарок",
+ pricenote:"Итоговая цена зависит от объёма. После диагностики называю точную сумму — она фиксируется в смете.",
+ s5eye:"FAQ", s5h:"Частые вопросы",
+ q1:"Сколько занимает разработка?", a1:"Правка — 1–3 дня. Бот под задачу — 5–10 дней. AI-агент с базой знаний — 2–3 недели. Срок фиксируется в смете до старта, и я его не двигаю без вашего согласия.",
+ q2:"Что если результат не подойдёт?", a2:"Промежуточный результат показываю каждые 2–3 дня, поэтому «не подойдёт» на финале почти не случается — вы правите по ходу. После сдачи 14 дней правок бесплатно.",
+ q3:"Как происходит оплата?", a3:"Предоплата 50% после согласования сметы, остаток — при сдаче. Работаем по письменному ТЗ, даже если проект маленький.",
+ q4:"Нужны ли мне свои серверы?", a4:"Нет. Разворачиваю на облачном хостинге, это 200–500 ₽ в месяц. Если у вас есть свой сервер — разверну на нём.",
+ q5:"Кто владеет кодом после сдачи?", a5:"Вы. Отдаю исходники и доступы. Если захотите передать проект другому разработчику — ничего не блокируется.",
+ ctah:"Расскажите, что съедает время", ctap:"Отвечаю в течение пары часов. Диагностика бесплатная — даже если работать не начнём, получите разбор своего процесса.",
+ ctab1:"Написать в Telegram", ctab2:"Отправить на почту",
+ ftag:"Разработка AI-агентов, Telegram-ботов и интеграций для малого бизнеса.",
+ fc1:"Навигация", fc2:"Контакты", fmade:"Сделано в Virentora"
+},
+en:{
+ nav1:"Services", nav2:"Cases", nav3:"Process", nav4:"Pricing", nav5:"FAQ", navcta:"Start a project",
+ badge:"Taking 2 projects this month",
+ h1:'We automate what<br>eats <span class="grad-text">your whole day</span>',
+ sub:"Telegram bots, AI agents and integrations for small business. Lead capture, customer support and reporting run without you. Live in 7 days.",
+ cta1:"Start a project", cta2:"View cases",
+ note:"Free process audit — no strings attached",
+ chip1:"AI agents", chip2:"Telegram", chip3:"Integrations", chip4:"Bots 24/7",
+ st1:"days to launch", st2:"bot uptime", st3:"hours saved monthly", st4:"days of free fixes",
+ s1eye:"Services", s1h:"What we build", s1p:"We build for a specific process, not \"a bot in general\". First we calculate what it actually saves you.",
+ from:"from",
+ sv1t:"Telegram bots", sv1d:"Lead capture, catalogue, booking, payments, broadcasts and an admin panel. One bot that doesn't go down.",
+ sv2t:"AI agents & RAG", sv2d:"The bot answers from your own documents and price lists, citing the source. It quotes instead of inventing.",
+ sv3t:"Integrations", sv3d:"We connect your site, CRM, spreadsheets and messengers. Data stops living in five places at once.",
+ sv4t:"Bot rescue", sv4d:"Bot broken or developer vanished? We read someone else's code, fix it and ship the missing features.",
+ sv5t:"Reports & analytics", sv5d:"An agent pulls the numbers and sends a plain-language digest: what grew, what dropped, where to look.",
+ sv6t:"Support", sv6d:"Hosting, monitoring, backups and small fixes. You never wonder whether it's running — it just runs.",
+ s2eye:"Cases", s2h:"Live demos, not screenshots", s2p:"Every solution opens in Telegram right now. Nothing left to your imagination.",
+ live:"Live",
+ cs1b1:"Do you deliver to Kazan?", cs1b2:"Yes — 2–3 days, 350 ₽", cs1b3:"Source: Delivery terms, §4",
+ cs1t:"Knowledge-base agent", cs1d:"Upload your price list and policies — the bot answers in 3 seconds and always links the document.",
+ cs2b1:"Please leave your phone", cs2b2:"+7 900 000-00-00", cs2b3:"✓ Lead #142 saved to CRM",
+ cs2t:"Lead capture to CRM", cs2d:"The lead is collected step by step, lands in a sheet and pings the manager. Untouched for 2 hours — reminder.",
+ cs3b1:"Digest for August 16", cs3b2:"34 leads (+12% vs average)", cs3b3:"Break down by source",
+ cs3t:"Reporting agent", cs3d:"Every morning it pulls numbers from your systems and sends a readable breakdown of what changed.",
+ opendemo:"Open demo →",
+ s3eye:"Process", s3h:"How we work", s3p:"No deadline surprises and no \"that wasn't in the quote\".",
+ p1t:"Audit", p1d:"A 20-minute call. I map your process and tell you what's worth automating — and what isn't. Free.",
+ p2t:"Spec & quote", p2d:"You get a document: what I build, for how much, by when, and what's excluded. The price doesn't move after that.",
+ p3t:"Build", p3d:"50% upfront, then work starts. I show progress every 2–3 days so you can steer as we go.",
+ p4t:"Launch & support", p4d:"I deploy, train your team, and fix anything free for 14 days. Ongoing support is optional.",
+ s4eye:"Pricing", s4h:"Transparent packages", s4p:"Fixed price for an outcome, not hourly billing. You know the total before we start.",
+ task:"task", project:"project", choose:"Choose", popular:"Popular",
+ pl1n:"Quick fix", pl1d:"A targeted change to an existing bot, or repairing what broke.",
+ pl1f1:"Reading legacy code", pl1f2:"Bug fixes and small features", pl1f3:"1–3 days",
+ pl2n:"Custom bot", pl2d:"A Telegram bot for one specific process: leads, catalogue, booking, broadcasts.",
+ pl2f1:"Logic, menus, admin panel", pl2f2:"Sheet or CRM integration", pl2f3:"Hosting and deployment", pl2f4:"14 days of free fixes",
+ pl3n:"AI agent", pl3d:"A knowledge-base agent that answers from your documents, not in generic phrases.",
+ pl3f1:"Knowledge base from your files", pl3f2:"Answers with source citations", pl3f3:"Tuned on your data", pl3f4:"One month of support included",
+ pricenote:"Final price depends on scope. After the audit I give an exact number and lock it into the quote.",
+ s5eye:"FAQ", s5h:"Common questions",
+ q1:"How long does it take?", a1:"A quick fix takes 1–3 days. A custom bot 5–10 days. An AI agent with a knowledge base 2–3 weeks. The deadline is locked in the quote and I don't move it without your agreement.",
+ q2:"What if I don't like the result?", a2:"I show progress every 2–3 days, so a bad surprise at the end is rare — you steer as we go. After delivery you get 14 days of free fixes.",
+ q3:"How does payment work?", a3:"50% upfront once the quote is agreed, the rest on delivery. We always work from a written spec, even on small projects.",
+ q4:"Do I need my own servers?", a4:"No. I deploy to cloud hosting, roughly 200–500 ₽ a month. If you already have a server, I'll deploy there instead.",
+ q5:"Who owns the code?", a5:"You do. I hand over the source and all credentials. If you ever move to another developer, nothing is locked.",
+ ctah:"Tell me what's eating your time", ctap:"I reply within a couple of hours. The audit is free — even if we never work together, you leave with a map of your process.",
+ ctab1:"Message on Telegram", ctab2:"Send an email",
+ ftag:"AI agents, Telegram bots and integrations for small business.",
+ fc1:"Navigation", fc2:"Contact", fmade:"Built by Virentora"
+}};
+
+const MQ = ["Python","Aiogram","OpenAI API","Claude API","LangChain","n8n","PostgreSQL","Redis","Docker","Google Sheets","amoCRM","Bitrix24","FastAPI","Webhooks","Make.com","Qdrant"];
+
+let lang = "ru";
+function apply(l){
+  lang = l;
+  document.documentElement.lang = l;
+  document.querySelectorAll("[data-i]").forEach(el=>{
+    const v = I[l][el.dataset.i];
+    if(v!=null) el.innerHTML = v;
+  });
+  document.querySelectorAll(".lang button").forEach(b=>b.classList.toggle("on", b.dataset.lang===l));
+  document.querySelectorAll(".qa.open").forEach(qa=>{
+    qa.querySelector(".qa-a").style.maxHeight = qa.querySelector(".qa-a").scrollHeight+"px";
+  });
+}
+document.querySelectorAll(".lang button").forEach(b=>b.addEventListener("click",()=>apply(b.dataset.lang)));
+apply("ru");
+
+/* ===================== MARQUEE ===================== */
+(function(){
+  const t = document.getElementById("mq");
+  const html = MQ.map(m=>`<span class="mq-item">${m}</span>`).join("");
+  t.innerHTML = html + html;
+})();
+
+/* ===================== YEAR ===================== */
+document.getElementById("yr").textContent = new Date().getFullYear();
+
+/* ===================== HEADER STATE ===================== */
+const hdr = document.getElementById("hdr");
+addEventListener("scroll",()=>hdr.classList.toggle("stuck", scrollY>24), {passive:true});
+
+/* ===================== MOBILE MENU ===================== */
+const burger = document.getElementById("burger"), mm = document.getElementById("mm");
+burger.addEventListener("click",()=>{
+  const open = mm.classList.toggle("open");
+  burger.classList.toggle("x", open);
+  document.body.style.overflow = open ? "hidden" : "";
+});
+mm.querySelectorAll("a").forEach(a=>a.addEventListener("click",()=>{
+  mm.classList.remove("open"); burger.classList.remove("x"); document.body.style.overflow="";
+}));
+
+/* ===================== REVEAL ===================== */
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach((e,idx)=>{
+    if(e.isIntersecting){
+      const sibs = [...e.target.parentElement.children].filter(c=>c.classList.contains("reveal"));
+      const pos = sibs.indexOf(e.target);
+      e.target.style.transitionDelay = (pos>=0 ? Math.min(pos,6)*70 : 0) + "ms";
+      e.target.classList.add("in");
+      io.unobserve(e.target);
+    }
+  });
+},{threshold:.12, rootMargin:"0px 0px -60px 0px"});
+document.querySelectorAll(".reveal").forEach(el=>io.observe(el));
+
+/* ===================== COUNTERS ===================== */
+const cio = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(!e.isIntersecting) return;
+    const el = e.target, to = +el.dataset.to, dur = 1400, t0 = performance.now();
+    (function tick(now){
+      const p = Math.min((now-t0)/dur,1);
+      el.textContent = Math.round(to * (1 - Math.pow(1-p,3)));
+      if(p<1) requestAnimationFrame(tick);
+    })(t0);
+    cio.unobserve(el);
+  });
+},{threshold:.6});
+document.querySelectorAll(".cnt").forEach(el=>cio.observe(el));
+
+/* ===================== FAQ ===================== */
+document.querySelectorAll(".qa").forEach(qa=>{
+  const q = qa.querySelector(".qa-q"), a = qa.querySelector(".qa-a");
+  q.addEventListener("click",()=>{
+    const isOpen = qa.classList.contains("open");
+    document.querySelectorAll(".qa.open").forEach(o=>{
+      o.classList.remove("open"); o.querySelector(".qa-a").style.maxHeight = null;
+    });
+    if(!isOpen){ qa.classList.add("open"); a.style.maxHeight = a.scrollHeight+"px"; }
+  });
+});
+
+/* ===================== CARD GLOW + TILT ===================== */
+document.querySelectorAll(".card").forEach(c=>{
+  c.addEventListener("pointermove", ev=>{
+    const r = c.getBoundingClientRect();
+    c.style.setProperty("--mx", ((ev.clientX-r.left)/r.width*100)+"%");
+    c.style.setProperty("--my", ((ev.clientY-r.top)/r.height*100)+"%");
+  });
+});
+if(matchMedia("(pointer:fine)").matches && !matchMedia("(prefers-reduced-motion:reduce)").matches){
+  document.querySelectorAll(".tilt").forEach(c=>{
+    c.addEventListener("pointermove", ev=>{
+      const r = c.getBoundingClientRect();
+      const rx = ((ev.clientY-r.top)/r.height - .5) * -4;
+      const ry = ((ev.clientX-r.left)/r.width  - .5) *  4;
+      c.style.transform = `translateY(-7px) perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg)`;
+    });
+    c.addEventListener("pointerleave", ()=>{ c.style.transform = ""; });
+  });
+}
+
+/* ===================== MAGNETIC BUTTONS ===================== */
+if(matchMedia("(pointer:fine)").matches && !matchMedia("(prefers-reduced-motion:reduce)").matches){
+  document.querySelectorAll(".magnet").forEach(b=>{
+    b.addEventListener("pointermove", ev=>{
+      const r = b.getBoundingClientRect();
+      b.style.transform = `translate(${(ev.clientX-r.left-r.width/2)*.16}px, ${(ev.clientY-r.top-r.height/2)*.28 - 3}px)`;
+    });
+    b.addEventListener("pointerleave", ()=>{ b.style.transform = ""; });
+  });
+}
+
+/* ===================== SPOTLIGHT ===================== */
+(function(){
+  const s = document.getElementById("spot");
+  let x=0,y=0,tx=0,ty=0,on=false;
+  addEventListener("pointermove", e=>{ tx=e.clientX; ty=e.clientY; if(!on){on=true; s.style.opacity=1;} },{passive:true});
+  (function loop(){ x+=(tx-x)*.09; y+=(ty-y)*.09; s.style.left=x+"px"; s.style.top=y+"px"; requestAnimationFrame(loop); })();
+})();
+</script>
+</body>
+</html>
