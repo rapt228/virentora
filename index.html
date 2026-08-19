@@ -201,11 +201,11 @@ header.stuck{
 
 /* ============ STATS ============ */
 .stats{display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:var(--r-lg); overflow:hidden; margin-top:76px; position:relative; z-index:2}
-.stat{background:var(--white); padding:38px 30px 34px; transition:background .35s}
+.stat{background:var(--white); padding:48px 30px 42px; transition:background .35s}
 .stat:hover{background:var(--bg-tint)}
-.stat b{display:block; font-size:clamp(2.6rem,4.6vw,3.6rem); font-weight:700; letter-spacing:-.05em; line-height:1; white-space:nowrap; font-variant-numeric:tabular-nums}
-.stat span{font-size:.76rem; color:var(--ink-2); margin-top:14px; display:block; letter-spacing:.07em; text-transform:uppercase; font-weight:500; line-height:1.4}
-@media(max-width:760px){.stats{grid-template-columns:1fr 1fr; margin-top:56px} .stat{padding:28px 20px 24px}}
+.stat b{display:block; font-size:clamp(3.4rem,6.2vw,5.2rem); font-weight:750; letter-spacing:-.055em; line-height:.95; white-space:nowrap; font-variant-numeric:tabular-nums; color:var(--ink)}
+.stat span{font-size:.88rem; color:var(--ink-2); margin-top:16px; display:block; letter-spacing:.045em; text-transform:uppercase; font-weight:550; line-height:1.35}
+@media(max-width:760px){.stats{grid-template-columns:1fr 1fr; margin-top:56px} .stat{padding:34px 20px 28px} .stat span{font-size:.78rem}}
 
 /* ============ MARQUEE ============ */
 .marquee{border-top:1px solid var(--line); border-bottom:1px solid var(--line); padding:26px 0; overflow:hidden; background:var(--bg-tint)}
