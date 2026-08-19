@@ -196,16 +196,16 @@ header.stuck{
 .chip.f1{top:16%; right:5%;  animation-name:chipIn,float1; animation-duration:.9s,7s;   animation-delay:.9s,1.8s;  animation-iteration-count:1,infinite}
 .chip.f2{top:41%; right:14%; animation-name:chipIn,float2; animation-duration:.9s,8.5s; animation-delay:1.1s,2.0s; animation-iteration-count:1,infinite}
 .chip.f3{top:64%; right:3%;  animation-name:chipIn,float1; animation-duration:.9s,9.5s; animation-delay:1.3s,2.2s; animation-iteration-count:1,infinite}
-.chip.f4{top:80%; left:6%;   animation-name:chipIn,float2; animation-duration:.9s,7.8s; animation-delay:1.5s,2.4s; animation-iteration-count:1,infinite}
+.chip.f4{top:57%; left:4%;   animation-name:chipIn,float2; animation-duration:.9s,7.8s; animation-delay:1.5s,2.4s; animation-iteration-count:1,infinite}
 @media(max-width:1080px){.chips{display:none}}
 
 /* ============ STATS ============ */
-.stats{display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:var(--r-lg); overflow:hidden; margin-top:76px}
-.stat{background:var(--white); padding:30px 26px; transition:background .35s}
+.stats{display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:var(--r-lg); overflow:hidden; margin-top:76px; position:relative; z-index:2}
+.stat{background:var(--white); padding:38px 30px 34px; transition:background .35s}
 .stat:hover{background:var(--bg-tint)}
-.stat b{display:block; font-size:clamp(1.9rem,3.4vw,2.7rem); font-weight:700; letter-spacing:-.045em; line-height:1.1}
-.stat span{font-size:.85rem; color:var(--ink-2); margin-top:5px; display:block}
-@media(max-width:760px){.stats{grid-template-columns:1fr 1fr}}
+.stat b{display:block; font-size:clamp(2.6rem,4.6vw,3.6rem); font-weight:700; letter-spacing:-.05em; line-height:1; white-space:nowrap; font-variant-numeric:tabular-nums}
+.stat span{font-size:.76rem; color:var(--ink-2); margin-top:14px; display:block; letter-spacing:.07em; text-transform:uppercase; font-weight:500; line-height:1.4}
+@media(max-width:760px){.stats{grid-template-columns:1fr 1fr; margin-top:56px} .stat{padding:28px 20px 24px}}
 
 /* ============ MARQUEE ============ */
 .marquee{border-top:1px solid var(--line); border-bottom:1px solid var(--line); padding:26px 0; overflow:hidden; background:var(--bg-tint)}
@@ -479,7 +479,7 @@ footer{border-top:1px solid var(--line); padding:62px 0 34px; margin-top:120px}
         <h3 class="h3" data-i="sv1t"></h3>
         <p data-i="sv1d"></p>
         <div class="tags"><span class="tag">Aiogram</span><span class="tag">Webhooks</span><span class="tag">Payments</span></div>
-        <div class="card-price"><span data-i="from"></span> <b>15 000 ₽</b></div>
+        <div class="card-price"><span data-i="from"></span> <b>5 000 ₽</b></div>
       </article>
       <article class="card tilt reveal">
         <div class="card-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2a3 3 0 0 0-3 3v1a3 3 0 0 0-3 3v1a3 3 0 0 0 0 6v1a3 3 0 0 0 3 3 3 3 0 0 0 6 0 3 3 0 0 0 3-3v-1a3 3 0 0 0 0-6V9a3 3 0 0 0-3-3V5a3 3 0 0 0-3-3Z"/></svg></div>
