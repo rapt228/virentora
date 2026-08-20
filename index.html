@@ -274,10 +274,11 @@ header.stuck{
   white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
 }
 .work-frame{position:absolute; inset:36px 0 0 0; overflow:hidden; background:var(--white)}
-.work-frame iframe{
-  width:1280px; height:1000px; border:0; display:block;
-  transform-origin:0 0; transform:scale(.3); pointer-events:none;
+.work-frame img{
+  width:100%; height:auto; display:block;
+  transition:transform .5s var(--ease);
 }
+.work:hover .work-frame img{transform:scale(1.03)}
 .work-frame::after{
   content:''; position:absolute; inset:0; pointer-events:none;
   background:linear-gradient(180deg,transparent 58%,rgba(255,255,255,.92));
@@ -546,11 +547,11 @@ footer{border-top:1px solid var(--line); padding:62px 0 34px; margin-top:120px}
       <p class="lead" data-i="s2p"></p>
     </div>
     <div class="grid-3">
-      <a class="card work tilt reveal" href="https://rapt228.github.io/avtotochka/" target="_blank" rel="noopener">
+      <a class="card work tilt reveal" href="https://avtotochka-ekb.ru" target="_blank" rel="noopener">
         <div class="work-shot">
-          <div class="work-bar"><i></i><i></i><i></i><span class="work-url">rapt228.github.io/avtotochka</span></div>
+          <div class="work-bar"><i></i><i></i><i></i><span class="work-url">avtotochka-ekb.ru</span></div>
           <span class="work-go" data-i="wgo"></span>
-          <div class="work-frame"><iframe src="https://rapt228.github.io/avtotochka/" loading="lazy" scrolling="no" tabindex="-1" aria-hidden="true" title=""></iframe></div>
+          <div class="work-frame"><img src="shots/avtotochka.jpg" alt="" loading="lazy" width="1100" height="740"></div>
         </div>
         <div class="case-body">
           <div class="work-cat" data-i="w1c"></div>
@@ -560,11 +561,11 @@ footer{border-top:1px solid var(--line); padding:62px 0 34px; margin-top:120px}
           <div class="card-price"><span data-i="wopen"></span></div>
         </div>
       </a>
-      <a class="card work tilt reveal" href="https://rapt228.github.io/dentline/" target="_blank" rel="noopener">
+      <a class="card work tilt reveal" href="https://dentline-ekb.ru" target="_blank" rel="noopener">
         <div class="work-shot">
-          <div class="work-bar"><i></i><i></i><i></i><span class="work-url">rapt228.github.io/dentline</span></div>
+          <div class="work-bar"><i></i><i></i><i></i><span class="work-url">dentline-ekb.ru</span></div>
           <span class="work-go" data-i="wgo"></span>
-          <div class="work-frame"><iframe src="https://rapt228.github.io/dentline/" loading="lazy" scrolling="no" tabindex="-1" aria-hidden="true" title=""></iframe></div>
+          <div class="work-frame"><img src="shots/dentline.jpg" alt="" loading="lazy" width="1100" height="740"></div>
         </div>
         <div class="case-body">
           <div class="work-cat" data-i="w2c"></div>
@@ -574,11 +575,11 @@ footer{border-top:1px solid var(--line); padding:62px 0 34px; margin-top:120px}
           <div class="card-price"><span data-i="wopen"></span></div>
         </div>
       </a>
-      <a class="card work tilt reveal" href="https://rapt228.github.io/logika/" target="_blank" rel="noopener">
+      <a class="card work tilt reveal" href="https://logika-data.ru" target="_blank" rel="noopener">
         <div class="work-shot">
-          <div class="work-bar"><i></i><i></i><i></i><span class="work-url">rapt228.github.io/logika</span></div>
+          <div class="work-bar"><i></i><i></i><i></i><span class="work-url">logika-data.ru</span></div>
           <span class="work-go" data-i="wgo"></span>
-          <div class="work-frame"><iframe src="https://rapt228.github.io/logika/" loading="lazy" scrolling="no" tabindex="-1" aria-hidden="true" title=""></iframe></div>
+          <div class="work-frame"><img src="shots/logika.jpg" alt="" loading="lazy" width="1100" height="740"></div>
         </div>
         <div class="case-body">
           <div class="work-cat" data-i="w3c"></div>
@@ -905,19 +906,7 @@ const cio = new IntersectionObserver(entries=>{
 },{threshold:.6});
 document.querySelectorAll(".cnt").forEach(el=>cio.observe(el));
 
-/* превью работ: масштабируем iframe под ширину карточки */
-function fitShots(){
-  document.querySelectorAll(".work-frame").forEach(function(f){
-    var fr = f.querySelector("iframe");
-    if(!fr) return;
-    var k = f.clientWidth / 1280;
-    fr.style.transform = "scale(" + k + ")";
-    fr.style.height = Math.ceil(f.clientHeight / k) + "px";
-  });
-}
-addEventListener("load", fitShots);
-addEventListener("resize", fitShots);
-fitShots();
+
 
 /* ===================== FAQ ===================== */
 document.querySelectorAll(".qa").forEach(qa=>{
