@@ -256,33 +256,49 @@ header.stuck{
 .card-price{margin-top:22px; padding-top:19px; border-top:1px solid var(--line-2); font-size:.86rem; color:var(--ink-3)}
 .card-price b{color:var(--ink); font-weight:650; font-size:1rem}
 
-/* ============ CASES ============ */
-.case{display:flex; flex-direction:column; height:100%}
-.case-visual{
-  height:186px; margin:-34px -32px 26px; border-bottom:1px solid var(--line);
-  background:linear-gradient(160deg,#fafafb,#f1f1f4);
-  position:relative; overflow:hidden; display:flex; align-items:center; justify-content:center;
+/* ============ WORKS ============ */
+.work{display:flex; flex-direction:column; height:100%; text-decoration:none; color:inherit}
+.work-shot{
+  position:relative; height:250px; margin:-34px -32px 24px;
+  border-bottom:1px solid var(--line); background:var(--bg-soft); overflow:hidden;
 }
-.case-visual::before{
-  content:''; position:absolute; inset:0;
-  background-image:linear-gradient(var(--line-2) 1px,transparent 1px),linear-gradient(90deg,var(--line-2) 1px,transparent 1px);
-  background-size:26px 26px; opacity:.75;
+.work-bar{
+  height:36px; display:flex; align-items:center; gap:6px; padding:0 13px;
+  background:var(--bg-soft); border-bottom:1px solid var(--line-2);
+  position:relative; z-index:2;
 }
-.bubbles{position:relative; z-index:1; display:flex; flex-direction:column; gap:9px; width:78%}
-.bub{padding:9px 14px; border-radius:14px; font-size:.76rem; font-weight:480; box-shadow:var(--shadow-sm); opacity:0; animation:bubIn .55s var(--ease) forwards}
-.bub.you{align-self:flex-end; background:var(--ink); color:var(--white); border-bottom-right-radius:5px}
-.bub.bot{align-self:flex-start; background:var(--white); border:1px solid var(--line); border-bottom-left-radius:5px}
-.card:hover .bub{animation:bubIn .55s var(--ease) forwards}
-.bub:nth-child(1){animation-delay:.05s} .bub:nth-child(2){animation-delay:.25s} .bub:nth-child(3){animation-delay:.45s}
-@keyframes bubIn{from{opacity:0; transform:translateY(9px) scale(.96)}to{opacity:1; transform:none}}
+.work-bar i{width:8px; height:8px; border-radius:50%; background:#d8d8de; display:block; flex:none}
+.work-url{
+  margin-left:9px; font-size:.68rem; color:var(--ink-3); background:var(--white);
+  border:1px solid var(--line-2); border-radius:6px; padding:3px 11px;
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+}
+.work-frame{position:absolute; inset:36px 0 0 0; overflow:hidden; background:var(--white)}
+.work-frame iframe{
+  width:1280px; height:1000px; border:0; display:block;
+  transform-origin:0 0; transform:scale(.3); pointer-events:none;
+}
+.work-frame::after{
+  content:''; position:absolute; inset:0; pointer-events:none;
+  background:linear-gradient(180deg,transparent 58%,rgba(255,255,255,.92));
+  transition:opacity .35s var(--ease);
+}
+.work:hover .work-frame::after{opacity:.35}
+.work-go{
+  position:absolute; top:50px; right:14px; z-index:3;
+  display:inline-flex; align-items:center; gap:6px; padding:6px 12px; border-radius:999px;
+  background:var(--ink); color:var(--white);
+  font-size:.7rem; font-weight:620; letter-spacing:.04em; text-transform:uppercase;
+  opacity:0; transform:translateY(-6px); transition:opacity .3s var(--ease), transform .3s var(--ease);
+}
+.work:hover .work-go{opacity:1; transform:none}
+.work-cat{
+  font-size:.7rem; font-weight:650; letter-spacing:.11em; text-transform:uppercase;
+  color:var(--ink-3); margin-bottom:9px;
+}
 .case-body{flex:1; display:flex; flex-direction:column}
-.case .card-price{margin-top:auto}
-.pill-live{
-  position:absolute; top:14px; right:14px; z-index:2;
-  display:inline-flex; align-items:center; gap:6px; padding:5px 11px; border-radius:999px;
-  background:rgba(255,255,255,.9); border:1px solid var(--line); backdrop-filter:blur(8px);
-  font-size:.7rem; font-weight:620; letter-spacing:.04em; text-transform:uppercase; color:var(--ink-2);
-}
+.case .card-price,.work .card-price{margin-top:auto}
+.work .card-price span{color:var(--ink); font-weight:620}
 
 /* ============ PROCESS ============ */
 .steps{display:grid; grid-template-columns:repeat(4,1fr); gap:22px; counter-reset:s}
@@ -530,54 +546,48 @@ footer{border-top:1px solid var(--line); padding:62px 0 34px; margin-top:120px}
       <p class="lead" data-i="s2p"></p>
     </div>
     <div class="grid-3">
-      <article class="card case tilt reveal">
-        <div class="case-visual">
-          <span class="pill-live" data-i="live"></span>
-          <div class="bubbles">
-            <div class="bub you" data-i="cs1b1"></div>
-            <div class="bub bot" data-i="cs1b2"></div>
-            <div class="bub bot" data-i="cs1b3"></div>
-          </div>
+      <a class="card work tilt reveal" href="https://rapt228.github.io/avtotochka/" target="_blank" rel="noopener">
+        <div class="work-shot">
+          <div class="work-bar"><i></i><i></i><i></i><span class="work-url">rapt228.github.io/avtotochka</span></div>
+          <span class="work-go" data-i="wgo"></span>
+          <div class="work-frame"><iframe src="https://rapt228.github.io/avtotochka/" loading="lazy" scrolling="no" tabindex="-1" aria-hidden="true" title=""></iframe></div>
         </div>
         <div class="case-body">
-          <h3 class="h3" data-i="cs1t"></h3>
-          <p data-i="cs1d"></p>
-          <div class="tags"><span class="tag">RAG</span><span class="tag">Telegram</span></div>
-          <div class="card-price"><a href="#contact" style="font-weight:600;color:var(--ink)" data-i="opendemo"></a></div>
+          <div class="work-cat" data-i="w1c"></div>
+          <h3 class="h3" data-i="w1t"></h3>
+          <p data-i="w1d"></p>
+          <div class="tags"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">Адаптив</span></div>
+          <div class="card-price"><span data-i="wopen"></span></div>
         </div>
-      </article>
-      <article class="card case tilt reveal">
-        <div class="case-visual">
-          <span class="pill-live" data-i="live"></span>
-          <div class="bubbles">
-            <div class="bub bot" data-i="cs2b1"></div>
-            <div class="bub you" data-i="cs2b2"></div>
-            <div class="bub bot" data-i="cs2b3"></div>
-          </div>
+      </a>
+      <a class="card work tilt reveal" href="https://rapt228.github.io/dentline/" target="_blank" rel="noopener">
+        <div class="work-shot">
+          <div class="work-bar"><i></i><i></i><i></i><span class="work-url">rapt228.github.io/dentline</span></div>
+          <span class="work-go" data-i="wgo"></span>
+          <div class="work-frame"><iframe src="https://rapt228.github.io/dentline/" loading="lazy" scrolling="no" tabindex="-1" aria-hidden="true" title=""></iframe></div>
         </div>
         <div class="case-body">
-          <h3 class="h3" data-i="cs2t"></h3>
-          <p data-i="cs2d"></p>
-          <div class="tags"><span class="tag">Sheets</span><span class="tag">CRM</span></div>
-          <div class="card-price"><a href="#contact" style="font-weight:600;color:var(--ink)" data-i="opendemo"></a></div>
+          <div class="work-cat" data-i="w2c"></div>
+          <h3 class="h3" data-i="w2t"></h3>
+          <p data-i="w2d"></p>
+          <div class="tags"><span class="tag">HTML</span><span class="tag">JS</span><span class="tag">Адаптив</span></div>
+          <div class="card-price"><span data-i="wopen"></span></div>
         </div>
-      </article>
-      <article class="card case tilt reveal">
-        <div class="case-visual">
-          <span class="pill-live" data-i="live"></span>
-          <div class="bubbles">
-            <div class="bub bot" data-i="cs3b1"></div>
-            <div class="bub bot" data-i="cs3b2"></div>
-            <div class="bub you" data-i="cs3b3"></div>
-          </div>
+      </a>
+      <a class="card work tilt reveal" href="https://rapt228.github.io/logika/" target="_blank" rel="noopener">
+        <div class="work-shot">
+          <div class="work-bar"><i></i><i></i><i></i><span class="work-url">rapt228.github.io/logika</span></div>
+          <span class="work-go" data-i="wgo"></span>
+          <div class="work-frame"><iframe src="https://rapt228.github.io/logika/" loading="lazy" scrolling="no" tabindex="-1" aria-hidden="true" title=""></iframe></div>
         </div>
         <div class="case-body">
-          <h3 class="h3" data-i="cs3t"></h3>
-          <p data-i="cs3d"></p>
-          <div class="tags"><span class="tag">Cron</span><span class="tag">LLM</span></div>
-          <div class="card-price"><a href="#contact" style="font-weight:600;color:var(--ink)" data-i="opendemo"></a></div>
+          <div class="work-cat" data-i="w3c"></div>
+          <h3 class="h3" data-i="w3t"></h3>
+          <p data-i="w3d"></p>
+          <div class="tags"><span class="tag">HTML</span><span class="tag">JS</span><span class="tag">Адаптив</span></div>
+          <div class="card-price"><span data-i="wopen"></span></div>
         </div>
-      </article>
+      </a>
     </div>
   </div>
 </section>
@@ -729,11 +739,11 @@ footer{border-top:1px solid var(--line); padding:62px 0 34px; margin-top:120px}
 /* ===================== I18N ===================== */
 const I = {
 ru:{
- nav1:"Услуги", nav2:"Кейсы", nav3:"Процесс", nav4:"Цены", nav5:"FAQ", navcta:"Обсудить задачу",
+ nav1:"Услуги", nav2:"Работы", nav3:"Процесс", nav4:"Цены", nav5:"FAQ", navcta:"Обсудить задачу",
  badge:"Беру 2 проекта в этом месяце",
  h1:'Автоматизируем рутину,<br>которая съедает <span class="grad-text">ваш рабочий день</span>',
  sub:"Telegram-боты, AI-агенты и интеграции для малого бизнеса. Приём заявок, поддержка клиентов и отчёты работают без вашего участия. Запуск от 7 дней.",
- cta1:"Обсудить задачу", cta2:"Смотреть кейсы",
+ cta1:"Обсудить задачу", cta2:"Смотреть работы",
  note:"Бесплатная диагностика процесса — без обязательств",
  chip1:"AI-агенты", chip2:"Telegram", chip3:"Интеграции", chip4:"Боты 24/7",
  st1:"дней до запуска", st2:"работа ботов", st3:"часов рутины в месяц", st4:"дней правок бесплатно",
@@ -745,15 +755,11 @@ ru:{
  sv4t:"Доработка ботов", sv4d:"Ваш бот сломался или разработчик пропал? Разбираем чужой код, чиним, дописываем функции.",
  sv5t:"Отчёты и аналитика", sv5d:"Агент сам собирает данные и присылает сводку человеческим языком: что выросло, что упало, куда смотреть.",
  sv6t:"Поддержка", sv6d:"Хостинг, мониторинг, бэкапы и мелкие правки. Вы не думаете, работает ли всё — просто работает.",
- s2eye:"Кейсы", s2h:"Живые демо, а не скриншоты", s2p:"Каждое решение можно открыть в Telegram прямо сейчас и потыкать. Ничего не придётся представлять.",
- live:"Live",
- cs1b1:"Есть доставка в Казань?", cs1b2:"Да, 2–3 дня, 350 ₽", cs1b3:"Источник: Условия доставки, п. 4",
- cs1t:"Бот-консультант по базе знаний", cs1d:"Загружаете прайс и регламенты — бот отвечает клиентам за 3 секунды и всегда ссылается на документ.",
- cs2b1:"Оставьте номер телефона", cs2b2:"+7 900 000-00-00", cs2b3:"✓ Заявка №142 в CRM",
- cs2t:"Приём заявок в CRM", cs2d:"Заявка собирается по шагам, падает в таблицу и в чат менеджеру. Не обработана за 2 часа — напоминание.",
- cs3b1:"Сводка за 16 августа", cs3b2:"Заявок 34 (+12% к среднему)", cs3b3:"Покажи по источникам",
- cs3t:"Агент-отчётчик", cs3d:"Каждое утро собирает цифры из ваших систем и присылает разбор: что изменилось и на что смотреть.",
- opendemo:"Открыть демо →",
+ s2eye:"Работы", s2h:"Не скриншоты, а живые сайты", s2p:"Каждый проект можно открыть прямо сейчас и потыкать: формы, табы, адаптив под телефон. Ниже — превью, они кликабельны.",
+ w1c:"Автосервис", w1t:"АвтоТочка", w1d:"Лендинг с прайсом, подбором услуги по симптому и записью на диагностику в первом экране.",
+ w2c:"Стоматология", w2t:"Дентлайн", w2d:"Сайт клиники: цены по категориям в табах, расчёт стоимости лечения и запись без телефонных звонков.",
+ w3c:"Онлайн-школа", w3t:"Логика", w3d:"Страница курса: программа по модулям, сравнение тарифов таблицей и заявка на пробный доступ.",
+ wopen:"Открыть сайт →", wgo:"Смотреть",
  s3eye:"Процесс", s3h:"Как идёт работа", s3p:"Без сюрпризов по срокам и без «а это в смету не входило».",
  p1t:"Диагностика", p1d:"Созваниваемся на 20 минут. Разбираю процесс и говорю, что реально стоит автоматизировать, а что нет. Бесплатно.",
  p2t:"ТЗ и смета", p2d:"Присылаю документ: что делаю, за сколько, к какому сроку и что НЕ входит. Цена после этого не меняется.",
@@ -780,11 +786,11 @@ ru:{
  fc1:"Навигация", fc2:"Контакты", fmade:"Сделано в Virentora"
 },
 en:{
- nav1:"Services", nav2:"Cases", nav3:"Process", nav4:"Pricing", nav5:"FAQ", navcta:"Start a project",
+ nav1:"Services", nav2:"Work", nav3:"Process", nav4:"Pricing", nav5:"FAQ", navcta:"Start a project",
  badge:"Taking 2 projects this month",
  h1:'We automate what<br>eats <span class="grad-text">your whole day</span>',
  sub:"Telegram bots, AI agents and integrations for small business. Lead capture, customer support and reporting run without you. Live in 7 days.",
- cta1:"Start a project", cta2:"View cases",
+ cta1:"Start a project", cta2:"View work",
  note:"Free process audit — no strings attached",
  chip1:"AI agents", chip2:"Telegram", chip3:"Integrations", chip4:"Bots 24/7",
  st1:"days to launch", st2:"bot uptime", st3:"hours saved monthly", st4:"days of free fixes",
@@ -796,15 +802,11 @@ en:{
  sv4t:"Bot rescue", sv4d:"Bot broken or developer vanished? We read someone else's code, fix it and ship the missing features.",
  sv5t:"Reports & analytics", sv5d:"An agent pulls the numbers and sends a plain-language digest: what grew, what dropped, where to look.",
  sv6t:"Support", sv6d:"Hosting, monitoring, backups and small fixes. You never wonder whether it's running — it just runs.",
- s2eye:"Cases", s2h:"Live demos, not screenshots", s2p:"Every solution opens in Telegram right now. Nothing left to your imagination.",
- live:"Live",
- cs1b1:"Do you deliver to Kazan?", cs1b2:"Yes — 2–3 days, 350 ₽", cs1b3:"Source: Delivery terms, §4",
- cs1t:"Knowledge-base agent", cs1d:"Upload your price list and policies — the bot answers in 3 seconds and always links the document.",
- cs2b1:"Please leave your phone", cs2b2:"+7 900 000-00-00", cs2b3:"✓ Lead #142 saved to CRM",
- cs2t:"Lead capture to CRM", cs2d:"The lead is collected step by step, lands in a sheet and pings the manager. Untouched for 2 hours — reminder.",
- cs3b1:"Digest for August 16", cs3b2:"34 leads (+12% vs average)", cs3b3:"Break down by source",
- cs3t:"Reporting agent", cs3d:"Every morning it pulls numbers from your systems and sends a readable breakdown of what changed.",
- opendemo:"Open demo →",
+ s2eye:"Work", s2h:"Live sites, not screenshots", s2p:"Every project opens right now — forms, tabs, mobile layout. The previews below are clickable.",
+ w1c:"Auto service", w1t:"AvtoTochka", w1d:"Landing page with an open price list, symptom-based service picker and booking in the first screen.",
+ w2c:"Dental clinic", w2t:"Dentline", w2d:"Clinic site: prices grouped in tabs, treatment cost breakdown and booking without phone calls.",
+ w3c:"Online school", w3t:"Logika", w3d:"Course page: module-by-module curriculum, plan comparison table and a trial access form.",
+ wopen:"Open site →", wgo:"View",
  s3eye:"Process", s3h:"How we work", s3p:"No deadline surprises and no \"that wasn't in the quote\".",
  p1t:"Audit", p1d:"A 20-minute call. I map your process and tell you what's worth automating — and what isn't. Free.",
  p2t:"Spec & quote", p2d:"You get a document: what I build, for how much, by when, and what's excluded. The price doesn't move after that.",
@@ -902,6 +904,20 @@ const cio = new IntersectionObserver(entries=>{
   });
 },{threshold:.6});
 document.querySelectorAll(".cnt").forEach(el=>cio.observe(el));
+
+/* превью работ: масштабируем iframe под ширину карточки */
+function fitShots(){
+  document.querySelectorAll(".work-frame").forEach(function(f){
+    var fr = f.querySelector("iframe");
+    if(!fr) return;
+    var k = f.clientWidth / 1280;
+    fr.style.transform = "scale(" + k + ")";
+    fr.style.height = Math.ceil(f.clientHeight / k) + "px";
+  });
+}
+addEventListener("load", fitShots);
+addEventListener("resize", fitShots);
+fitShots();
 
 /* ===================== FAQ ===================== */
 document.querySelectorAll(".qa").forEach(qa=>{
