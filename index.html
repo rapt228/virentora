@@ -136,7 +136,7 @@ header.stuck{
   color:var(--ink-3); transition:all .3s var(--ease);
 }
 .lang button.on{background:var(--ink); color:var(--white)}
-.burger{display:none; width:42px; height:42px; border:1px solid var(--line); border-radius:12px; align-items:center; justify-content:center; background:var(--white)}
+.burger{display:none; flex-direction:column; width:42px; height:42px; border:1px solid var(--line); border-radius:12px; align-items:center; justify-content:center; background:var(--white); flex:none}
 .burger span{display:block; width:17px; height:1.6px; background:var(--ink); border-radius:2px; transition:transform .4s var(--ease), opacity .3s}
 .burger span+span{margin-top:4.5px}
 .burger.x span:nth-child(1){transform:translateY(6.1px) rotate(45deg)}
@@ -155,6 +155,15 @@ header.stuck{
 @media(max-width:940px){
   .nav-links{display:none}
   .burger{display:flex}
+}
+@media(max-width:620px){
+  .nav{gap:10px}
+  .nav-right{gap:8px}
+  .nav-right .btn{display:none}
+  .brand{font-size:1.02rem; gap:8px; min-width:0}
+  .brand svg{width:24px; height:24px}
+  .lang button{padding:5px 9px; font-size:.72rem}
+  .burger{width:40px; height:40px}
 }
 
 /* ============ HERO ============ */
@@ -547,7 +556,7 @@ footer{border-top:1px solid var(--line); padding:62px 0 34px; margin-top:120px}
       <p class="lead" data-i="s2p"></p>
     </div>
     <div class="grid-3">
-      <a class="card work tilt reveal" href="http://avtotochka-ekb.ru" target="_blank" rel="noopener">
+      <a class="card work tilt reveal" href="https://avtotochka-ekb.ru" target="_blank" rel="noopener">
         <div class="work-shot">
           <div class="work-bar"><i></i><i></i><i></i><span class="work-url">avtotochka-ekb.ru</span></div>
           <span class="work-go" data-i="wgo"></span>
@@ -575,7 +584,7 @@ footer{border-top:1px solid var(--line); padding:62px 0 34px; margin-top:120px}
           <div class="card-price"><span data-i="wopen"></span></div>
         </div>
       </a>
-      <a class="card work tilt reveal" href="http://logika-data.ru" target="_blank" rel="noopener">
+      <a class="card work tilt reveal" href="https://logika-data.ru" target="_blank" rel="noopener">
         <div class="work-shot">
           <div class="work-bar"><i></i><i></i><i></i><span class="work-url">logika-data.ru</span></div>
           <span class="work-go" data-i="wgo"></span>
@@ -741,7 +750,7 @@ footer{border-top:1px solid var(--line); padding:62px 0 34px; margin-top:120px}
 const I = {
 ru:{
  nav1:"Услуги", nav2:"Работы", nav3:"Процесс", nav4:"Цены", nav5:"FAQ", navcta:"Обсудить задачу",
- badge:"Беру 2 проекта в этом месяце",
+ badge:"Первая консультация — бесплатно",
  h1:'Сайт приводит клиента,<br>бот <span class="grad-text">его не теряет</span>',
  sub:"Делаю лендинги, Telegram-ботов и связку между ними. Сайт собирает заявки, бот отвечает и складывает их в таблицу — без вашего участия. Запуск от 7 дней.",
  cta1:"Обсудить задачу", cta2:"Смотреть работы",
@@ -788,7 +797,7 @@ ru:{
 },
 en:{
  nav1:"Services", nav2:"Work", nav3:"Process", nav4:"Pricing", nav5:"FAQ", navcta:"Start a project",
- badge:"Taking 2 projects this month",
+ badge:"First consultation is free",
  h1:'The site brings the lead,<br>the bot <span class="grad-text">never drops it</span>',
  sub:"Landing pages, Telegram bots and the wiring in between. The site collects leads, the bot answers and files them — without you. Live in 7 days.",
  cta1:"Start a project", cta2:"View work",
