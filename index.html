@@ -235,6 +235,11 @@ header.stuck{
 /* ============ CARD GRID ============ */
 .grid-3{display:grid; grid-template-columns:repeat(3,1fr); gap:22px}
 .grid-2{display:grid; grid-template-columns:repeat(2,1fr); gap:22px}
+.grid-4{display:grid; grid-template-columns:repeat(4,1fr); gap:18px}
+.grid-4 .card{padding:30px 24px}
+.grid-4 .price{font-size:1.85rem}
+@media(max-width:1080px){.grid-4{grid-template-columns:1fr 1fr}}
+@media(max-width:640px){.grid-4{grid-template-columns:1fr}}
 @media(max-width:980px){.grid-3{grid-template-columns:1fr 1fr}}
 @media(max-width:700px){.grid-3,.grid-2{grid-template-columns:1fr}}
 
@@ -330,7 +335,7 @@ header.stuck{
 .plan.feat .card-price b{color:var(--white)}
 .plan.feat::after{background:radial-gradient(360px circle at var(--mx,50%) var(--my,0%),rgba(255,255,255,.09),transparent 62%)}
 .plan .price{font-size:2.15rem; font-weight:700; letter-spacing:-.045em; line-height:1.1; margin-bottom:6px}
-.plan .price small{font-size:.92rem; font-weight:450; color:var(--ink-3); letter-spacing:-.01em}
+.plan .price small{font-size:.8rem; font-weight:600; color:var(--ink-3); letter-spacing:.06em; text-transform:uppercase; margin-right:5px}
 .plan.feat .price small{color:rgba(255,255,255,.55)}
 .feats{list-style:none; margin:24px 0; display:flex; flex-direction:column; gap:11px; flex:1}
 .feats li{display:flex; gap:10px; font-size:.9rem; color:var(--ink-2); line-height:1.5}
@@ -506,42 +511,36 @@ footer{border-top:1px solid var(--line); padding:62px 0 34px; margin-top:120px}
         <h3 class="h3" data-i="sv1t"></h3>
         <p data-i="sv1d"></p>
         <div class="tags"><span class="tag">Aiogram</span><span class="tag">Webhooks</span><span class="tag">Payments</span></div>
-        <div class="card-price"><span data-i="from"></span> <b>5 000 ₽</b></div>
       </article>
       <article class="card tilt reveal">
         <div class="card-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2a3 3 0 0 0-3 3v1a3 3 0 0 0-3 3v1a3 3 0 0 0 0 6v1a3 3 0 0 0 3 3 3 3 0 0 0 6 0 3 3 0 0 0 3-3v-1a3 3 0 0 0 0-6V9a3 3 0 0 0-3-3V5a3 3 0 0 0-3-3Z"/></svg></div>
         <h3 class="h3" data-i="sv2t"></h3>
         <p data-i="sv2d"></p>
         <div class="tags"><span class="tag">RAG</span><span class="tag">Embeddings</span><span class="tag">LLM</span></div>
-        <div class="card-price"><span data-i="from"></span> <b>40 000 ₽</b></div>
       </article>
       <article class="card tilt reveal">
         <div class="card-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></svg></div>
         <h3 class="h3" data-i="sv3t"></h3>
         <p data-i="sv3d"></p>
         <div class="tags"><span class="tag">n8n</span><span class="tag">CRM</span><span class="tag">Sheets</span></div>
-        <div class="card-price"><span data-i="from"></span> <b>12 000 ₽</b></div>
       </article>
       <article class="card tilt reveal">
         <div class="card-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.8-3.8a6 6 0 0 1-7.9 7.9l-6.9 6.9a2.1 2.1 0 0 1-3-3l6.9-6.9a6 6 0 0 1 7.9-7.9l-3.7 3.8Z"/></svg></div>
         <h3 class="h3" data-i="sv4t"></h3>
         <p data-i="sv4d"></p>
         <div class="tags"><span class="tag">Debug</span><span class="tag">Refactor</span><span class="tag">Deploy</span></div>
-        <div class="card-price"><span data-i="from"></span> <b>3 000 ₽</b></div>
       </article>
       <article class="card tilt reveal">
         <div class="card-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M6.5 6.5h.01M9.5 6.5h.01M7 13h7M7 16.5h4"/></svg></div>
         <h3 class="h3" data-i="sv5t"></h3>
         <p data-i="sv5d"></p>
         <div class="tags"><span class="tag">HTML</span><span class="tag">Адаптив</span><span class="tag">Формы</span></div>
-        <div class="card-price"><span data-i="from"></span> <b>15 000 ₽</b></div>
       </article>
       <article class="card tilt reveal">
         <div class="card-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 13c0 5-3.5 7.5-7.7 8.9a1 1 0 0 1-.6 0C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.2-2.7a1 1 0 0 1 1.6 0C14.5 3.8 17 5 19 5a1 1 0 0 1 1 1Z"/></svg></div>
         <h3 class="h3" data-i="sv6t"></h3>
         <p data-i="sv6d"></p>
         <div class="tags"><span class="tag">Uptime</span><span class="tag">Backups</span><span class="tag">SLA</span></div>
-        <div class="card-price"><span data-i="from"></span> <b>5 000 ₽/мес</b></div>
       </article>
     </div>
   </div>
@@ -627,11 +626,11 @@ footer{border-top:1px solid var(--line); padding:62px 0 34px; margin-top:120px}
       <h2 class="h2" data-i="s4h"></h2>
       <p class="lead" data-i="s4p"></p>
     </div>
-    <div class="grid-3">
+    <div class="grid-4">
       <article class="card plan tilt reveal">
-        <div class="card-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.8-3.8a6 6 0 0 1-7.9 7.9l-6.9 6.9a2.1 2.1 0 0 1-3-3l6.9-6.9a6 6 0 0 1 7.9-7.9l-3.7 3.8Z"/></svg></div>
+        <div class="card-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M6.5 6.5h.01M9.5 6.5h.01"/></svg></div>
         <h3 class="h3" data-i="pl1n"></h3>
-        <div class="price" style="margin-top:14px">3 000 ₽<small> / <span data-i="task"></span></small></div>
+        <div class="price" style="margin-top:14px"><small data-i="from"></small>19 900 ₽</div>
         <p data-i="pl1d"></p>
         <ul class="feats">
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg><span data-i="pl1f1"></span></li>
@@ -641,11 +640,10 @@ footer{border-top:1px solid var(--line); padding:62px 0 34px; margin-top:120px}
         <a href="#contact" class="btn btn-ghost magnet" data-i="choose"></a>
       </article>
 
-      <article class="card plan feat tilt reveal">
-        <span class="ribbon" data-i="popular"></span>
+      <article class="card plan tilt reveal">
         <div class="card-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 8V4H8"/><rect x="4" y="8" width="16" height="12" rx="2"/><path d="M2 14h2M20 14h2M15 13v2M9 13v2"/></svg></div>
         <h3 class="h3" data-i="pl2n"></h3>
-        <div class="price" style="margin-top:14px">15 000 ₽<small> / <span data-i="project"></span></small></div>
+        <div class="price" style="margin-top:14px"><small data-i="from"></small>24 900 ₽</div>
         <p data-i="pl2d"></p>
         <ul class="feats">
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg><span data-i="pl2f1"></span></li>
@@ -653,19 +651,34 @@ footer{border-top:1px solid var(--line); padding:62px 0 34px; margin-top:120px}
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg><span data-i="pl2f3"></span></li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg><span data-i="pl2f4"></span></li>
         </ul>
-        <a href="#contact" class="btn btn-primary magnet" data-i="choose"></a>
+        <a href="#contact" class="btn btn-ghost magnet" data-i="choose"></a>
       </article>
 
-      <article class="card plan tilt reveal">
-        <div class="card-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2a3 3 0 0 0-3 3v1a3 3 0 0 0-3 3v1a3 3 0 0 0 0 6v1a3 3 0 0 0 3 3 3 3 0 0 0 6 0 3 3 0 0 0 3-3v-1a3 3 0 0 0 0-6V9a3 3 0 0 0-3-3V5a3 3 0 0 0-3-3Z"/></svg></div>
+      <article class="card plan feat tilt reveal">
+        <span class="ribbon" data-i="popular"></span>
+        <div class="card-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 6h7v12H4zM13 6h7v5h-7zM13 13h7v5h-7z"/></svg></div>
         <h3 class="h3" data-i="pl3n"></h3>
-        <div class="price" style="margin-top:14px">40 000 ₽<small> / <span data-i="project"></span></small></div>
+        <div class="price" style="margin-top:14px"><small data-i="from"></small>39 900 ₽</div>
         <p data-i="pl3d"></p>
         <ul class="feats">
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg><span data-i="pl3f1"></span></li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg><span data-i="pl3f2"></span></li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg><span data-i="pl3f3"></span></li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg><span data-i="pl3f4"></span></li>
+        </ul>
+        <a href="#contact" class="btn btn-primary magnet" data-i="choose"></a>
+      </article>
+
+      <article class="card plan tilt reveal">
+        <div class="card-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2a3 3 0 0 0-3 3v1a3 3 0 0 0-3 3v1a3 3 0 0 0 0 6v1a3 3 0 0 0 3 3 3 3 0 0 0 6 0 3 3 0 0 0 3-3v-1a3 3 0 0 0 0-6V9a3 3 0 0 0-3-3V5a3 3 0 0 0-3-3Z"/></svg></div>
+        <h3 class="h3" data-i="pl4n"></h3>
+        <div class="price" style="margin-top:14px"><small data-i="from"></small>79 900 ₽</div>
+        <p data-i="pl4d"></p>
+        <ul class="feats">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg><span data-i="pl4f1"></span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg><span data-i="pl4f2"></span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg><span data-i="pl4f3"></span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg><span data-i="pl4f4"></span></li>
         </ul>
         <a href="#contact" class="btn btn-ghost magnet" data-i="choose"></a>
       </article>
@@ -759,12 +772,12 @@ ru:{
  st1:"дней до запуска", st2:"работа ботов", st3:"часов рутины в месяц", st4:"дней правок бесплатно",
  s1eye:"Услуги", s1h:"Что мы делаем", s1p:"Собираем решение под конкретный процесс, а не «сайт вообще» и не «бота вообще». Можно взять что-то одно, можно всё вместе.",
  from:"от",
- sv1t:"Telegram-боты", sv1d:"Приём заявок, каталог, запись, оплата, рассылки и админ-панель. Всё в одном боте, который не падает.",
- sv2t:"AI-агенты и RAG", sv2d:"Бот отвечает клиентам по вашим документам и прайсам со ссылкой на источник. Не выдумывает — цитирует.",
- sv3t:"Интеграции", sv3d:"Связываем сайт, CRM, таблицы и мессенджеры. Данные перестают жить в пяти местах одновременно.",
- sv4t:"Доработка ботов", sv4d:"Ваш бот сломался или разработчик пропал? Разбираем чужой код, чиним, дописываем функции.",
- sv5t:"Сайты и лендинги", sv5d:"Одностраничник под услугу или нишу: цены, форма заявки, адаптив под телефон. Готов за 2–3 дня, заявки падают вам в Telegram.",
- sv6t:"Поддержка", sv6d:"Хостинг, мониторинг, бэкапы и мелкие правки. Вы не думаете, работает ли всё — просто работает.",
+ sv1t:"Telegram-боты", sv1d:"Приём заявок, каталог, запись на время, оплата, рассылки и админ-панель. Бот ведёт клиента по шагам, не теряет ответы и складывает всё в одно место. Живёт на сервере и работает ночью, пока вы спите.",
+ sv2t:"AI-агенты и RAG", sv2d:"Загружаете прайсы, регламенты и частые вопросы — агент отвечает по ним со ссылкой на источник. Не выдумывает, а цитирует. Снимает с вас однотипные вопросы, которые повторяются каждый день.",
+ sv3t:"Интеграции", sv3d:"Связываем сайт, CRM, таблицы и мессенджеры между собой по API и вебхукам. Заявка с формы сама уходит в CRM, оттуда уведомление менеджеру, оттуда строка в отчёт. Данные перестают жить в пяти местах одновременно.",
+ sv4t:"Доработка ботов", sv4d:"Бот сломался или разработчик пропал вместе с доступами? Разбираю чужой код, поднимаю на новом сервере, чиню и дописываю недостающее. Берусь и за то, что писали не мы.",
+ sv5t:"Сайты и лендинги", sv5d:"Одностраничник под услугу или нишу: структура, тексты, вёрстка с нуля и адаптив под телефон. Открытый прайс, блок с возражениями и форма заявки, которая уходит прямо вам в Telegram. Домен и хостинг настраиваю сам.",
+ sv6t:"Поддержка", sv6d:"Хостинг, мониторинг, бэкапы и мелкие правки по ходу. Если что-то упало — узнаю об этом раньше вас и поднимаю. Вы не думаете, работает ли всё, и не ищете, кому написать.",
  s2eye:"Работы", s2h:"Не скриншоты, а живые сайты", s2p:"Каждый проект можно открыть прямо сейчас и потыкать: формы, табы, адаптив под телефон. Ниже — превью, они кликабельны.",
  w1c:"Автосервис", w1t:"АвтоТочка", w1d:"Лендинг с прайсом, подбором услуги по симптому и записью на диагностику в первом экране.",
  w2c:"Стоматология", w2t:"Дентлайн", w2d:"Сайт клиники: цены по категориям в табах, расчёт стоимости лечения и запись без телефонных звонков.",
@@ -775,14 +788,16 @@ ru:{
  p2t:"ТЗ и смета", p2d:"Присылаю документ: что делаю, за сколько, к какому сроку и что НЕ входит. Цена после этого не меняется.",
  p3t:"Разработка", p3d:"Предоплата 50%, дальше работа. Показываю промежуточный результат каждые 2–3 дня, вы правите на ходу.",
  p4t:"Запуск и поддержка", p4d:"Разворачиваю, обучаю вашу команду, 14 дней правок бесплатно. Дальше — поддержка по желанию.",
- s4eye:"Цены", s4h:"Прозрачные пакеты", s4p:"Фиксированная стоимость за результат, а не почасовка. Знаете финальную сумму до старта.",
- task:"задача", project:"проект", choose:"Выбрать", popular:"Популярное",
- pl1n:"Правка", pl1d:"Точечная доработка существующего бота или починка того, что сломалось.",
- pl1f1:"Разбор чужого кода", pl1f2:"Фикс багов и мелкие функции", pl1f3:"Срок 1–3 дня",
- pl2n:"Бот под задачу", pl2d:"Telegram-бот под конкретный процесс: заявки, каталог, запись, рассылка.",
- pl2f1:"Логика, меню, админка", pl2f2:"Интеграция с таблицей или CRM", pl2f3:"Хостинг и деплой", pl2f4:"14 дней правок бесплатно",
- pl3n:"AI-агент", pl3d:"Агент на базе знаний: отвечает по вашим документам, а не общими фразами.",
- pl3f1:"База знаний из ваших файлов", pl3f2:"Ответы со ссылкой на источник", pl3f3:"Дообучение на ваших данных", pl3f4:"Месяц поддержки в подарок",
+ s4eye:"Цены", s4h:"Сколько это стоит", s4p:"Фиксированная сумма за результат, а не почасовка. Итог знаете до старта — в процессе он не двигается.",
+ task:"задача", project:"проект", choose:"Обсудить", popular:"Чаще всего берут",
+ pl1n:"Лендинг", pl1d:"Одностраничник под услугу или нишу. Заявки приходят вам в Telegram.",
+ pl1f1:"Дизайн и вёрстка с нуля", pl1f2:"Домен и хостинг под ключ", pl1f3:"Запуск за 3–5 дней",
+ pl2n:"Telegram-бот", pl2d:"Бот под конкретный процесс: приём заявок, каталог, запись, рассылки.",
+ pl2f1:"Логика, меню, админка", pl2f2:"Заявки в таблицу или CRM", pl2f3:"Хостинг и деплой", pl2f4:"14 дней правок бесплатно",
+ pl3n:"Сайт + бот", pl3d:"Связка целиком: лендинг собирает заявку, бот отвечает и складывает её в таблицу.",
+ pl3f1:"Лендинг и бот в одном стиле", pl3f2:"Форма сайта уходит прямо в бот", pl3f3:"Единая база заявок", pl3f4:"Запуск за 7–10 дней",
+ pl4n:"AI-агент и интеграции", pl4d:"Агент отвечает по вашим документам, сервисы связаны между собой.",
+ pl4f1:"База знаний из ваших файлов", pl4f2:"Ответы со ссылкой на источник", pl4f3:"Связка с CRM и сервисами", pl4f4:"Месяц поддержки в подарок",
  pricenote:"Итоговая цена зависит от объёма. После диагностики называю точную сумму — она фиксируется в смете.",
  s5eye:"FAQ", s5h:"Частые вопросы",
  q1:"Сколько занимает разработка?", a1:"Правка — 1–3 дня. Бот под задачу — 5–10 дней. AI-агент с базой знаний — 2–3 недели. Срок фиксируется в смете до старта, и я его не двигаю без вашего согласия.",
@@ -806,12 +821,12 @@ en:{
  st1:"days to launch", st2:"bot uptime", st3:"hours saved monthly", st4:"days of free fixes",
  s1eye:"Services", s1h:"What we build", s1p:"We build for a specific process — not \"a site in general\", not \"a bot in general\". Take one piece or the whole thing.",
  from:"from",
- sv1t:"Telegram bots", sv1d:"Lead capture, catalogue, booking, payments, broadcasts and an admin panel. One bot that doesn't go down.",
- sv2t:"AI agents & RAG", sv2d:"The bot answers from your own documents and price lists, citing the source. It quotes instead of inventing.",
- sv3t:"Integrations", sv3d:"We connect your site, CRM, spreadsheets and messengers. Data stops living in five places at once.",
- sv4t:"Bot rescue", sv4d:"Bot broken or developer vanished? We read someone else's code, fix it and ship the missing features.",
- sv5t:"Sites & landing pages", sv5d:"A one-pager for a service or a niche: prices, a lead form, mobile layout. Ready in 2–3 days, leads land in your Telegram.",
- sv6t:"Support", sv6d:"Hosting, monitoring, backups and small fixes. You never wonder whether it's running — it just runs.",
+ sv1t:"Telegram bots", sv1d:"Lead capture, catalogue, time slots, payments, broadcasts and an admin panel. The bot walks the customer through step by step, never loses an answer and files everything in one place. It lives on a server and works at night while you sleep.",
+ sv2t:"AI agents & RAG", sv2d:"Upload your price lists, policies and FAQs — the agent answers from them and cites the source. It quotes instead of inventing, and takes the repetitive questions off your plate.",
+ sv3t:"Integrations", sv3d:"We wire your site, CRM, spreadsheets and messengers together over APIs and webhooks. A form submission lands in the CRM, pings the manager and shows up in the report. Data stops living in five places at once.",
+ sv4t:"Bot rescue", sv4d:"Bot broken, or the developer vanished along with the credentials? I read the existing code, redeploy it on a fresh server, fix it and add what is missing. Happy to work on code I did not write.",
+ sv5t:"Sites & landing pages", sv5d:"A one-pager for a service or a niche: structure, copy, hand-written markup and a real mobile layout. Open pricing, an objections block and a lead form that posts straight to your Telegram. Domain and hosting handled.",
+ sv6t:"Support", sv6d:"Hosting, monitoring, backups and small fixes along the way. If something goes down I hear about it before you do and bring it back. You never wonder whether it is running, or who to call.",
  s2eye:"Work", s2h:"Live sites, not screenshots", s2p:"Every project opens right now — forms, tabs, mobile layout. The previews below are clickable.",
  w1c:"Auto service", w1t:"AvtoTochka", w1d:"Landing page with an open price list, symptom-based service picker and booking in the first screen.",
  w2c:"Dental clinic", w2t:"Dentline", w2d:"Clinic site: prices grouped in tabs, treatment cost breakdown and booking without phone calls.",
@@ -822,14 +837,16 @@ en:{
  p2t:"Spec & quote", p2d:"You get a document: what I build, for how much, by when, and what's excluded. The price doesn't move after that.",
  p3t:"Build", p3d:"50% upfront, then work starts. I show progress every 2–3 days so you can steer as we go.",
  p4t:"Launch & support", p4d:"I deploy, train your team, and fix anything free for 14 days. Ongoing support is optional.",
- s4eye:"Pricing", s4h:"Transparent packages", s4p:"Fixed price for an outcome, not hourly billing. You know the total before we start.",
- task:"task", project:"project", choose:"Choose", popular:"Popular",
- pl1n:"Quick fix", pl1d:"A targeted change to an existing bot, or repairing what broke.",
- pl1f1:"Reading legacy code", pl1f2:"Bug fixes and small features", pl1f3:"1–3 days",
- pl2n:"Custom bot", pl2d:"A Telegram bot for one specific process: leads, catalogue, booking, broadcasts.",
- pl2f1:"Logic, menus, admin panel", pl2f2:"Sheet or CRM integration", pl2f3:"Hosting and deployment", pl2f4:"14 days of free fixes",
- pl3n:"AI agent", pl3d:"A knowledge-base agent that answers from your documents, not in generic phrases.",
- pl3f1:"Knowledge base from your files", pl3f2:"Answers with source citations", pl3f3:"Tuned on your data", pl3f4:"One month of support included",
+ s4eye:"Pricing", s4h:"What it costs", s4p:"A fixed sum for an outcome, not hourly billing. You know the total before we start — and it does not move.",
+ task:"task", project:"project", choose:"Discuss", popular:"Most popular",
+ pl1n:"Landing page", pl1d:"A one-pager for a service or a niche. Leads land in your Telegram.",
+ pl1f1:"Design and markup from scratch", pl1f2:"Domain and hosting handled", pl1f3:"Live in 3–5 days",
+ pl2n:"Telegram bot", pl2d:"A bot for one specific process: leads, catalogue, booking, broadcasts.",
+ pl2f1:"Logic, menus, admin panel", pl2f2:"Leads into a sheet or CRM", pl2f3:"Hosting and deployment", pl2f4:"14 days of free fixes",
+ pl3n:"Site + bot", pl3d:"The whole loop: the landing collects the lead, the bot answers and files it.",
+ pl3f1:"Landing and bot in one style", pl3f2:"The form posts straight into the bot", pl3f3:"One place for every lead", pl3f4:"Live in 7–10 days",
+ pl4n:"AI agent & integrations", pl4d:"An agent answers from your documents; your services talk to each other.",
+ pl4f1:"Knowledge base from your files", pl4f2:"Answers with source citations", pl4f3:"Wired into CRM and services", pl4f4:"One month of support included",
  pricenote:"Final price depends on scope. After the audit I give an exact number and lock it into the quote.",
  s5eye:"FAQ", s5h:"Common questions",
  q1:"How long does it take?", a1:"A quick fix takes 1–3 days. A custom bot 5–10 days. An AI agent with a knowledge base 2–3 weeks. The deadline is locked in the quote and I don't move it without your agreement.",
