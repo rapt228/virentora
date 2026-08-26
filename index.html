@@ -236,8 +236,8 @@ header.stuck{
 .grid-3{display:grid; grid-template-columns:repeat(3,1fr); gap:22px}
 .grid-2{display:grid; grid-template-columns:repeat(2,1fr); gap:22px}
 .grid-4{display:grid; grid-template-columns:repeat(4,1fr); gap:18px}
-.grid-4 .card{padding:30px 24px}
-.grid-4 .price{font-size:1.85rem}
+.grid-4 .plan{padding:30px 24px}
+.grid-4 .plan .price{font-size:1.85rem}
 @media(max-width:1080px){.grid-4{grid-template-columns:1fr 1fr}}
 @media(max-width:640px){.grid-4{grid-template-columns:1fr}}
 @media(max-width:980px){.grid-3{grid-template-columns:1fr 1fr}}
@@ -289,7 +289,7 @@ header.stuck{
 }
 .work-frame{position:absolute; inset:36px 0 0 0; overflow:hidden; background:var(--white)}
 .work-frame img{
-  width:100%; height:auto; display:block;
+  width:100%; height:100%; object-fit:cover; object-position:top center; display:block;
   transition:transform .5s var(--ease);
 }
 .work:hover .work-frame img{transform:scale(1.03)}
@@ -307,6 +307,19 @@ header.stuck{
   opacity:0; transform:translateY(-6px); transition:opacity .3s var(--ease), transform .3s var(--ease);
 }
 .work:hover .work-go{opacity:1; transform:none}
+/* карточка бота: вместо скриншота — макет чата */
+.work-tg{position:absolute; inset:36px 0 0 0; background:#eef1f4; padding:13px 12px 0; display:flex; flex-direction:column; gap:7px; overflow:hidden}
+.work-tg::after{content:''; position:absolute; inset:0; pointer-events:none; transition:opacity .35s var(--ease);
+  background:linear-gradient(180deg,transparent 62%,rgba(238,241,244,.96))}
+.work:hover .work-tg::after{opacity:.35}
+.tg-b{align-self:flex-start; max-width:92%; padding:8px 11px; border-radius:14px; border-bottom-left-radius:5px;
+  background:var(--white); font-size:.71rem; line-height:1.4; color:var(--ink-2); box-shadow:0 1px 2px rgba(18,22,28,.08)}
+.tg-b b{color:var(--ink); font-weight:650}
+.tg-btns{display:flex; flex-direction:column; gap:5px; margin-top:3px}
+.tg-btns span{background:var(--white); border:1px solid var(--line); border-radius:9px; padding:7px 9px;
+  font-size:.68rem; font-weight:560; text-align:center; color:var(--ink-2)}
+.tg-btns span.hi{background:var(--ink); border-color:var(--ink); color:var(--white)}
+
 .work-cat{
   font-size:.7rem; font-weight:650; letter-spacing:.11em; text-transform:uppercase;
   color:var(--ink-3); margin-bottom:9px;
@@ -554,7 +567,7 @@ footer{border-top:1px solid var(--line); padding:62px 0 34px; margin-top:120px}
       <h2 class="h2" data-i="s2h"></h2>
       <p class="lead" data-i="s2p"></p>
     </div>
-    <div class="grid-3">
+    <div class="grid-4">
       <a class="card work tilt reveal" href="https://avtotochka-ekb.ru" target="_blank" rel="noopener">
         <div class="work-shot">
           <div class="work-bar"><i></i><i></i><i></i><span class="work-url">avtotochka-ekb.ru</span></div>
@@ -595,6 +608,28 @@ footer{border-top:1px solid var(--line); padding:62px 0 34px; margin-top:120px}
           <p data-i="w3d"></p>
           <div class="tags"><span class="tag">HTML</span><span class="tag">JS</span><span class="tag">Адаптив</span></div>
           <div class="card-price"><span data-i="wopen"></span></div>
+        </div>
+      </a>
+      <a class="card work tilt reveal" href="https://t.me/VirentoraBot" target="_blank" rel="noopener">
+        <div class="work-shot">
+          <div class="work-bar"><i></i><i></i><i></i><span class="work-url">t.me/VirentoraBot</span></div>
+          <span class="work-go" data-i="wgo"></span>
+          <div class="work-tg">
+            <div class="tg-b" data-i="tg1"></div>
+            <div class="tg-btns">
+              <span class="hi" data-i="tg2"></span>
+              <span data-i="tg3"></span>
+              <span data-i="tg4"></span>
+              <span data-i="tg5"></span>
+            </div>
+          </div>
+        </div>
+        <div class="case-body">
+          <div class="work-cat" data-i="w4c"></div>
+          <h3 class="h3" data-i="w4t"></h3>
+          <p data-i="w4d"></p>
+          <div class="tags"><span class="tag">aiogram</span><span class="tag">Python</span><span class="tag">VPS</span></div>
+          <div class="card-price"><span data-i="wbot"></span></div>
         </div>
       </a>
     </div>
@@ -778,10 +813,13 @@ ru:{
  sv4t:"Доработка ботов", sv4d:"Бот сломался или разработчик пропал вместе с доступами? Разбираю чужой код, поднимаю на новом сервере, чиню и дописываю недостающее. Берусь и за то, что писали не мы.",
  sv5t:"Сайты и лендинги", sv5d:"Одностраничник под услугу или нишу: структура, тексты, вёрстка с нуля и адаптив под телефон. Открытый прайс, блок с возражениями и форма заявки, которая уходит прямо вам в Telegram. Домен и хостинг настраиваю сам.",
  sv6t:"Поддержка", sv6d:"Хостинг, мониторинг, бэкапы и мелкие правки по ходу. Если что-то упало — узнаю об этом раньше вас и поднимаю. Вы не думаете, работает ли всё, и не ищете, кому написать.",
- s2eye:"Работы", s2h:"Не скриншоты, а живые сайты", s2p:"Каждый проект можно открыть прямо сейчас и потыкать: формы, табы, адаптив под телефон. Ниже — превью, они кликабельны.",
+ s2eye:"Работы", s2h:"Не скриншоты, а живые проекты", s2p:"Каждый проект можно открыть прямо сейчас и потыкать: формы, табы, адаптив под телефон, живой бот в Telegram. Ниже — превью, они кликабельны.",
  w1c:"Автосервис", w1t:"АвтоТочка", w1d:"Лендинг с прайсом, подбором услуги по симптому и записью на диагностику в первом экране.",
  w2c:"Стоматология", w2t:"Дентлайн", w2d:"Сайт клиники: цены по категориям в табах, расчёт стоимости лечения и запись без телефонных звонков.",
  w3c:"Онлайн-школа", w3t:"Логика", w3d:"Страница курса: программа по модулям, сравнение тарифов таблицей и заявка на пробный доступ.",
+ w4c:"Telegram-бот", w4t:"Бот Virentora", w4d:"Мой рабочий бот: меню услуг, цены и приём заявок прямо в чате. Живёт на сервере, отвечает круглосуточно.",
+ wbot:"Открыть в Telegram →",
+ tg1:"Привет! Я бот <b>Virentora</b>. Выберите, что интересно:", tg2:"Написать Льву", tg3:"Что я делаю", tg4:"Сколько стоит", tg5:"Оставить заявку",
  wopen:"Открыть сайт →", wgo:"Смотреть",
  s3eye:"Процесс", s3h:"Как идёт работа", s3p:"Без сюрпризов по срокам и без «а это в смету не входило».",
  p1t:"Диагностика", p1d:"Созваниваемся на 20 минут. Разбираю процесс и говорю, что реально стоит автоматизировать, а что нет. Бесплатно.",
@@ -827,10 +865,13 @@ en:{
  sv4t:"Bot rescue", sv4d:"Bot broken, or the developer vanished along with the credentials? I read the existing code, redeploy it on a fresh server, fix it and add what is missing. Happy to work on code I did not write.",
  sv5t:"Sites & landing pages", sv5d:"A one-pager for a service or a niche: structure, copy, hand-written markup and a real mobile layout. Open pricing, an objections block and a lead form that posts straight to your Telegram. Domain and hosting handled.",
  sv6t:"Support", sv6d:"Hosting, monitoring, backups and small fixes along the way. If something goes down I hear about it before you do and bring it back. You never wonder whether it is running, or who to call.",
- s2eye:"Work", s2h:"Live sites, not screenshots", s2p:"Every project opens right now — forms, tabs, mobile layout. The previews below are clickable.",
+ s2eye:"Work", s2h:"Live projects, not screenshots", s2p:"Every project opens right now — forms, tabs, mobile layout, a working Telegram bot. The previews below are clickable.",
  w1c:"Auto service", w1t:"AvtoTochka", w1d:"Landing page with an open price list, symptom-based service picker and booking in the first screen.",
  w2c:"Dental clinic", w2t:"Dentline", w2d:"Clinic site: prices grouped in tabs, treatment cost breakdown and booking without phone calls.",
  w3c:"Online school", w3t:"Logika", w3d:"Course page: module-by-module curriculum, plan comparison table and a trial access form.",
+ w4c:"Telegram bot", w4t:"Virentora bot", w4d:"My working bot: service menu, pricing and lead capture right inside the chat. Runs on a server, answers around the clock.",
+ wbot:"Open in Telegram →",
+ tg1:"Hi! I am the <b>Virentora</b> bot. Pick what you need:", tg2:"Message Lev", tg3:"What I do", tg4:"Pricing", tg5:"Leave a request",
  wopen:"Open site →", wgo:"View",
  s3eye:"Process", s3h:"How we work", s3p:"No deadline surprises and no \"that wasn't in the quote\".",
  p1t:"Audit", p1d:"A 20-minute call. I map your process and tell you what's worth automating — and what isn't. Free.",
