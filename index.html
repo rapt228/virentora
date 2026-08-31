@@ -320,6 +320,29 @@ header.stuck{
   font-size:.68rem; font-weight:560; text-align:center; color:var(--ink-2)}
 .tg-btns span.hi{background:var(--ink); border-color:var(--ink); color:var(--white)}
 
+/* кейс «сайт + бот»: поверх скриншота окно чата */
+.work .card-price{margin-top:auto}
+.work-duo .work-frame::after{background:linear-gradient(180deg,transparent 34%,rgba(255,255,255,.94))}
+.duo-chat{position:absolute; right:11px; bottom:11px; width:60%; z-index:3; background:var(--white);
+  border:1px solid var(--line); border-radius:13px; box-shadow:0 12px 30px rgba(18,22,28,.18);
+  padding:9px; display:flex; flex-direction:column; gap:6px; transition:transform .45s var(--ease)}
+.work:hover .duo-chat{transform:translateY(-4px)}
+.duo-head{display:flex; align-items:center; gap:6px; font-size:.6rem; font-weight:680;
+  letter-spacing:.05em; text-transform:uppercase; color:var(--ink-3)}
+.duo-head i{width:13px; height:13px; border-radius:50%; background:#2aabee; flex:none}
+.duo-msg{background:var(--bg-soft); border:1px solid var(--line-2); border-radius:10px;
+  border-bottom-left-radius:4px; padding:7px 9px; font-size:.64rem; line-height:1.35; color:var(--ink-2)}
+.duo-btn{background:var(--ink); color:var(--white); border-radius:8px; padding:6px 8px;
+  font-size:.62rem; font-weight:620; text-align:center}
+.work-links{display:flex; gap:8px}
+.work-links a{flex:1; text-align:center; text-decoration:none; font-size:.72rem; font-weight:640;
+  padding:10px 6px; white-space:nowrap; border-radius:10px; border:1px solid var(--line); color:var(--ink);
+  background:var(--white); transition:background .2s var(--ease), opacity .2s var(--ease)}
+.work-links a:hover{background:var(--bg-soft)}
+.work-links a.pri{background:var(--ink); border-color:var(--ink); color:var(--white)}
+.work-links a.pri:hover{opacity:.85; background:var(--ink)}
+@media(max-width:1080px){.duo-chat{width:44%}}
+@media(max-width:640px){.duo-chat{width:56%}}
 .work-cat{
   font-size:.7rem; font-weight:650; letter-spacing:.11em; text-transform:uppercase;
   color:var(--ink-3); margin-bottom:9px;
@@ -596,20 +619,27 @@ footer{border-top:1px solid var(--line); padding:62px 0 34px; margin-top:120px}
           <div class="card-price"><span data-i="wopen"></span></div>
         </div>
       </a>
-      <a class="card work tilt reveal" href="https://logika-data.ru" target="_blank" rel="noopener">
+      <div class="card work work-duo tilt reveal">
         <div class="work-shot">
           <div class="work-bar"><i></i><i></i><i></i><span class="work-url">logika-data.ru</span></div>
-          <span class="work-go" data-i="wgo"></span>
           <div class="work-frame"><img src="shots/logika.jpg" alt="" loading="lazy" width="1100" height="740"></div>
+          <div class="duo-chat">
+            <div class="duo-head"><i></i><span data-i="d1"></span></div>
+            <div class="duo-msg" data-i="d2"></div>
+            <div class="duo-btn" data-i="d3"></div>
+          </div>
         </div>
         <div class="case-body">
           <div class="work-cat" data-i="w3c"></div>
           <h3 class="h3" data-i="w3t"></h3>
           <p data-i="w3d"></p>
-          <div class="tags"><span class="tag">HTML</span><span class="tag">JS</span><span class="tag">Адаптив</span></div>
-          <div class="card-price"><span data-i="wopen"></span></div>
+          <div class="tags"><span class="tag">HTML</span><span class="tag">JS</span><span class="tag">aiogram</span></div>
+          <div class="card-price work-links">
+            <a href="https://logika-data.ru" target="_blank" rel="noopener" data-i="dsite"></a>
+            <a class="pri" href="https://t.me/LOGIKA_BOT_USERNAME" target="_blank" rel="noopener" data-i="dbot"></a>
+          </div>
         </div>
-      </a>
+      </div>
       <a class="card work tilt reveal" href="https://t.me/VirentoraBot" target="_blank" rel="noopener">
         <div class="work-shot">
           <div class="work-bar"><i></i><i></i><i></i><span class="work-url">t.me/VirentoraBot</span></div>
@@ -816,7 +846,9 @@ ru:{
  s2eye:"Работы", s2h:"Не скриншоты, а живые проекты", s2p:"Каждый проект можно открыть прямо сейчас и потыкать: формы, табы, адаптив под телефон, живой бот в Telegram. Ниже — превью, они кликабельны.",
  w1c:"Автосервис", w1t:"АвтоТочка", w1d:"Лендинг с прайсом, подбором услуги по симптому и записью на диагностику в первом экране.",
  w2c:"Стоматология", w2t:"Дентлайн", w2d:"Сайт клиники: цены по категориям в табах, расчёт стоимости лечения и запись без телефонных звонков.",
- w3c:"Онлайн-школа", w3t:"Логика", w3d:"Страница курса: программа по модулям, сравнение тарифов таблицей и заявка на пробный доступ.",
+ w3c:"Онлайн-школа · сайт + бот", w3t:"Логика", w3d:"Сайт и бот к нему. На странице программа и тарифы, в боте анкета из шести вопросов: подбирает формат и передаёт заявку с ответами.",
+ d1:"Логика-бот", d2:"Подберу формат за шесть вопросов", d3:"Подобрать",
+ dsite:"Открыть сайт", dbot:"Открыть бота",
  w4c:"Telegram-бот", w4t:"Бот Virentora", w4d:"Мой рабочий бот: меню услуг, цены и приём заявок прямо в чате. Живёт на сервере, отвечает круглосуточно.",
  wbot:"Открыть в Telegram →",
  tg1:"Привет! Я бот <b>Virentora</b>. Выберите, что интересно:", tg2:"Написать Льву", tg3:"Что я делаю", tg4:"Сколько стоит", tg5:"Оставить заявку",
@@ -868,7 +900,9 @@ en:{
  s2eye:"Work", s2h:"Live projects, not screenshots", s2p:"Every project opens right now — forms, tabs, mobile layout, a working Telegram bot. The previews below are clickable.",
  w1c:"Auto service", w1t:"AvtoTochka", w1d:"Landing page with an open price list, symptom-based service picker and booking in the first screen.",
  w2c:"Dental clinic", w2t:"Dentline", w2d:"Clinic site: prices grouped in tabs, treatment cost breakdown and booking without phone calls.",
- w3c:"Online school", w3t:"Logika", w3d:"Course page: module-by-module curriculum, plan comparison table and a trial access form.",
+ w3c:"Online school · site + bot", w3t:"Logika", w3d:"A site and its bot. The page holds the curriculum and plans; the bot asks six questions, picks a format and passes the lead on with the answers.",
+ d1:"Logika bot", d2:"Six questions and I will pick your format", d3:"Start",
+ dsite:"Open site", dbot:"Open bot",
  w4c:"Telegram bot", w4t:"Virentora bot", w4d:"My working bot: service menu, pricing and lead capture right inside the chat. Runs on a server, answers around the clock.",
  wbot:"Open in Telegram →",
  tg1:"Hi! I am the <b>Virentora</b> bot. Pick what you need:", tg2:"Message Lev", tg3:"What I do", tg4:"Pricing", tg5:"Leave a request",
