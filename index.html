@@ -271,6 +271,20 @@ header.stuck{
 .card-price b{color:var(--ink); font-weight:650; font-size:1rem}
 
 /* ============ WORKS ============ */
+.rag-case{margin-top:24px; padding:0; display:grid; grid-template-columns:1fr 1fr; scroll-margin-top:100px}
+.rag-preview{background:var(--bg-soft); border-right:1px solid var(--line); padding:30px; display:flex; flex-direction:column; justify-content:center; gap:14px; min-width:0}
+.rag-label{font-size:.68rem; font-weight:650; color:var(--ink-3); letter-spacing:.06em; text-transform:uppercase}
+.rag-question{align-self:flex-end; max-width:90%; padding:13px 17px; border-radius:16px 16px 4px 16px; background:var(--ink); color:var(--white); font-size:.86rem; line-height:1.5}
+.rag-answer{padding:20px; background:var(--white); border:1px solid var(--line); border-radius:16px 16px 16px 4px}
+.rag-answer p{font-size:.86rem}
+.rag-source{margin-top:14px; padding-top:12px; border-top:1px solid var(--line-2); font-size:.72rem; color:var(--ink-3); line-height:1.5}
+.rag-handoff{align-self:flex-start; font-size:.72rem; color:var(--ink-2); border:1px solid var(--line); border-radius:9px; padding:8px 12px}
+.rag-body{padding:32px; min-width:0}
+.rag-points{padding-left:18px; margin:18px 0 0; color:var(--ink-2); font-size:.86rem; line-height:1.65}
+.rag-points li+li{margin-top:6px}
+.rag-body .card-price a{color:var(--ink); font-weight:600; text-decoration:none}
+.rag-body .card-price a:hover{text-decoration:underline}
+@media(max-width:760px){.rag-case{grid-template-columns:1fr}.rag-preview{border-right:0; border-bottom:1px solid var(--line); padding:24px}.rag-body{padding:26px}}
 .work{display:flex; flex-direction:column; height:100%; text-decoration:none; color:inherit}
 .work-shot{
   position:relative; height:250px; margin:-34px -32px 24px;
@@ -663,6 +677,29 @@ footer{border-top:1px solid var(--line); padding:62px 0 34px; margin-top:120px}
         </div>
       </a>
     </div>
+    <article class="card rag-case reveal" id="knowledge-rag-bot" aria-labelledby="rag-title">
+      <div class="rag-preview">
+        <div class="rag-label" data-i="ragPreview"></div>
+        <div class="rag-question" data-i="ragQuestion"></div>
+        <div class="rag-answer">
+          <p data-i="ragAnswer"></p>
+          <div class="rag-source" data-i="ragSource"></div>
+        </div>
+        <div class="rag-handoff" data-i="ragHandoff"></div>
+      </div>
+      <div class="rag-body">
+        <div class="work-cat" data-i="ragCategory"></div>
+        <h3 class="h3" id="rag-title">Knowledge RAG Bot</h3>
+        <p data-i="ragDescription"></p>
+        <ul class="rag-points">
+          <li data-i="ragPoint1"></li>
+          <li data-i="ragPoint2"></li>
+          <li data-i="ragPoint3"></li>
+        </ul>
+        <div class="tags"><span class="tag">Python</span><span class="tag">aiogram 3</span><span class="tag">SQLite</span><span class="tag">RAG</span></div>
+        <div class="card-price"><a href="#contact" data-i="ragCta"></a></div>
+      </div>
+    </article>
   </div>
 </section>
 
@@ -843,7 +880,18 @@ ru:{
  sv4t:"Доработка ботов", sv4d:"Бот сломался или разработчик пропал вместе с доступами? Разбираю чужой код, поднимаю на новом сервере, чиню и дописываю недостающее. Берусь и за то, что писали не мы.",
  sv5t:"Сайты и лендинги", sv5d:"Одностраничник под услугу или нишу: структура, тексты, вёрстка с нуля и адаптив под телефон. Открытый прайс, блок с возражениями и форма заявки, которая уходит прямо вам в Telegram. Домен и хостинг настраиваю сам.",
  sv6t:"Поддержка", sv6d:"Хостинг, мониторинг, бэкапы и мелкие правки по ходу. Если что-то упало — узнаю об этом раньше вас и поднимаю. Вы не думаете, работает ли всё, и не ищете, кому написать.",
- s2eye:"Работы", s2h:"Не скриншоты, а живые проекты", s2p:"Каждый проект можно открыть прямо сейчас и потыкать: формы, табы, адаптив под телефон, живой бот в Telegram. Ниже — превью, они кликабельны.",
+ s2eye:"Работы", s2h:"Сайты, боты и работа с базой знаний", s2p:"Откройте сайты и Telegram-ботов, посмотрите их сценарии. Отдельный проект ниже — ассистент, который ищет ответы во внутренних документах.",
+ ragCategory:"Собственный проект · AI-ассистент",
+ ragDescription:"Telegram-ассистент по базе знаний компании: находит нужный фрагмент регламента и показывает источники ответа. Собственный проект Virentora с базой из 20 примерных документов.",
+ ragPoint1:"Поиск по документам; при подключении AI — формулировка ответа на основе найденных фрагментов.",
+ ragPoint2:"Если информации недостаточно — предложение передать вопрос человеку. Можно оценить полезность ответа.",
+ ragPoint3:"Для администратора — обращения, статистика вопросов и обновление поискового индекса.",
+ ragPreview:"Пример диалога по базе проекта",
+ ragQuestion:"Кто согласует отпуск?",
+ ragAnswer:"Отпуск согласует непосредственный руководитель.",
+ ragSource:"Источник: «Отпуска и отсутствия» → «Планирование и согласование»",
+ ragHandoff:"Передать вопрос человеку",
+ ragCta:"Обсудить похожий проект →",
  w1c:"Автосервис", w1t:"АвтоТочка", w1d:"Лендинг с прайсом, подбором услуги по симптому и записью на диагностику в первом экране.",
  w2c:"Стоматология", w2t:"Дентлайн", w2d:"Сайт клиники: цены по категориям в табах, расчёт стоимости лечения и запись без телефонных звонков.",
  w3c:"Онлайн-школа · сайт + бот", w3t:"Логика", w3d:"Сайт и бот к нему. На странице программа и тарифы, в боте анкета из шести вопросов: подбирает формат и передаёт заявку с ответами.",
@@ -897,7 +945,18 @@ en:{
  sv4t:"Bot rescue", sv4d:"Bot broken, or the developer vanished along with the credentials? I read the existing code, redeploy it on a fresh server, fix it and add what is missing. Happy to work on code I did not write.",
  sv5t:"Sites & landing pages", sv5d:"A one-pager for a service or a niche: structure, copy, hand-written markup and a real mobile layout. Open pricing, an objections block and a lead form that posts straight to your Telegram. Domain and hosting handled.",
  sv6t:"Support", sv6d:"Hosting, monitoring, backups and small fixes along the way. If something goes down I hear about it before you do and bring it back. You never wonder whether it is running, or who to call.",
- s2eye:"Work", s2h:"Live projects, not screenshots", s2p:"Every project opens right now — forms, tabs, mobile layout, a working Telegram bot. The previews below are clickable.",
+ s2eye:"Work", s2h:"Websites, bots and knowledge search", s2p:"Open the websites and Telegram bots to explore their flows. The featured project below is an assistant that finds answers in internal documents.",
+ ragCategory:"Independent project · AI assistant",
+ ragDescription:"A Telegram knowledge assistant that finds relevant policy passages and shows answer sources. An independent Virentora project with 20 sample documents.",
+ ragPoint1:"Document search, with optional AI to compose an answer from the retrieved passages.",
+ ragPoint2:"When information is insufficient, offers a handoff to a person. Users can rate answers.",
+ ragPoint3:"Admin tools for support tickets, question statistics and search index updates.",
+ ragPreview:"Example conversation from the project knowledge base",
+ ragQuestion:"Who approves time off?",
+ ragAnswer:"Time off is approved by the employee’s direct manager.",
+ ragSource:"Source: Time off and absences → Planning and approval",
+ ragHandoff:"Pass the question to a person",
+ ragCta:"Discuss a similar project →",
  w1c:"Auto service", w1t:"AvtoTochka", w1d:"Landing page with an open price list, symptom-based service picker and booking in the first screen.",
  w2c:"Dental clinic", w2t:"Dentline", w2d:"Clinic site: prices grouped in tabs, treatment cost breakdown and booking without phone calls.",
  w3c:"Online school · site + bot", w3t:"Logika", w3d:"A site and its bot. The page holds the curriculum and plans; the bot asks six questions, picks a format and passes the lead on with the answers.",
