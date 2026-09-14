@@ -32,3 +32,8 @@ New source maps by Solar System Scope, CC BY 4.0:
 All three source JPEGs are 8192×4096. Day has no baked cloud layer. Converted to WebP, with 4096×2048 copies downsampled using Lanczos; no upscaling or invented surface detail. Active desktop uses `earth-day-8k.webp` (quality 92) and 4K clouds/night (quality 90); mobile uses 4K maps. The existing packed 4K texture supplies elevation and roughness only.
 
 `cosmic-background.js` generates the sky procedurally. Stars are seeded 3D points. No stock nebula image or downloaded star photograph is used. Static posters capture this same scene for loading and WebGL failure. Attribution for the Earth maps also applies to the posters.
+
+
+## 2026-09-15: compact mobile maps
+
+The mobile profile uses additional technical downscales of the same licensed maps: `earth-day-2k.webp` 2048×1024 q90; `earth-clouds-2k.webp` 2048×1024 grayscale q85; `earth-night-1k.webp` 1024×512 q88; `earth-details-1k.webp` 1024×512 RGB q90. Lanczos resizing, no upscaling or artistic changes. Total 923,170 bytes. Packed detail channels retain their meanings. The full desktop maps remain available. Posters are now used for graphics failure only, not for ordinary startup.

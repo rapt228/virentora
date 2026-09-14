@@ -1,11 +1,11 @@
 import * as THREE from './assets/three.module.js';
-import { createCosmicBackground } from './cosmic-background.js?v=20260914-sky2';
+import { createCosmicBackground } from './cosmic-background.js?v=20260914-smooth3';
 
-// The HTML poster remains visible until an actual WebGL frame has rendered.
+// A static Earth is mounted only if graphics fail, never during normal loading.
 // Content and navigation never depend on this progressively enhanced scene.
 const host = document.querySelector('#earth-stage');
 const hero = document.querySelector('#top');
-const poster = host?.querySelector('.earth-fallback');
+
 const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
 
 if (host && hero) initialiseScene().catch(showFallback);
@@ -14,6 +14,11 @@ function showFallback(error) {
   host?.classList.remove('ready');
   host?.classList.add('unavailable');
   if (host) host.dataset.scene = 'fallback';
+  if (host && !host.querySelector('.earth-fallback')) {
+    const template = document.querySelector('#earth-fallback-template');
+    if (template) host.append(template.content.cloneNode(true));
+  }
+  const poster = host?.querySelector('.earth-fallback');
   if (poster) { poster.hidden = false; poster.style.display = 'block'; }
   const canvas = host?.querySelector('canvas');
   if (canvas) canvas.style.visibility = 'hidden';
@@ -24,15 +29,27 @@ function showFallback(error) {
 async function initialiseScene() {
   let renderer;
   let failed = false;
+  let fatal = false;
+  let contextNeedsRebuild = false;
+  const contextWaiters = [];
   let frame = 0;
   let visible = true;
   let ready = false;
   let readyEventSent = false;
   let resourcesReady = false;
   let paused = document.documentElement.dataset.motion === 'paused';
-  let width = 1;
-  let height = 1;
-  let mobile = false;
+  let width = Math.max(1, host.clientWidth);
+  let height = Math.max(1, host.clientHeight);
+  let mobile = matchMedia('(max-width: 800px)').matches;
+  const compact = matchMedia('(max-width: 800px), (pointer: coarse)').matches;
+  host.dataset.profile = compact ? 'mobile' : 'desktop';
+  let qualityRatio = compact ? 1.5 : 2;
+  const effectiveRatio = () => Math.min(devicePixelRatio || 1,qualityRatio,Math.sqrt((compact ? 900000 : 6000000)/(width*height)));
+  let pixelRatio = effectiveRatio();
+  let nextRender = 0;
+  let qualityElapsed = 0, slowElapsed = 0;
+  let targetProgress = Number.parseFloat(hero.style.getPropertyValue('--scene-progress')) || 0;
+  let introStart = 0;
   let lastTime = 0;
   let progress = 0;
   let pointerX = 0;
@@ -44,7 +61,7 @@ async function initialiseScene() {
   const smooth = value => value * value * (3 - 2 * value);
 
   try {
-    renderer = new THREE.WebGLRenderer({ alpha: false, antialias: true, powerPreference: 'default' });
+    renderer = new THREE.WebGLRenderer({ alpha: false, antialias: !compact, powerPreference: compact ? 'low-power' : 'default' });
   } catch (error) {
     showFallback(error);
     return;
@@ -60,6 +77,7 @@ async function initialiseScene() {
 
   const fail = error => {
     failed = true;
+    fatal = Boolean(error);
     cancelAnimationFrame(frame);
     frame = 0;
     showFallback(error);
@@ -73,179 +91,20 @@ async function initialiseScene() {
     failed = false;
     host.classList.remove('unavailable');
     ready = false;
-    if (resourcesReady) resize();
+    contextNeedsRebuild = true;
+    contextWaiters.splice(0).forEach(resolve => resolve());
+    if (resourcesReady) { resize(true); contextNeedsRebuild=false; }
   });
 
+  function waitForContext() {
+    if (!renderer.getContext().isContextLost()) return Promise.resolve();
+    return new Promise(resolve => contextWaiters.push(resolve));
+  }
   const scene = new THREE.Scene();
-  const cosmicSky = createCosmicBackground(THREE, renderer);
+  const cosmicSky = createCosmicBackground(THREE, renderer, {maxWidth: compact ? 640 : 1536, maxHeight: compact ? 800 : 1024});
   scene.add(cosmicSky.mesh);
   const camera = new THREE.PerspectiveCamera(38, 1, 0.1, 100);
   camera.position.set(0, 0, 7);
-
-  const loader = new THREE.TextureLoader();
-  let textures;
-  const use8k = matchMedia('(min-width: 1100px)').matches && renderer.capabilities.maxTextureSize >= 8192 && !navigator.connection?.saveData;
-  const surfacePath = use8k ? './assets/earth-day-8k.webp' : './assets/earth-day-4k.webp';
-  try {
-    textures = await Promise.all([
-      loader.loadAsync(surfacePath).catch(error => {
-        if (!use8k) throw error;
-        return loader.loadAsync('./assets/earth-day-4k.webp');
-      }),
-      loader.loadAsync('./assets/earth-night-4k.webp'),
-      loader.loadAsync('./assets/earth_bump_roughness_clouds_4096.jpg'),
-      loader.loadAsync('./assets/earth-clouds-4k.webp')
-    ]);
-  } catch (error) {
-    renderer.dispose();
-    fail(error);
-    return;
-  }
-  const [day, night, details, cloudMap] = textures;
-  host.dataset.textureWidth = String(day.image.width);
-  day.colorSpace = night.colorSpace = THREE.SRGBColorSpace;
-  textures.forEach(texture => {
-    texture.anisotropy = renderer.capabilities.getMaxAnisotropy();
-    texture.wrapS = THREE.RepeatWrapping;
-    texture.wrapT = THREE.ClampToEdgeWrapping;
-  });
-
-  // Packed details: R = elevation, G = roughness. Clouds use their own map.
-  // See assets/ATTRIBUTION.md.
-  const sun = new THREE.Vector3(-0.72, 0.48, 0.12).normalize();
-  const globe = new THREE.Group();
-  scene.add(globe);
-  const sphere = new THREE.SphereGeometry(1, 256, 160);
-  const vertexShader = `
-    varying vec2 vUv;
-    varying vec3 vNormal;
-    varying vec3 vWorld;
-    varying vec3 vTangent;
-    void main() {
-      vUv = uv;
-      vec4 world = modelMatrix * vec4(position, 1.0);
-      vWorld = world.xyz;
-      vNormal = normalize(mat3(modelMatrix) * normal);
-      vec3 tangent = vec3(-position.z, 0.00001, position.x);
-      vTangent = normalize(mat3(modelMatrix) * tangent);
-      gl_Position = projectionMatrix * viewMatrix * world;
-    }
-  `;
-
-  const earthMaterial = new THREE.ShaderMaterial({
-    uniforms: {
-      dayMap: { value: day }, nightMap: { value: night },
-      details: { value: details }, cloudMap: { value: cloudMap }, sun: { value: sun },
-      cloudOffset: { value: 0 }
-    },
-    vertexShader,
-    fragmentShader: `
-      uniform sampler2D dayMap;
-      uniform sampler2D nightMap;
-      uniform sampler2D details;
-      uniform sampler2D cloudMap;
-      uniform vec3 sun;
-      uniform float cloudOffset;
-      varying vec2 vUv;
-      varying vec3 vNormal;
-      varying vec3 vWorld;
-      varying vec3 vTangent;
-      void main() {
-        vec3 geometricNormal = normalize(vNormal);
-        vec3 tangent = normalize(vTangent);
-        vec3 bitangent = normalize(cross(geometricNormal, tangent));
-        vec2 texel = vec2(1.0 / 4096.0, 1.0 / 2048.0);
-        float heightL = texture2D(details, vUv - vec2(texel.x, 0.0)).r;
-        float heightR = texture2D(details, vUv + vec2(texel.x, 0.0)).r;
-        float heightD = texture2D(details, vUv - vec2(0.0, texel.y)).r;
-        float heightU = texture2D(details, vUv + vec2(0.0, texel.y)).r;
-        vec3 n = normalize(geometricNormal - tangent * (heightR - heightL) * 1.5
-          - bitangent * (heightU - heightD) * 1.5);
-        vec3 view = normalize(cameraPosition - vWorld);
-        float light = dot(n, sun);
-        float geometricLight = dot(geometricNormal, sun);
-        float daylight = smoothstep(-0.10, 0.22, geometricLight);
-        vec3 surface = texture2D(dayMap, vUv).rgb;
-        float roughness = texture2D(details, vUv).g;
-        float ocean = 1.0 - smoothstep(0.22, 0.65, roughness);
-        // Keep geography photographic: deep ocean color, no metallic land.
-        // Texture decoding and lighting use linear color throughout.
-        float luminance = dot(surface, vec3(0.2126, 0.7152, 0.0722));
-        surface = mix(vec3(luminance), surface, 1.0);
-        surface = mix(surface, surface * vec3(0.50, 0.74, 0.94), ocean * 0.36);
-        float cloudShadow = texture2D(cloudMap, vUv + vec2(cloudOffset - 0.0013, 0.0012)).r;
-        float diffuse = pow(max(light, 0.0), 0.82);
-        vec3 color = surface * (vec3(0.026, 0.037, 0.065) + diffuse * 1.55);
-        color *= 1.0 - smoothstep(0.28, 0.84, cloudShadow) * 0.19 * daylight;
-        vec3 cities = texture2D(nightMap, vUv).rgb;
-        color += cities * vec3(1.0, 0.79, 0.53) * (1.0 - daylight) * 2.0;
-        vec3 halfway = normalize(sun + view);
-        float glint = pow(max(dot(n, halfway), 0.0), 90.0);
-        color += vec3(0.63, 0.76, 0.91) * glint * ocean * daylight * 0.23;
-        float rim = pow(1.0 - max(dot(geometricNormal, view), 0.0), 4.0);
-        float litRim = smoothstep(-0.22, 0.52, geometricLight);
-        color += vec3(0.045, 0.26, 0.66) * rim * litRim * 0.60;
-        gl_FragColor = vec4(color, 1.0);
-        #include <tonemapping_fragment>
-        #include <colorspace_fragment>
-      }
-    `
-  });
-  const earth = new THREE.Mesh(sphere, earthMaterial);
-  earth.rotation.set(0.06, 4.34, 0.13);
-  globe.add(earth);
-
-  const cloudMaterial = new THREE.ShaderMaterial({
-    transparent: true, depthWrite: false,
-    uniforms: { cloudMap: { value: cloudMap }, sun: { value: sun } },
-    vertexShader,
-    fragmentShader: `
-      uniform sampler2D cloudMap;
-      uniform vec3 sun;
-      varying vec2 vUv;
-      varying vec3 vNormal;
-      varying vec3 vWorld;
-      void main() {
-        float cloud = texture2D(cloudMap, vUv).r;
-        float light = dot(normalize(vNormal), sun);
-        float day = smoothstep(-0.10, 0.20, light);
-        float opacity = smoothstep(0.18, 0.86, cloud) * 0.94;
-        vec3 color = vec3(0.80, 0.87, 0.98) * (0.022 + max(light, 0.0) * 1.38);
-        color += vec3(0.018, 0.035, 0.065) * (1.0 - day);
-        gl_FragColor = vec4(color, opacity);
-        #include <tonemapping_fragment>
-        #include <colorspace_fragment>
-      }
-    `
-  });
-  const clouds = new THREE.Mesh(sphere, cloudMaterial);
-  clouds.rotation.copy(earth.rotation);
-  clouds.scale.setScalar(1.006);
-  globe.add(clouds);
-
-  const atmosphere = new THREE.Mesh(sphere, new THREE.ShaderMaterial({
-    transparent: true, depthWrite: false, side: THREE.BackSide,
-    blending: THREE.AdditiveBlending,
-    uniforms: { sun: { value: sun } },
-    vertexShader,
-    fragmentShader: `
-      uniform vec3 sun;
-      varying vec3 vNormal;
-      varying vec3 vWorld;
-      void main() {
-        vec3 n = normalize(vNormal);
-        vec3 view = normalize(cameraPosition - vWorld);
-        float edge = pow(clamp(1.0 + dot(n, view), 0.0, 1.0), 4.5);
-        float light = smoothstep(-0.28, 0.65, dot(n, sun));
-        float opacity = edge * (0.018 + light * 0.62);
-        gl_FragColor = vec4(vec3(0.16, 0.48, 0.92), opacity);
-        #include <tonemapping_fragment>
-        #include <colorspace_fragment>
-      }
-    `
-  }));
-  atmosphere.scale.setScalar(1.022);
-  globe.add(atmosphere);
 
   // Stable seeded placement, real depth and three brightness/size populations.
   const starGeometry = new THREE.BufferGeometry();
@@ -288,13 +147,14 @@ async function initialiseScene() {
     `
   });
   const stars = new THREE.Points(starGeometry, starMaterial);
+  stars.renderOrder = -2;
   scene.add(stars);
 
   function scatterStars() {
     let seed = 17429;
     const random = () => ((seed = seed * 16807 % 2147483647) - 1) / 2147483646;
     const positions = [], sizes = [], brightness = [], colors = [];
-    const count = mobile ? 1200 : 3200;
+    const count = compact ? 1000 : 3200;
     host.dataset.starCount = String(count);
     for (let i = 0; i < count; i++) {
       const x = random(), y = random(), z = -8 - random() * 38;
@@ -309,32 +169,227 @@ async function initialiseScene() {
       else if (temperature < 0.24) colors.push(0.68, 0.82, 1.0);
       else colors.push(0.87, 0.91, 1.0);
     }
-    starGeometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
-    starGeometry.setAttribute('starSize', new THREE.Float32BufferAttribute(sizes, 1));
-    starGeometry.setAttribute('starLight', new THREE.Float32BufferAttribute(brightness, 1));
-    starGeometry.setAttribute('starColor', new THREE.Float32BufferAttribute(colors, 3));
+    for (const [name, values, size] of [['position',positions,3],['starSize',sizes,1],['starLight',brightness,1],['starColor',colors,3]]) {
+      const attribute = starGeometry.getAttribute(name);
+      if (attribute) { attribute.array.set(values); attribute.needsUpdate=true; }
+      else starGeometry.setAttribute(name,new THREE.Float32BufferAttribute(values,size));
+    }
     starGeometry.computeBoundingSphere();
   }
 
-  function resize() {
-    width = Math.max(1, host.clientWidth);
-    height = Math.max(1, host.clientHeight);
-    mobile = matchMedia('(max-width: 800px)').matches;
-    const pixelRatio = Math.min(Math.max(devicePixelRatio || 1, mobile ? 1.5 : 1.35), 2, Math.sqrt(6000000 / (width * height)));
-    renderer.setPixelRatio(pixelRatio);
-    renderer.setSize(width, height, false);
-    starMaterial.uniforms.pixelRatio.value = pixelRatio;
-    camera.aspect = width / height;
-    camera.updateProjectionMatrix();
-    scatterStars();
-    cosmicSky.resize(width,height);
-    applyCamera();
-    requestFrame();
-  }
 
-  function readProgress() {
-    const range = Math.max(1, hero.offsetHeight - height);
-    return clamp(-hero.getBoundingClientRect().top / range);
+  camera.aspect = width/height;
+  camera.updateProjectionMatrix();
+  renderer.setDrawingBufferSize(width,height,pixelRatio);
+  starMaterial.uniforms.pixelRatio.value = pixelRatio;
+  scatterStars();
+  cosmicSky.resize(width,height);
+  renderer.render(scene,camera);
+  if (fatal) return;
+  await waitForContext();
+  if (contextNeedsRebuild) { cosmicSky.resize(width,height,true); contextNeedsRebuild=false; }
+  renderer.domElement.style.visibility = 'visible';
+  host.dataset.scene = 'loading';
+  host.dataset.renderRatio = pixelRatio.toFixed(2);
+
+  const loader = new THREE.TextureLoader();
+  let textures;
+  const use8k = !compact && matchMedia('(min-width: 1100px)').matches && renderer.capabilities.maxTextureSize >= 8192 && !navigator.connection?.saveData;
+  const surfacePath = compact ? './assets/earth-day-2k.webp' : use8k ? './assets/earth-day-8k.webp' : './assets/earth-day-4k.webp';
+  try {
+    textures = await Promise.all([
+      loader.loadAsync(surfacePath).catch(error => {
+        if (!use8k) throw error;
+        return loader.loadAsync('./assets/earth-day-4k.webp');
+      }),
+      loader.loadAsync(compact ? './assets/earth-night-1k.webp' : './assets/earth-night-4k.webp'),
+      loader.loadAsync(compact ? './assets/earth-details-1k.webp' : './assets/earth_bump_roughness_clouds_4096.jpg'),
+      loader.loadAsync(compact ? './assets/earth-clouds-2k.webp' : './assets/earth-clouds-4k.webp')
+    ]);
+  } catch (error) {
+    renderer.dispose();
+    fail(error);
+    return;
+  }
+  await Promise.all(textures.map(t => t.image.decode?.().catch(() => {})));
+  const [day, night, details, cloudMap] = textures;
+  host.dataset.textureWidth = String(day.image.width);
+  day.colorSpace = night.colorSpace = THREE.SRGBColorSpace;
+  textures.forEach(texture => {
+    texture.anisotropy = Math.min(compact ? 2 : 8, renderer.capabilities.getMaxAnisotropy());
+    texture.wrapS = THREE.RepeatWrapping;
+    texture.wrapT = THREE.ClampToEdgeWrapping;
+  });
+
+  // Packed details: R = elevation, G = roughness. Clouds use their own map.
+  // See assets/ATTRIBUTION.md.
+  const sun = new THREE.Vector3(-0.72, 0.48, 0.12).normalize();
+  const globe = new THREE.Group();
+  scene.add(globe);
+  const sphere = new THREE.SphereGeometry(1, compact ? 96 : 256, compact ? 64 : 160);
+  const reveal = {value: 0};
+  const vertexShader = `
+    varying vec2 vUv;
+    varying vec3 vNormal;
+    varying vec3 vWorld;
+    varying vec3 vTangent;
+    void main() {
+      vUv = uv;
+      vec4 world = modelMatrix * vec4(position, 1.0);
+      vWorld = world.xyz;
+      vNormal = normalize(mat3(modelMatrix) * normal);
+      vec3 tangent = vec3(-position.z, 0.00001, position.x);
+      vTangent = normalize(mat3(modelMatrix) * tangent);
+      gl_Position = projectionMatrix * viewMatrix * world;
+    }
+  `;
+
+  const earthMaterial = new THREE.ShaderMaterial({
+    transparent: true,
+    defines: { MOBILE_QUALITY: compact ? 1 : 0 },
+    uniforms: {
+      dayMap: { value: day }, nightMap: { value: night },
+      details: { value: details }, cloudMap: { value: cloudMap }, sun: { value: sun },
+      cloudOffset: { value: 0 }, reveal
+    },
+    vertexShader,
+    fragmentShader: `
+      uniform sampler2D dayMap;
+      uniform sampler2D nightMap;
+      uniform sampler2D details;
+      uniform sampler2D cloudMap;
+      uniform vec3 sun;
+      uniform float cloudOffset;
+      uniform float reveal;
+      varying vec2 vUv;
+      varying vec3 vNormal;
+      varying vec3 vWorld;
+      varying vec3 vTangent;
+      void main() {
+        vec3 geometricNormal = normalize(vNormal);
+        vec3 tangent = normalize(vTangent);
+        vec3 bitangent = normalize(cross(geometricNormal, tangent));
+        #if MOBILE_QUALITY == 1
+        vec3 n = geometricNormal;
+        #else
+        vec2 texel = vec2(1.0 / 4096.0, 1.0 / 2048.0);
+        float heightL = texture2D(details, vUv - vec2(texel.x, 0.0)).r;
+        float heightR = texture2D(details, vUv + vec2(texel.x, 0.0)).r;
+        float heightD = texture2D(details, vUv - vec2(0.0, texel.y)).r;
+        float heightU = texture2D(details, vUv + vec2(0.0, texel.y)).r;
+        vec3 n = normalize(geometricNormal - tangent * (heightR - heightL) * 1.5
+          - bitangent * (heightU - heightD) * 1.5);
+        #endif
+        vec3 view = normalize(cameraPosition - vWorld);
+        float light = dot(n, sun);
+        float geometricLight = dot(geometricNormal, sun);
+        float daylight = smoothstep(-0.10, 0.22, geometricLight);
+        vec3 surface = texture2D(dayMap, vUv).rgb;
+        float roughness = texture2D(details, vUv).g;
+        float ocean = 1.0 - smoothstep(0.22, 0.65, roughness);
+        // Keep geography photographic: deep ocean color, no metallic land.
+        // Texture decoding and lighting use linear color throughout.
+        float luminance = dot(surface, vec3(0.2126, 0.7152, 0.0722));
+        surface = mix(vec3(luminance), surface, 1.0);
+        surface = mix(surface, surface * vec3(0.50, 0.74, 0.94), ocean * 0.36);
+        float cloudShadow = texture2D(cloudMap, vUv + vec2(cloudOffset - 0.0013, 0.0012)).r;
+        float diffuse = pow(max(light, 0.0), 0.82);
+        vec3 color = surface * (vec3(0.026, 0.037, 0.065) + diffuse * 1.55);
+        color *= 1.0 - smoothstep(0.28, 0.84, cloudShadow) * 0.19 * daylight;
+        vec3 cities = texture2D(nightMap, vUv).rgb;
+        color += cities * vec3(1.0, 0.79, 0.53) * (1.0 - daylight) * 2.0;
+        vec3 halfway = normalize(sun + view);
+        float glint = pow(max(dot(n, halfway), 0.0), 90.0);
+        color += vec3(0.63, 0.76, 0.91) * glint * ocean * daylight * 0.23;
+        #if MOBILE_QUALITY == 1
+        float cloud = texture2D(cloudMap, vUv + vec2(cloudOffset,0.0)).r;
+        float cloudOpacity = smoothstep(0.18,0.86,cloud)*0.94;
+        vec3 cloudColor = vec3(0.80,0.87,0.98)*(0.022+max(geometricLight,0.0)*1.38);
+        cloudColor += vec3(0.018,0.035,0.065)*(1.0-daylight);
+        color = mix(color,cloudColor,cloudOpacity);
+        #endif
+        float rim = pow(1.0 - max(dot(geometricNormal, view), 0.0), 4.0);
+        float litRim = smoothstep(-0.22, 0.52, geometricLight);
+        color += vec3(0.045, 0.26, 0.66) * rim * litRim * 0.60;
+        gl_FragColor = vec4(color, reveal);
+        #include <tonemapping_fragment>
+        #include <colorspace_fragment>
+      }
+    `
+  });
+  const earth = new THREE.Mesh(sphere, earthMaterial);
+  earth.rotation.set(0.06, 4.34, 0.13);
+  earth.renderOrder = 0;
+  globe.add(earth);
+
+  const cloudMaterial = new THREE.ShaderMaterial({
+    transparent: true, depthWrite: false,
+    uniforms: { cloudMap: { value: cloudMap }, sun: { value: sun }, reveal },
+    vertexShader,
+    fragmentShader: `
+      uniform sampler2D cloudMap;
+      uniform vec3 sun;
+      uniform float reveal;
+      varying vec2 vUv;
+      varying vec3 vNormal;
+      varying vec3 vWorld;
+      void main() {
+        float cloud = texture2D(cloudMap, vUv).r;
+        float light = dot(normalize(vNormal), sun);
+        float day = smoothstep(-0.10, 0.20, light);
+        float opacity = smoothstep(0.18, 0.86, cloud) * 0.94;
+        vec3 color = vec3(0.80, 0.87, 0.98) * (0.022 + max(light, 0.0) * 1.38);
+        color += vec3(0.018, 0.035, 0.065) * (1.0 - day);
+        gl_FragColor = vec4(color, opacity * reveal);
+        #include <tonemapping_fragment>
+        #include <colorspace_fragment>
+      }
+    `
+  });
+  const clouds = new THREE.Mesh(sphere, cloudMaterial);
+  clouds.rotation.copy(earth.rotation);
+  clouds.scale.setScalar(1.006);
+  clouds.renderOrder = 1;
+  if (!compact) globe.add(clouds);
+
+  const atmosphere = new THREE.Mesh(sphere, new THREE.ShaderMaterial({
+    transparent: true, depthWrite: false, side: THREE.BackSide,
+    blending: THREE.AdditiveBlending,
+    uniforms: { sun: { value: sun }, reveal },
+    vertexShader,
+    fragmentShader: `
+      uniform vec3 sun;
+      uniform float reveal;
+      varying vec3 vNormal;
+      varying vec3 vWorld;
+      void main() {
+        vec3 n = normalize(vNormal);
+        vec3 view = normalize(cameraPosition - vWorld);
+        float edge = pow(clamp(1.0 + dot(n, view), 0.0, 1.0), 4.5);
+        float light = smoothstep(-0.28, 0.65, dot(n, sun));
+        float opacity = edge * (0.018 + light * 0.62);
+        gl_FragColor = vec4(vec3(0.16, 0.48, 0.92), opacity * reveal);
+        #include <tonemapping_fragment>
+        #include <colorspace_fragment>
+      }
+    `
+  }));
+  atmosphere.scale.setScalar(1.022);
+  atmosphere.renderOrder = 2;
+  globe.add(atmosphere);
+
+  function resize(force=false) {
+    const nextWidth = Math.max(1,host.clientWidth), nextHeight = Math.max(1,host.clientHeight);
+    if (!force && nextWidth===width && nextHeight===height) return;
+    width=nextWidth; height=nextHeight;
+    mobile=matchMedia('(max-width: 800px)').matches;
+    pixelRatio=effectiveRatio();
+    host.dataset.renderRatio=pixelRatio.toFixed(2);
+    renderer.setDrawingBufferSize(width,height,pixelRatio);
+    starMaterial.uniforms.pixelRatio.value=pixelRatio;
+    camera.aspect=width/height; camera.updateProjectionMatrix();
+    scatterStars(); cosmicSky.resize(width,height,force);
+    applyCamera(); requestFrame();
   }
 
   function applyCamera() {
@@ -363,15 +418,34 @@ async function initialiseScene() {
   function draw(now) {
     frame = 0;
     if (failed || !visible || document.hidden) { lastTime = 0; return; }
+    if (compact && ready && canMove() && now < nextRender-0.5) { requestFrame(); return; }
+    if (nextRender < now-100) nextRender=now;
+    nextRender += 1000/60;
     const delta = lastTime ? Math.min((now - lastTime) / 1000, 0.05) : 0;
     lastTime = now;
+    if (!introStart) introStart=now;
+    reveal.value = paused || reducedMotion.matches ? 1 : Math.min(1,(now-introStart)/300);
+    if (compact && delta && canMove()) {
+      qualityElapsed += delta;
+      if (delta > 0.027) slowElapsed += delta;
+      if (qualityElapsed > 2) {
+        if (slowElapsed/qualityElapsed > 0.2 && pixelRatio > 1.05) {
+          qualityRatio=Math.max(1,qualityRatio-0.25);
+          pixelRatio=effectiveRatio();
+          renderer.setDrawingBufferSize(width,height,pixelRatio);
+          starMaterial.uniforms.pixelRatio.value=pixelRatio;
+          host.dataset.renderRatio=pixelRatio.toFixed(2);
+        }
+        qualityElapsed=slowElapsed=0;
+      }
+    }
     if (canMove()) {
       earth.rotation.y += delta * 0.010;
       clouds.rotation.y += delta * 0.012;
       earthMaterial.uniforms.cloudOffset.value = -(clouds.rotation.y - earth.rotation.y) / (Math.PI * 2);
       pointerX += (targetPointerX - pointerX) * Math.min(1, delta * 4);
       pointerY += (targetPointerY - pointerY) * Math.min(1, delta * 4);
-      progress = readProgress();
+      progress += (targetProgress-progress)*(1-Math.exp(-delta*18));
     }
     applyCamera();
     try {
@@ -387,7 +461,7 @@ async function initialiseScene() {
       host.classList.remove('unavailable');
       host.classList.add('ready');
       // Atomic swap: the poster and live globe never share a visible frame.
-      if (poster) { poster.hidden = true; poster.style.display = 'none'; }
+      host.querySelector('.earth-fallback')?.remove();
       renderer.domElement.style.visibility = 'visible';
       host.dataset.scene = 'ready';
       if (!readyEventSent) {
@@ -397,11 +471,20 @@ async function initialiseScene() {
         window.dispatchEvent(new CustomEvent('virentora:scene-restored'));
       }
     }
-    if (canMove()) requestFrame();
+    if (canMove() || reveal.value < 1) requestFrame();
   }
 
+  await waitForContext();
+  if (fatal) return;
+  // Warm programs before the moving scene starts. A context loss cannot strand
+  // an async compilation promise tied to deleted WebGL programs.
+  renderer.compile(scene,camera);
+  if (fatal) return;
   resourcesReady = true;
-  const resizeObserver = new ResizeObserver(resize);
+  if (contextNeedsRebuild) { cosmicSky.resize(width,height,true); contextNeedsRebuild=false; }
+  progress = targetProgress = Number.parseFloat(hero.style.getPropertyValue('--scene-progress')) || 0;
+  host.dataset.triangles = String(sphere.index.count/3*(compact?2:3));
+  const resizeObserver = new ResizeObserver(() => resize());
   resizeObserver.observe(host);
   const intersectionObserver = new IntersectionObserver(entries => {
     visible = entries[0].isIntersecting;
@@ -433,7 +516,10 @@ async function initialiseScene() {
       lastTime = 0;
     } else requestFrame();
   });
-  window.addEventListener('scroll', () => { if (canMove()) requestFrame(); }, { passive: true });
+  window.addEventListener('virentora:scroll', event => {
+    targetProgress=clamp(event.detail.progress);
+    if (canMove()) requestFrame();
+  });
   hero.addEventListener('pointermove', event => {
     if (mobile || event.pointerType === 'touch' || !canMove()) return;
     const bounds = host.getBoundingClientRect();
@@ -446,5 +532,6 @@ async function initialiseScene() {
   window.addEventListener('pageshow', requestFrame);
   // A visitor can pause while the textures are loading.
   paused = document.documentElement.dataset.motion === 'paused';
-  resize();
+  applyCamera();
+  requestFrame();
 }

@@ -3,6 +3,11 @@
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
   const header = document.querySelector('#hdr');
   const hero = document.querySelector('#top');
+  const heroScene = document.querySelector('.hero-scene');
+  const heroCopy = document.querySelector('.hero-copy');
+  const journeyCopy = document.querySelector('.journey-copy');
+  let heroTop=hero.offsetTop, scrollRange=Math.max(1,hero.offsetHeight-heroScene.offsetHeight);
+  let previousProgress=-1, wasStuck=false;
   const menu = document.querySelector('#mm');
   const burger = document.querySelector('#burger');
   const closeButton = document.querySelector('#menu-close');
@@ -85,25 +90,34 @@
   }));
   matchMedia('(min-width: 801px)').addEventListener('change', e => { if(e.matches && menu.open) closeMenu(); });
 
-  function updateScroll() {
-    ticking = false;
-    header.classList.toggle('stuck', scrollY > 25);
-    const range = Math.max(1, hero.offsetHeight - document.querySelector('.hero-scene').offsetHeight);
-    if(reduced.matches) sceneProgress=0;
-    else if(!paused) sceneProgress=Math.min(1, Math.max(0, -hero.getBoundingClientRect().top / range));
-    const p=sceneProgress;
-    const a = Math.max(0, 1 - p * 2.6);
-    const b = Math.min(1, Math.max(0, (p - .4) * 3.5));
-    hero.style.setProperty('--scene-progress', p.toFixed(4));
-    hero.style.setProperty('--hero-opacity', a.toFixed(4));
-    hero.style.setProperty('--journey-opacity', b.toFixed(4));
-    hero.classList.toggle('journey-active', p > .45);
-    document.querySelector('.hero-copy').inert = a < .1;
-    document.querySelector('.journey-copy').inert = p <= .45;
+  function measureHero() {
+    heroTop=hero.getBoundingClientRect().top+scrollY;
+    scrollRange=Math.max(1,hero.offsetHeight-heroScene.offsetHeight);
+    updateScroll();
   }
-  addEventListener('scroll', () => { if(!ticking) { ticking=true; requestAnimationFrame(updateScroll); } }, {passive:true});
-  addEventListener('resize', updateScroll, {passive:true});
-  document.fonts.ready.then(updateScroll);
-  updateScroll();
+  function updateScroll() {
+    ticking=false;
+    const y=scrollY, stuck=y>25;
+    if(stuck!==wasStuck) {header.classList.toggle('stuck',stuck);wasStuck=stuck;}
+    if(reduced.matches) sceneProgress=0;
+    else if(!paused) sceneProgress=Math.min(1,Math.max(0,(y-heroTop)/scrollRange));
+    const p=sceneProgress;
+    if(Math.abs(p-previousProgress)<0.0001) return;
+    previousProgress=p;
+    const a=Math.max(0,1-p*2.6), b=Math.min(1,Math.max(0,(p-.4)*3.5));
+    hero.style.setProperty('--scene-progress',p.toFixed(4));
+    hero.style.setProperty('--hero-opacity',a.toFixed(4));
+    hero.style.setProperty('--journey-opacity',b.toFixed(4));
+    hero.classList.toggle('journey-active',p>.45);
+    heroCopy.inert=a<.1;
+    journeyCopy.inert=p<=.45;
+    window.dispatchEvent(new CustomEvent('virentora:scroll',{detail:{progress:p}}));
+  }
+  addEventListener('scroll',()=>{if(!ticking){ticking=true;requestAnimationFrame(updateScroll);}},{passive:true});
+  const heroObserver=new ResizeObserver(measureHero);
+  heroObserver.observe(hero);
+  heroObserver.observe(heroScene);
+  document.fonts.ready.then(measureHero);
+  measureHero();
   document.querySelector('#year').textContent = new Date().getFullYear();
 })();

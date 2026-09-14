@@ -1,6 +1,6 @@
 // A procedural sky, rendered once per size. No stock image, frame-by-frame
 // noise generation or full-resolution volumetric ray marching is required.
-export function createCosmicBackground(THREE, renderer) {
+export function createCosmicBackground(THREE, renderer, {maxWidth=1536,maxHeight=1024}={}) {
   const target = new THREE.WebGLRenderTarget(1, 1, {
     minFilter: THREE.LinearFilter, magFilter: THREE.LinearFilter,
     depthBuffer: false, stencilBuffer: false
@@ -90,11 +90,15 @@ export function createCosmicBackground(THREE, renderer) {
   }));
   sky.renderOrder = -100;
   sky.frustumCulled = false;
+  let previousWidth=0, previousHeight=0, previousAspect=0;
   return {
     mesh: sky,
-    resize(width,height) {
-      const scale = Math.min(1, 1536/width, 1024/height);
-      target.setSize(Math.max(1,Math.round(width*scale)),Math.max(1,Math.round(height*scale)));
+    resize(width,height,force=false) {
+      const scale = Math.min(1, maxWidth/width, maxHeight/height);
+      const w=Math.max(1,Math.round(width*scale)), h=Math.max(1,Math.round(height*scale));
+      if (!force && w===previousWidth && h===previousHeight && width/height===previousAspect) return;
+      previousWidth=w; previousHeight=h; previousAspect=width/height;
+      target.setSize(w,h);
       material.uniforms.aspect.value = width/height;
       const previous = renderer.getRenderTarget();
       renderer.setRenderTarget(target);
