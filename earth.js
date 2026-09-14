@@ -1,9 +1,11 @@
 import * as THREE from './assets/three.module.js';
+import { createCosmicBackground } from './cosmic-background.js?v=20260914-sky2';
 
 // The HTML poster remains visible until an actual WebGL frame has rendered.
 // Content and navigation never depend on this progressively enhanced scene.
 const host = document.querySelector('#earth-stage');
 const hero = document.querySelector('#top');
+const poster = host?.querySelector('.earth-fallback');
 const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
 
 if (host && hero) initialiseScene().catch(showFallback);
@@ -12,6 +14,9 @@ function showFallback(error) {
   host?.classList.remove('ready');
   host?.classList.add('unavailable');
   if (host) host.dataset.scene = 'fallback';
+  if (poster) { poster.hidden = false; poster.style.display = 'block'; }
+  const canvas = host?.querySelector('canvas');
+  if (canvas) canvas.style.visibility = 'hidden';
   window.dispatchEvent(new CustomEvent('virentora:scene-error'));
   if (error) console.warn('Virentora Earth: using the static scene.', error);
 }
@@ -39,18 +44,18 @@ async function initialiseScene() {
   const smooth = value => value * value * (3 - 2 * value);
 
   try {
-    renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true, powerPreference: 'default' });
+    renderer = new THREE.WebGLRenderer({ alpha: false, antialias: true, powerPreference: 'default' });
   } catch (error) {
     showFallback(error);
     return;
   }
-  renderer.setClearColor(0x02050a, 0);
+  renderer.setClearColor(0x02050a, 1);
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 1.16;
+  renderer.toneMappingExposure = 1.24;
   renderer.domElement.setAttribute('aria-hidden', 'true');
   renderer.domElement.setAttribute('role', 'presentation');
-  renderer.domElement.style.cssText = 'display:block;width:100%;height:100%;pointer-events:none;';
+  renderer.domElement.style.cssText = 'display:block;width:100%;height:100%;pointer-events:none;visibility:hidden;opacity:1;transition:none;';
   host.appendChild(renderer.domElement);
 
   const fail = error => {
@@ -68,39 +73,49 @@ async function initialiseScene() {
     failed = false;
     host.classList.remove('unavailable');
     ready = false;
-    if (resourcesReady) requestFrame();
+    if (resourcesReady) resize();
   });
 
   const scene = new THREE.Scene();
+  const cosmicSky = createCosmicBackground(THREE, renderer);
+  scene.add(cosmicSky.mesh);
   const camera = new THREE.PerspectiveCamera(38, 1, 0.1, 100);
   camera.position.set(0, 0, 7);
 
   const loader = new THREE.TextureLoader();
   let textures;
+  const use8k = matchMedia('(min-width: 1100px)').matches && renderer.capabilities.maxTextureSize >= 8192 && !navigator.connection?.saveData;
+  const surfacePath = use8k ? './assets/earth-day-8k.webp' : './assets/earth-day-4k.webp';
   try {
     textures = await Promise.all([
-      loader.loadAsync('./assets/earth_day_4096.jpg'),
-      loader.loadAsync('./assets/earth_night_4096.jpg'),
-      loader.loadAsync('./assets/earth_bump_roughness_clouds_4096.jpg')
+      loader.loadAsync(surfacePath).catch(error => {
+        if (!use8k) throw error;
+        return loader.loadAsync('./assets/earth-day-4k.webp');
+      }),
+      loader.loadAsync('./assets/earth-night-4k.webp'),
+      loader.loadAsync('./assets/earth_bump_roughness_clouds_4096.jpg'),
+      loader.loadAsync('./assets/earth-clouds-4k.webp')
     ]);
   } catch (error) {
     renderer.dispose();
     fail(error);
     return;
   }
-  const [day, night, details] = textures;
+  const [day, night, details, cloudMap] = textures;
+  host.dataset.textureWidth = String(day.image.width);
   day.colorSpace = night.colorSpace = THREE.SRGBColorSpace;
   textures.forEach(texture => {
-    texture.anisotropy = Math.min(8, renderer.capabilities.getMaxAnisotropy());
+    texture.anisotropy = renderer.capabilities.getMaxAnisotropy();
     texture.wrapS = THREE.RepeatWrapping;
     texture.wrapT = THREE.ClampToEdgeWrapping;
   });
 
-  // R = elevation, G = roughness, B = clouds. See assets/ATTRIBUTION.md.
-  const sun = new THREE.Vector3(-0.82, 0.40, -0.22).normalize();
+  // Packed details: R = elevation, G = roughness. Clouds use their own map.
+  // See assets/ATTRIBUTION.md.
+  const sun = new THREE.Vector3(-0.72, 0.48, 0.12).normalize();
   const globe = new THREE.Group();
   scene.add(globe);
-  const sphere = new THREE.SphereGeometry(1, 160, 112);
+  const sphere = new THREE.SphereGeometry(1, 256, 160);
   const vertexShader = `
     varying vec2 vUv;
     varying vec3 vNormal;
@@ -120,7 +135,7 @@ async function initialiseScene() {
   const earthMaterial = new THREE.ShaderMaterial({
     uniforms: {
       dayMap: { value: day }, nightMap: { value: night },
-      details: { value: details }, sun: { value: sun },
+      details: { value: details }, cloudMap: { value: cloudMap }, sun: { value: sun },
       cloudOffset: { value: 0 }
     },
     vertexShader,
@@ -128,6 +143,7 @@ async function initialiseScene() {
       uniform sampler2D dayMap;
       uniform sampler2D nightMap;
       uniform sampler2D details;
+      uniform sampler2D cloudMap;
       uniform vec3 sun;
       uniform float cloudOffset;
       varying vec2 vUv;
@@ -155,17 +171,17 @@ async function initialiseScene() {
         // Keep geography photographic: deep ocean color, no metallic land.
         // Texture decoding and lighting use linear color throughout.
         float luminance = dot(surface, vec3(0.2126, 0.7152, 0.0722));
-        surface = mix(vec3(luminance), surface, 0.78);
-        surface = mix(surface, surface * vec3(0.20, 0.43, 0.62), ocean * 0.80);
-        float cloudShadow = texture2D(details, vUv + vec2(cloudOffset - 0.0013, 0.0012)).b;
+        surface = mix(vec3(luminance), surface, 1.0);
+        surface = mix(surface, surface * vec3(0.50, 0.74, 0.94), ocean * 0.36);
+        float cloudShadow = texture2D(cloudMap, vUv + vec2(cloudOffset - 0.0013, 0.0012)).r;
         float diffuse = pow(max(light, 0.0), 0.82);
-        vec3 color = surface * (vec3(0.017, 0.026, 0.044) + diffuse * 1.32);
+        vec3 color = surface * (vec3(0.026, 0.037, 0.065) + diffuse * 1.55);
         color *= 1.0 - smoothstep(0.28, 0.84, cloudShadow) * 0.19 * daylight;
         vec3 cities = texture2D(nightMap, vUv).rgb;
         color += cities * vec3(1.0, 0.79, 0.53) * (1.0 - daylight) * 2.0;
         vec3 halfway = normalize(sun + view);
         float glint = pow(max(dot(n, halfway), 0.0), 90.0);
-        color += vec3(0.63, 0.76, 0.91) * glint * ocean * daylight * 0.42;
+        color += vec3(0.63, 0.76, 0.91) * glint * ocean * daylight * 0.23;
         float rim = pow(1.0 - max(dot(geometricNormal, view), 0.0), 4.0);
         float litRim = smoothstep(-0.22, 0.52, geometricLight);
         color += vec3(0.045, 0.26, 0.66) * rim * litRim * 0.60;
@@ -181,16 +197,16 @@ async function initialiseScene() {
 
   const cloudMaterial = new THREE.ShaderMaterial({
     transparent: true, depthWrite: false,
-    uniforms: { details: { value: details }, sun: { value: sun } },
+    uniforms: { cloudMap: { value: cloudMap }, sun: { value: sun } },
     vertexShader,
     fragmentShader: `
-      uniform sampler2D details;
+      uniform sampler2D cloudMap;
       uniform vec3 sun;
       varying vec2 vUv;
       varying vec3 vNormal;
       varying vec3 vWorld;
       void main() {
-        float cloud = texture2D(details, vUv).b;
+        float cloud = texture2D(cloudMap, vUv).r;
         float light = dot(normalize(vNormal), sun);
         float day = smoothstep(-0.10, 0.20, light);
         float opacity = smoothstep(0.18, 0.86, cloud) * 0.94;
@@ -242,9 +258,11 @@ async function initialiseScene() {
       attribute vec3 starColor;
       uniform float pixelRatio;
       varying float vLight;
+      varying float vSize;
       varying vec3 vColor;
       void main() {
         vLight = starLight;
+        vSize = starSize;
         vColor = starColor;
         vec4 view = modelViewMatrix * vec4(position, 1.0);
         gl_PointSize = starSize * pixelRatio;
@@ -253,13 +271,18 @@ async function initialiseScene() {
     `,
     fragmentShader: `
       varying float vLight;
+      varying float vSize;
       varying vec3 vColor;
       void main() {
         float radius = length(gl_PointCoord - 0.5) * 2.0;
         if (radius > 1.0) discard;
         float core = exp(-radius * radius * 11.0);
         float halo = (1.0 - smoothstep(0.12, 1.0, radius)) * 0.18;
-        gl_FragColor = vec4(vColor, (core + halo) * vLight);
+        vec2 q = abs(gl_PointCoord - 0.5) * 2.0;
+        float rays = (exp(-q.x*36.0)*pow(1.0-q.y,2.0)
+                    + exp(-q.y*36.0)*pow(1.0-q.x,2.0));
+        float flare = smoothstep(6.0,8.5,vSize)*rays*0.16;
+        gl_FragColor = vec4(vColor, (core + halo + flare) * vLight);
         #include <colorspace_fragment>
       }
     `
@@ -271,15 +294,16 @@ async function initialiseScene() {
     let seed = 17429;
     const random = () => ((seed = seed * 16807 % 2147483647) - 1) / 2147483646;
     const positions = [], sizes = [], brightness = [], colors = [];
-    const count = mobile ? 340 : 820;
+    const count = mobile ? 1200 : 3200;
+    host.dataset.starCount = String(count);
     for (let i = 0; i < count; i++) {
       const x = random(), y = random(), z = -8 - random() * 38;
       const spread = 2 * Math.tan(THREE.MathUtils.degToRad(camera.fov / 2)) * (7 - z);
       positions.push((x - 0.5) * spread * camera.aspect * 1.08, (y - 0.5) * spread * 1.08, z);
       const rare = random();
-      sizes.push(rare > 0.983 ? 5.5 : rare > 0.84 ? 3.2 : 2.0);
+      sizes.push(rare > 0.993 ? 8.5 : rare > 0.92 ? 4.2 : 2.2 + random() * 0.9);
       const underCopy = !mobile && x < 0.52 && y > 0.24 && y < 0.85;
-      brightness.push((rare > 0.84 ? 0.90 : 0.40 + random() * 0.4) * (underCopy ? 0.48 : 1));
+      brightness.push((rare > 0.92 ? 1.0 : 0.54 + random() * 0.42) * (underCopy ? 0.66 : 1));
       const temperature = random();
       if (temperature > 0.86) colors.push(1.0, 0.88, 0.72);
       else if (temperature < 0.24) colors.push(0.68, 0.82, 1.0);
@@ -296,13 +320,14 @@ async function initialiseScene() {
     width = Math.max(1, host.clientWidth);
     height = Math.max(1, host.clientHeight);
     mobile = matchMedia('(max-width: 800px)').matches;
-    const pixelRatio = Math.min(devicePixelRatio || 1, mobile ? 1.8 : 2, Math.sqrt(3500000 / (width * height)));
+    const pixelRatio = Math.min(Math.max(devicePixelRatio || 1, mobile ? 1.5 : 1.35), 2, Math.sqrt(6000000 / (width * height)));
     renderer.setPixelRatio(pixelRatio);
     renderer.setSize(width, height, false);
     starMaterial.uniforms.pixelRatio.value = pixelRatio;
     camera.aspect = width / height;
     camera.updateProjectionMatrix();
     scatterStars();
+    cosmicSky.resize(width,height);
     applyCamera();
     requestFrame();
   }
@@ -355,15 +380,19 @@ async function initialiseScene() {
       fail(error);
       return;
     }
-    if (failed || renderer.getContext().isContextLost()) return;
+    if (failed) return;
+    if (renderer.getContext().isContextLost()) { fail(); return; }
     if (!ready) {
       ready = true;
       host.classList.remove('unavailable');
       host.classList.add('ready');
+      // Atomic swap: the poster and live globe never share a visible frame.
+      if (poster) { poster.hidden = true; poster.style.display = 'none'; }
+      renderer.domElement.style.visibility = 'visible';
       host.dataset.scene = 'ready';
       if (!readyEventSent) {
         readyEventSent = true;
-        window.dispatchEvent(new CustomEvent('virentora:scene-ready', { detail: { textures: 4096 } }));
+        window.dispatchEvent(new CustomEvent('virentora:scene-ready', { detail: { surfaceWidth: day.image.width } }));
       } else {
         window.dispatchEvent(new CustomEvent('virentora:scene-restored'));
       }
