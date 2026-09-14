@@ -8,10 +8,10 @@
 <meta property="og:title" content="Virentora — AI-агенты и автоматизация">
 <meta property="og:description" content="Telegram-боты, AI-агенты на базе знаний, интеграции с CRM и таблицами. Запуск от 7 дней.">
 <meta property="og:type" content="website">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><path d='M11 20Q11 15 16 15L25 15Q29 15 31 19L59 76Q61 81 59 86L56 91Q53 95 50.5 92Z' fill='%230A0A0B'/><path d='M89 11L89 45L55 92L68 36Z' fill='%230A0A0B'/></svg>">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><path d='M11 20Q11 15 16 15L25 15Q29 15 31 19L59 76Q61 81 59 86L56 91Q53 95 50.5 92Z' fill='%23ffffff'/><path d='M89 11L89 45L55 92L68 36Z' fill='%23ffffff'/></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 /* ============ RESET & TOKENS ============ */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -462,6 +462,9 @@ footer{border-top:1px solid var(--line); padding:62px 0 34px; margin-top:120px}
   transition:opacity .5s; opacity:0}
 @media(max-width:1080px){#spot{display:none}}
 </style>
+<link rel="stylesheet" href="world.css">
+<link rel="stylesheet" href="refinement.css">
+<noscript><style>.reveal{opacity:1;transform:none}.qa-a{max-height:none}.lang,#motion-toggle{display:none}</style></noscript>
 </head>
 <body>
 
@@ -472,76 +475,55 @@ footer{border-top:1px solid var(--line); padding:62px 0 34px; margin-top:120px}
   <div class="wrap nav">
     <a href="#top" class="brand" aria-label="Virentora">
       <svg viewBox="0 0 100 100" aria-hidden="true">
-        <path d="M11 20Q11 15 16 15L25 15Q29 15 31 19L59 76Q61 81 59 86L56 91Q53 95 50.5 92Z" fill="#0a0a0b"/>
+        <path d="M11 20Q11 15 16 15L25 15Q29 15 31 19L59 76Q61 81 59 86L56 91Q53 95 50.5 92Z" fill="currentColor"/>
         <path d="M72 32L79 39L57 64L49 64Z" fill="#a3a3ad"/>
-        <path d="M89 11L89 45L55 92L68 36Z" fill="#0a0a0b"/>
+        <path d="M89 11L89 45L55 92L68 36Z" fill="currentColor"/>
       </svg>
       <span>Virentora</span>
     </a>
     <nav class="nav-links">
-      <a href="#services" data-i="nav1"></a>
-      <a href="#cases"    data-i="nav2"></a>
-      <a href="#process"  data-i="nav3"></a>
-      <a href="#pricing"  data-i="nav4"></a>
-      <a href="#faq"      data-i="nav5"></a>
+      <a href="#services" data-i="nav1">Услуги</a>
+      <a href="#cases"    data-i="nav2">Работы</a>
+      <a href="#process"  data-i="nav3">Процесс</a>
+      <a href="#pricing"  data-i="nav4">Цены</a>
+      <a href="#faq"      data-i="nav5">FAQ</a>
     </nav>
     <div class="nav-right">
       <div class="lang" role="group" aria-label="Language">
         <button class="on" data-lang="ru">RU</button>
         <button data-lang="en">EN</button>
       </div>
-      <a href="#contact" class="btn btn-primary btn-sm magnet" data-i="navcta"></a>
-      <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+      <a href="#contact" class="btn btn-primary btn-sm magnet" data-i="navcta">Обсудить задачу</a>
+      <button class="burger" id="burger" aria-label="Menu" aria-controls="mm" aria-expanded="false"><span></span><span></span><span></span></button>
     </div>
   </div>
 </header>
 
 <div class="mobile-menu" id="mm">
-  <a href="#services" data-i="nav1"></a>
-  <a href="#cases"    data-i="nav2"></a>
-  <a href="#process"  data-i="nav3"></a>
-  <a href="#pricing"  data-i="nav4"></a>
-  <a href="#faq"      data-i="nav5"></a>
-  <a href="#contact" class="btn btn-primary" data-i="navcta"></a>
+  <a href="#services" data-i="nav1">Услуги</a>
+  <a href="#cases"    data-i="nav2">Работы</a>
+  <a href="#process"  data-i="nav3">Процесс</a>
+  <a href="#pricing"  data-i="nav4">Цены</a>
+  <a href="#faq"      data-i="nav5">FAQ</a>
+  <a href="#contact" class="btn btn-primary" data-i="navcta">Обсудить задачу</a>
 </div>
 
 <!-- ===================== HERO ===================== -->
-<section class="hero" id="top">
-  <div class="grid-bg"></div>
-  <div class="orb orb-1"></div>
-  <div class="orb orb-2"></div>
-
-  <div class="chips" aria-hidden="true">
-    <div class="chip f1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M4.9 4.9l2.9 2.9M16.2 16.2l2.9 2.9M2 12h4M18 12h4M4.9 19.1l2.9-2.9M16.2 7.8l2.9-2.9"/></svg><span data-i="chip1"></span></div>
-    <div class="chip f2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg><span data-i="chip2"></span></div>
-    <div class="chip f3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg><span data-i="chip3"></span></div>
-    <div class="chip f4"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 8V4H8"/><rect x="4" y="8" width="16" height="12" rx="2"/><path d="M2 14h2M20 14h2M15 13v2M9 13v2"/></svg><span data-i="chip4"></span></div>
+<main>
+<section class="hero" id="top" aria-label="Virentora">
+  <div class="earth-stage" id="earth-stage" aria-hidden="true"></div>
+  <div class="hero-shade"></div>
+  <div class="hero-copy wrap">
+    <div class="hero-kicker"><span class="cross">+</span><span data-i="badge">СТУДИЯ ЦИФРОВОЙ РАЗРАБОТКИ</span><span class="cross">+</span></div>
+    <h1 data-i="h1">Ваш бизнес.<br><span class="hero-outline">Без границ.</span></h1>
+    <p data-i="sub">Сайты, AI-агенты и автоматизация.<br>Соединяем технологии, чтобы ваш бизнес двигался дальше.</p>
+    <div class="hero-cta"><a href="#contact" class="btn btn-primary"><span data-i="cta1">Обсудить задачу</span><span class="arrow-circle" aria-hidden="true">↗</span></a><a href="#cases" class="hero-link" data-i="cta2">Смотреть работы</a></div>
   </div>
-
-  <div class="wrap hero-inner">
-    <div class="badge reveal"><span class="dot"></span><span data-i="badge"></span></div>
-    <h1 class="display reveal" data-i="h1"></h1>
-    <p class="lead reveal" data-i="sub"></p>
-    <div class="hero-cta reveal">
-      <a href="#contact" class="btn btn-primary magnet"><span data-i="cta1"></span><span class="arw">→</span></a>
-      <a href="#cases" class="btn btn-ghost magnet" data-i="cta2"></a>
-    </div>
-    <div class="hero-note reveal">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>
-      <span data-i="note"></span>
-    </div>
-  </div>
-
-  <div class="wrap">
-    <div class="stats reveal">
-      <div class="stat"><b><span class="cnt" data-to="7">0</span></b><span data-i="st1"></span></div>
-      <div class="stat"><b><span class="cnt" data-to="24">0</span>/7</b><span data-i="st2"></span></div>
-      <div class="stat"><b><span class="cnt" data-to="50">0</span>+</b><span data-i="st3"></span></div>
-      <div class="stat"><b><span class="cnt" data-to="14">0</span></b><span data-i="st4"></span></div>
-    </div>
-  </div>
+  <div class="hero-side side-left" aria-hidden="true"><span>VIRENTORA®</span><span>DIGITAL. CONNECTED.</span></div>
+  <div class="hero-side side-right" aria-hidden="true"><span>DESIGN / DEVELOPMENT / AI</span><span>WEB · AI · AUTOMATION</span></div>
+  <div class="earth-caption"><span class="caption-line"></span><span data-i="earthLabel">Один мир. Бесконечные возможности.</span></div>
+  <div class="hero-bottom wrap"><a class="scroll-link" href="#services"><span class="scroll-icon">↓</span><span data-i="explore">Исследуйте возможности</span></a><button id="motion-toggle" aria-pressed="false"><span id="motion-symbol">Ⅱ</span><span data-i="motion">Движение планеты</span></button></div>
 </section>
-
 <!-- ===================== MARQUEE ===================== -->
 <div class="marquee" aria-hidden="true">
   <div class="marquee-track" id="mq"></div>
@@ -551,45 +533,45 @@ footer{border-top:1px solid var(--line); padding:62px 0 34px; margin-top:120px}
 <section class="sec-pad" id="services">
   <div class="wrap">
     <div class="sec-head reveal">
-      <div class="eyebrow" data-i="s1eye"></div>
-      <h2 class="h2" data-i="s1h"></h2>
-      <p class="lead" data-i="s1p"></p>
+      <div class="eyebrow" data-i="s1eye">Услуги</div>
+      <h2 class="h2" data-i="s1h">Технологии.<br>Собранные в систему.</h2>
+      <p class="lead" data-i="s1p">От первого знакомства с брендом до заявки и её обработки. Разрабатываем отдельные продукты и связываем их в единую систему.</p>
     </div>
     <div class="grid-3">
       <article class="card tilt reveal">
         <div class="card-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 8V4H8"/><rect x="4" y="8" width="16" height="12" rx="2"/><path d="M2 14h2M20 14h2M15 13v2M9 13v2"/></svg></div>
-        <h3 class="h3" data-i="sv1t"></h3>
-        <p data-i="sv1d"></p>
+        <h3 class="h3" data-i="sv1t">Telegram-боты</h3>
+        <p data-i="sv1d">Заявки, запись, каталог и оплата — в одном диалоге. Бот ведёт клиента по сценарию и передаёт данные вашей команде.</p>
         <div class="tags"><span class="tag">Aiogram</span><span class="tag">Webhooks</span><span class="tag">Payments</span></div>
       </article>
       <article class="card tilt reveal">
         <div class="card-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2a3 3 0 0 0-3 3v1a3 3 0 0 0-3 3v1a3 3 0 0 0 0 6v1a3 3 0 0 0 3 3 3 3 0 0 0 6 0 3 3 0 0 0 3-3v-1a3 3 0 0 0 0-6V9a3 3 0 0 0-3-3V5a3 3 0 0 0-3-3Z"/></svg></div>
-        <h3 class="h3" data-i="sv2t"></h3>
-        <p data-i="sv2d"></p>
+        <h3 class="h3" data-i="sv2t">AI-агенты и RAG</h3>
+        <p data-i="sv2d">AI-ассистент по документам компании. Находит нужные фрагменты, показывает источники и передаёт сложные вопросы человеку.</p>
         <div class="tags"><span class="tag">RAG</span><span class="tag">Embeddings</span><span class="tag">LLM</span></div>
       </article>
       <article class="card tilt reveal">
         <div class="card-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></svg></div>
-        <h3 class="h3" data-i="sv3t"></h3>
-        <p data-i="sv3d"></p>
+        <h3 class="h3" data-i="sv3t">Интеграции</h3>
+        <p data-i="sv3d">Сайт, CRM, таблицы и мессенджеры работают вместе. Заявки и уведомления передаются автоматически, без ручного переноса.</p>
         <div class="tags"><span class="tag">n8n</span><span class="tag">CRM</span><span class="tag">Sheets</span></div>
       </article>
       <article class="card tilt reveal">
         <div class="card-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.8-3.8a6 6 0 0 1-7.9 7.9l-6.9 6.9a2.1 2.1 0 0 1-3-3l6.9-6.9a6 6 0 0 1 7.9-7.9l-3.7 3.8Z"/></svg></div>
-        <h3 class="h3" data-i="sv4t"></h3>
-        <p data-i="sv4d"></p>
+        <h3 class="h3" data-i="sv4t">Доработка ботов</h3>
+        <p data-i="sv4d">Восстанавливаем работу бота, исправляем ошибки и развиваем сценарии. Разбираемся в существующем коде и переносим на новый сервер.</p>
         <div class="tags"><span class="tag">Debug</span><span class="tag">Refactor</span><span class="tag">Deploy</span></div>
       </article>
       <article class="card tilt reveal">
         <div class="card-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M6.5 6.5h.01M9.5 6.5h.01M7 13h7M7 16.5h4"/></svg></div>
-        <h3 class="h3" data-i="sv5t"></h3>
-        <p data-i="sv5d"></p>
+        <h3 class="h3" data-i="sv5t">Сайты и лендинги</h3>
+        <p data-i="sv5d">От структуры и текстов до дизайна и запуска. Адаптивный сайт с понятным предложением и заявками прямо в Telegram.</p>
         <div class="tags"><span class="tag">HTML</span><span class="tag">Адаптив</span><span class="tag">Формы</span></div>
       </article>
       <article class="card tilt reveal">
         <div class="card-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 13c0 5-3.5 7.5-7.7 8.9a1 1 0 0 1-.6 0C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.2-2.7a1 1 0 0 1 1.6 0C14.5 3.8 17 5 19 5a1 1 0 0 1 1 1Z"/></svg></div>
-        <h3 class="h3" data-i="sv6t"></h3>
-        <p data-i="sv6d"></p>
+        <h3 class="h3" data-i="sv6t">Поддержка</h3>
+        <p data-i="sv6d">Хостинг, мониторинг, резервные копии и обновления. Поддерживаем работу проекта и помогаем развивать его после запуска.</p>
         <div class="tags"><span class="tag">Uptime</span><span class="tag">Backups</span><span class="tag">SLA</span></div>
       </article>
     </div>
@@ -600,37 +582,37 @@ footer{border-top:1px solid var(--line); padding:62px 0 34px; margin-top:120px}
 <section class="sec-pad" id="cases" style="background:var(--bg-tint); border-top:1px solid var(--line); border-bottom:1px solid var(--line)">
   <div class="wrap">
     <div class="sec-head reveal">
-      <div class="eyebrow" data-i="s2eye"></div>
-      <h2 class="h2" data-i="s2h"></h2>
-      <p class="lead" data-i="s2p"></p>
+      <div class="eyebrow" data-i="s2eye">Работы</div>
+      <h2 class="h2" data-i="s2h">Идеи становятся<br>реальностью.</h2>
+      <p class="lead" data-i="s2p">Откройте сайты и Telegram-ботов, посмотрите их сценарии. Отдельный проект ниже — ассистент, который ищет ответы во внутренних документах.</p>
     </div>
     <div class="grid-4">
       <a class="card work tilt reveal" href="https://avtotochka-ekb.ru" target="_blank" rel="noopener">
         <div class="work-shot">
           <div class="work-bar"><i></i><i></i><i></i><span class="work-url">avtotochka-ekb.ru</span></div>
-          <span class="work-go" data-i="wgo"></span>
+          <span class="work-go" data-i="wgo">Смотреть</span>
           <div class="work-frame"><img src="shots/avtotochka.jpg" alt="" loading="lazy" width="1100" height="740"></div>
         </div>
         <div class="case-body">
-          <div class="work-cat" data-i="w1c"></div>
-          <h3 class="h3" data-i="w1t"></h3>
-          <p data-i="w1d"></p>
+          <div class="work-cat" data-i="w1c">Автосервис</div>
+          <h3 class="h3" data-i="w1t">АвтоТочка</h3>
+          <p data-i="w1d">Лендинг с прайсом, подбором услуги по симптому и записью на диагностику в первом экране.</p>
           <div class="tags"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">Адаптив</span></div>
-          <div class="card-price"><span data-i="wopen"></span></div>
+          <div class="card-price"><span data-i="wopen">Открыть сайт →</span></div>
         </div>
       </a>
       <a class="card work tilt reveal" href="https://dentline-ekb.ru" target="_blank" rel="noopener">
         <div class="work-shot">
           <div class="work-bar"><i></i><i></i><i></i><span class="work-url">dentline-ekb.ru</span></div>
-          <span class="work-go" data-i="wgo"></span>
+          <span class="work-go" data-i="wgo">Смотреть</span>
           <div class="work-frame"><img src="shots/dentline.jpg" alt="" loading="lazy" width="1100" height="740"></div>
         </div>
         <div class="case-body">
-          <div class="work-cat" data-i="w2c"></div>
-          <h3 class="h3" data-i="w2t"></h3>
-          <p data-i="w2d"></p>
+          <div class="work-cat" data-i="w2c">Стоматология</div>
+          <h3 class="h3" data-i="w2t">Дентлайн</h3>
+          <p data-i="w2d">Сайт клиники: цены по категориям в табах, расчёт стоимости лечения и запись без телефонных звонков.</p>
           <div class="tags"><span class="tag">HTML</span><span class="tag">JS</span><span class="tag">Адаптив</span></div>
-          <div class="card-price"><span data-i="wopen"></span></div>
+          <div class="card-price"><span data-i="wopen">Открыть сайт →</span></div>
         </div>
       </a>
       <div class="card work work-duo tilt reveal">
@@ -638,66 +620,66 @@ footer{border-top:1px solid var(--line); padding:62px 0 34px; margin-top:120px}
           <div class="work-bar"><i></i><i></i><i></i><span class="work-url">logika-data.ru</span></div>
           <div class="work-frame"><img src="shots/logika.jpg" alt="" loading="lazy" width="1100" height="740"></div>
           <div class="duo-chat">
-            <div class="duo-head"><i></i><span data-i="d1"></span></div>
-            <div class="duo-msg" data-i="d2"></div>
-            <div class="duo-btn" data-i="d3"></div>
+            <div class="duo-head"><i></i><span data-i="d1">Логика-бот</span></div>
+            <div class="duo-msg" data-i="d2">Подберу формат за шесть вопросов</div>
+            <div class="duo-btn" data-i="d3">Подобрать</div>
           </div>
         </div>
         <div class="case-body">
-          <div class="work-cat" data-i="w3c"></div>
-          <h3 class="h3" data-i="w3t"></h3>
-          <p data-i="w3d"></p>
+          <div class="work-cat" data-i="w3c">Онлайн-школа · сайт + бот</div>
+          <h3 class="h3" data-i="w3t">Логика</h3>
+          <p data-i="w3d">Сайт и бот к нему. На странице программа и тарифы, в боте анкета из шести вопросов: подбирает формат и передаёт заявку с ответами.</p>
           <div class="tags"><span class="tag">HTML</span><span class="tag">JS</span><span class="tag">aiogram</span></div>
           <div class="card-price work-links">
-            <a href="https://logika-data.ru" target="_blank" rel="noopener" data-i="dsite"></a>
-            <a class="pri" href="https://t.me/logika_learning_bot" target="_blank" rel="noopener" data-i="dbot"></a>
+            <a href="https://logika-data.ru" target="_blank" rel="noopener" data-i="dsite">Открыть сайт</a>
+            <a class="pri" href="https://t.me/logika_learning_bot" target="_blank" rel="noopener" data-i="dbot">Открыть бота</a>
           </div>
         </div>
       </div>
       <a class="card work tilt reveal" href="https://t.me/VirentoraBot" target="_blank" rel="noopener">
         <div class="work-shot">
           <div class="work-bar"><i></i><i></i><i></i><span class="work-url">t.me/VirentoraBot</span></div>
-          <span class="work-go" data-i="wgo"></span>
+          <span class="work-go" data-i="wgo">Смотреть</span>
           <div class="work-tg">
-            <div class="tg-b" data-i="tg1"></div>
+            <div class="tg-b" data-i="tg1">Привет! Я бот <b>Virentora</b>. Выберите, что интересно:</div>
             <div class="tg-btns">
-              <span class="hi" data-i="tg2"></span>
-              <span data-i="tg3"></span>
-              <span data-i="tg4"></span>
-              <span data-i="tg5"></span>
+              <span class="hi" data-i="tg2">Написать Льву</span>
+              <span data-i="tg3">Что я делаю</span>
+              <span data-i="tg4">Сколько стоит</span>
+              <span data-i="tg5">Оставить заявку</span>
             </div>
           </div>
         </div>
         <div class="case-body">
-          <div class="work-cat" data-i="w4c"></div>
-          <h3 class="h3" data-i="w4t"></h3>
-          <p data-i="w4d"></p>
+          <div class="work-cat" data-i="w4c">Telegram-бот</div>
+          <h3 class="h3" data-i="w4t">Бот Virentora</h3>
+          <p data-i="w4d">Мой рабочий бот: меню услуг, цены и приём заявок прямо в чате. Живёт на сервере, отвечает круглосуточно.</p>
           <div class="tags"><span class="tag">aiogram</span><span class="tag">Python</span><span class="tag">VPS</span></div>
-          <div class="card-price"><span data-i="wbot"></span></div>
+          <div class="card-price"><span data-i="wbot">Открыть в Telegram →</span></div>
         </div>
       </a>
     </div>
     <article class="card rag-case reveal" id="knowledge-rag-bot" aria-labelledby="rag-title">
       <div class="rag-preview">
-        <div class="rag-label" data-i="ragPreview"></div>
-        <div class="rag-question" data-i="ragQuestion"></div>
+        <div class="rag-label" data-i="ragPreview">Пример диалога по базе проекта</div>
+        <div class="rag-question" data-i="ragQuestion">Кто согласует отпуск?</div>
         <div class="rag-answer">
-          <p data-i="ragAnswer"></p>
-          <div class="rag-source" data-i="ragSource"></div>
+          <p data-i="ragAnswer">Отпуск согласует непосредственный руководитель.</p>
+          <div class="rag-source" data-i="ragSource">Источник: «Отпуска и отсутствия» → «Планирование и согласование»</div>
         </div>
-        <div class="rag-handoff" data-i="ragHandoff"></div>
+        <div class="rag-handoff" data-i="ragHandoff">Передать вопрос человеку</div>
       </div>
       <div class="rag-body">
-        <div class="work-cat" data-i="ragCategory"></div>
+        <div class="work-cat" data-i="ragCategory">Собственный проект · AI-ассистент</div>
         <h3 class="h3" id="rag-title">Knowledge RAG Bot</h3>
-        <p data-i="ragDescription"></p>
+        <p data-i="ragDescription">Telegram-ассистент по базе знаний компании: находит нужный фрагмент регламента и показывает источники ответа. Собственный проект Virentora с базой из 20 примерных документов.</p>
         <ul class="rag-points">
-          <li data-i="ragPoint1"></li>
-          <li data-i="ragPoint2"></li>
-          <li data-i="ragPoint3"></li>
+          <li data-i="ragPoint1">Поиск по документам; при подключении AI — формулировка ответа на основе найденных фрагментов.</li>
+          <li data-i="ragPoint2">Если информации недостаточно — предложение передать вопрос человеку. Можно оценить полезность ответа.</li>
+          <li data-i="ragPoint3">Для администратора — обращения, статистика вопросов и обновление поискового индекса.</li>
         </ul>
         <div class="tags"><span class="tag">Python</span><span class="tag">aiogram 3</span><span class="tag">SQLite</span><span class="tag">RAG</span></div>
-        <div class="card-price"><a href="#contact" data-i="ragCta"></a></div>
+        <div class="card-price"><a href="#contact" data-i="ragCta">Обсудить похожий проект →</a></div>
       </div>
     </article>
   </div>
@@ -707,15 +689,15 @@ footer{border-top:1px solid var(--line); padding:62px 0 34px; margin-top:120px}
 <section class="sec-pad" id="process">
   <div class="wrap">
     <div class="sec-head reveal">
-      <div class="eyebrow" data-i="s3eye"></div>
-      <h2 class="h2" data-i="s3h"></h2>
-      <p class="lead" data-i="s3p"></p>
+      <div class="eyebrow" data-i="s3eye">Процесс</div>
+      <h2 class="h2" data-i="s3h">Как идёт работа</h2>
+      <p class="lead" data-i="s3p">Без сюрпризов по срокам и без «а это в смету не входило».</p>
     </div>
     <div class="steps">
-      <div class="step reveal"><div class="step-n">01</div><h3 data-i="p1t"></h3><p data-i="p1d"></p></div>
-      <div class="step reveal"><div class="step-n">02</div><h3 data-i="p2t"></h3><p data-i="p2d"></p></div>
-      <div class="step reveal"><div class="step-n">03</div><h3 data-i="p3t"></h3><p data-i="p3d"></p></div>
-      <div class="step reveal"><div class="step-n">04</div><h3 data-i="p4t"></h3><p data-i="p4d"></p></div>
+      <div class="step reveal"><div class="step-n">01</div><h3 data-i="p1t">Диагностика</h3><p data-i="p1d">Созваниваемся на 20 минут. Разбираю процесс и говорю, что реально стоит автоматизировать, а что нет. Бесплатно.</p></div>
+      <div class="step reveal"><div class="step-n">02</div><h3 data-i="p2t">ТЗ и смета</h3><p data-i="p2d">Присылаю документ: что делаю, за сколько, к какому сроку и что НЕ входит. Цена после этого не меняется.</p></div>
+      <div class="step reveal"><div class="step-n">03</div><h3 data-i="p3t">Разработка</h3><p data-i="p3d">Предоплата 50%, дальше работа. Показываю промежуточный результат каждые 2–3 дня, вы правите на ходу.</p></div>
+      <div class="step reveal"><div class="step-n">04</div><h3 data-i="p4t">Запуск и поддержка</h3><p data-i="p4d">Разворачиваю, обучаю вашу команду, 14 дней правок бесплатно. Дальше — поддержка по желанию.</p></div>
     </div>
   </div>
 </section>
@@ -724,68 +706,68 @@ footer{border-top:1px solid var(--line); padding:62px 0 34px; margin-top:120px}
 <section class="sec-pad" id="pricing" style="background:var(--bg-tint); border-top:1px solid var(--line); border-bottom:1px solid var(--line)">
   <div class="wrap">
     <div class="sec-head center reveal">
-      <div class="eyebrow" data-i="s4eye"></div>
-      <h2 class="h2" data-i="s4h"></h2>
-      <p class="lead" data-i="s4p"></p>
+      <div class="eyebrow" data-i="s4eye">Цены</div>
+      <h2 class="h2" data-i="s4h">Сколько это стоит</h2>
+      <p class="lead" data-i="s4p">Фиксированная сумма за результат, а не почасовка. Итог знаете до старта — в процессе он не двигается.</p>
     </div>
     <div class="grid-4">
       <article class="card plan tilt reveal">
         <div class="card-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M6.5 6.5h.01M9.5 6.5h.01"/></svg></div>
-        <h3 class="h3" data-i="pl1n"></h3>
-        <div class="price" style="margin-top:14px"><small data-i="from"></small>19 900 ₽</div>
-        <p data-i="pl1d"></p>
+        <h3 class="h3" data-i="pl1n">Лендинг</h3>
+        <div class="price" style="margin-top:14px"><small data-i="from">от</small>19 900 ₽</div>
+        <p data-i="pl1d">Одностраничник под услугу или нишу. Заявки приходят вам в Telegram.</p>
         <ul class="feats">
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg><span data-i="pl1f1"></span></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg><span data-i="pl1f2"></span></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg><span data-i="pl1f3"></span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg><span data-i="pl1f1">Дизайн и вёрстка с нуля</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg><span data-i="pl1f2">Домен и хостинг под ключ</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg><span data-i="pl1f3">Запуск за 3–5 дней</span></li>
         </ul>
-        <a href="#contact" class="btn btn-ghost magnet" data-i="choose"></a>
+        <a href="#contact" class="btn btn-ghost magnet" data-i="choose">Обсудить</a>
       </article>
 
       <article class="card plan tilt reveal">
         <div class="card-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 8V4H8"/><rect x="4" y="8" width="16" height="12" rx="2"/><path d="M2 14h2M20 14h2M15 13v2M9 13v2"/></svg></div>
-        <h3 class="h3" data-i="pl2n"></h3>
-        <div class="price" style="margin-top:14px"><small data-i="from"></small>24 900 ₽</div>
-        <p data-i="pl2d"></p>
+        <h3 class="h3" data-i="pl2n">Telegram-бот</h3>
+        <div class="price" style="margin-top:14px"><small data-i="from">от</small>24 900 ₽</div>
+        <p data-i="pl2d">Бот под конкретный процесс: приём заявок, каталог, запись, рассылки.</p>
         <ul class="feats">
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg><span data-i="pl2f1"></span></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg><span data-i="pl2f2"></span></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg><span data-i="pl2f3"></span></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg><span data-i="pl2f4"></span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg><span data-i="pl2f1">Логика, меню, админка</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg><span data-i="pl2f2">Заявки в таблицу или CRM</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg><span data-i="pl2f3">Хостинг и деплой</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg><span data-i="pl2f4">14 дней правок бесплатно</span></li>
         </ul>
-        <a href="#contact" class="btn btn-ghost magnet" data-i="choose"></a>
+        <a href="#contact" class="btn btn-ghost magnet" data-i="choose">Обсудить</a>
       </article>
 
       <article class="card plan feat tilt reveal">
-        <span class="ribbon" data-i="popular"></span>
+        <span class="ribbon" data-i="popular">Чаще всего берут</span>
         <div class="card-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 6h7v12H4zM13 6h7v5h-7zM13 13h7v5h-7z"/></svg></div>
-        <h3 class="h3" data-i="pl3n"></h3>
-        <div class="price" style="margin-top:14px"><small data-i="from"></small>39 900 ₽</div>
-        <p data-i="pl3d"></p>
+        <h3 class="h3" data-i="pl3n">Сайт + бот</h3>
+        <div class="price" style="margin-top:14px"><small data-i="from">от</small>39 900 ₽</div>
+        <p data-i="pl3d">Связка целиком: лендинг собирает заявку, бот отвечает и складывает её в таблицу.</p>
         <ul class="feats">
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg><span data-i="pl3f1"></span></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg><span data-i="pl3f2"></span></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg><span data-i="pl3f3"></span></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg><span data-i="pl3f4"></span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg><span data-i="pl3f1">Лендинг и бот в одном стиле</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg><span data-i="pl3f2">Форма сайта уходит прямо в бот</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg><span data-i="pl3f3">Единая база заявок</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg><span data-i="pl3f4">Запуск за 7–10 дней</span></li>
         </ul>
-        <a href="#contact" class="btn btn-primary magnet" data-i="choose"></a>
+        <a href="#contact" class="btn btn-primary magnet" data-i="choose">Обсудить</a>
       </article>
 
       <article class="card plan tilt reveal">
         <div class="card-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2a3 3 0 0 0-3 3v1a3 3 0 0 0-3 3v1a3 3 0 0 0 0 6v1a3 3 0 0 0 3 3 3 3 0 0 0 6 0 3 3 0 0 0 3-3v-1a3 3 0 0 0 0-6V9a3 3 0 0 0-3-3V5a3 3 0 0 0-3-3Z"/></svg></div>
-        <h3 class="h3" data-i="pl4n"></h3>
-        <div class="price" style="margin-top:14px"><small data-i="from"></small>79 900 ₽</div>
-        <p data-i="pl4d"></p>
+        <h3 class="h3" data-i="pl4n">AI-агент и интеграции</h3>
+        <div class="price" style="margin-top:14px"><small data-i="from">от</small>79 900 ₽</div>
+        <p data-i="pl4d">Агент отвечает по вашим документам, сервисы связаны между собой.</p>
         <ul class="feats">
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg><span data-i="pl4f1"></span></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg><span data-i="pl4f2"></span></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg><span data-i="pl4f3"></span></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg><span data-i="pl4f4"></span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg><span data-i="pl4f1">База знаний из ваших файлов</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg><span data-i="pl4f2">Ответы со ссылкой на источник</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg><span data-i="pl4f3">Связка с CRM и сервисами</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg><span data-i="pl4f4">Месяц поддержки в подарок</span></li>
         </ul>
-        <a href="#contact" class="btn btn-ghost magnet" data-i="choose"></a>
+        <a href="#contact" class="btn btn-ghost magnet" data-i="choose">Обсудить</a>
       </article>
     </div>
-    <p class="reveal" style="text-align:center;margin-top:30px;font-size:.86rem;color:var(--ink-3)" data-i="pricenote"></p>
+    <p class="reveal" style="text-align:center;margin-top:30px;font-size:.86rem;color:var(--ink-3)" data-i="pricenote">Итоговая цена зависит от объёма. После диагностики называю точную сумму — она фиксируется в смете.</p>
   </div>
 </section>
 
@@ -793,15 +775,15 @@ footer{border-top:1px solid var(--line); padding:62px 0 34px; margin-top:120px}
 <section class="sec-pad" id="faq">
   <div class="wrap">
     <div class="sec-head center reveal">
-      <div class="eyebrow" data-i="s5eye"></div>
-      <h2 class="h2" data-i="s5h"></h2>
+      <div class="eyebrow" data-i="s5eye">FAQ</div>
+      <h2 class="h2" data-i="s5h">Частые вопросы</h2>
     </div>
     <div class="faq reveal">
-      <div class="qa"><button class="qa-q"><span data-i="q1"></span><span class="qa-ico"></span></button><div class="qa-a"><p data-i="a1"></p></div></div>
-      <div class="qa"><button class="qa-q"><span data-i="q2"></span><span class="qa-ico"></span></button><div class="qa-a"><p data-i="a2"></p></div></div>
-      <div class="qa"><button class="qa-q"><span data-i="q3"></span><span class="qa-ico"></span></button><div class="qa-a"><p data-i="a3"></p></div></div>
-      <div class="qa"><button class="qa-q"><span data-i="q4"></span><span class="qa-ico"></span></button><div class="qa-a"><p data-i="a4"></p></div></div>
-      <div class="qa"><button class="qa-q"><span data-i="q5"></span><span class="qa-ico"></span></button><div class="qa-a"><p data-i="a5"></p></div></div>
+      <div class="qa"><button class="qa-q" aria-expanded="false"><span data-i="q1">Сколько занимает разработка?</span><span class="qa-ico"></span></button><div class="qa-a"><p data-i="a1">Правка — 1–3 дня. Бот под задачу — 5–10 дней. AI-агент с базой знаний — 2–3 недели. Срок фиксируется в смете до старта, и я его не двигаю без вашего согласия.</p></div></div>
+      <div class="qa"><button class="qa-q" aria-expanded="false"><span data-i="q2">Что если результат не подойдёт?</span><span class="qa-ico"></span></button><div class="qa-a"><p data-i="a2">Промежуточный результат показываю каждые 2–3 дня, поэтому «не подойдёт» на финале почти не случается — вы правите по ходу. После сдачи 14 дней правок бесплатно.</p></div></div>
+      <div class="qa"><button class="qa-q" aria-expanded="false"><span data-i="q3">Как происходит оплата?</span><span class="qa-ico"></span></button><div class="qa-a"><p data-i="a3">Предоплата 50% после согласования сметы, остаток — при сдаче. Работаем по письменному ТЗ, даже если проект маленький.</p></div></div>
+      <div class="qa"><button class="qa-q" aria-expanded="false"><span data-i="q4">Нужны ли мне свои серверы?</span><span class="qa-ico"></span></button><div class="qa-a"><p data-i="a4">Нет. Разворачиваю на облачном хостинге, это 200–500 ₽ в месяц. Если у вас есть свой сервер — разверну на нём.</p></div></div>
+      <div class="qa"><button class="qa-q" aria-expanded="false"><span data-i="q5">Кто владеет кодом после сдачи?</span><span class="qa-ico"></span></button><div class="qa-a"><p data-i="a5">Вы. Отдаю исходники и доступы. Если захотите передать проект другому разработчику — ничего не блокируется.</p></div></div>
     </div>
   </div>
 </section>
@@ -810,189 +792,346 @@ footer{border-top:1px solid var(--line); padding:62px 0 34px; margin-top:120px}
 <section id="contact" style="padding-bottom:20px">
   <div class="wrap">
     <div class="cta-band reveal">
-      <h2 class="h2" data-i="ctah"></h2>
-      <p data-i="ctap"></p>
+      <h2 class="h2" data-i="ctah">Следующий шаг.<br>Начинается с вас.</h2>
+      <p data-i="ctap">Отвечаю в течение пары часов. Диагностика бесплатная — даже если работать не начнём, получите разбор своего процесса.</p>
       <div class="cta-actions">
         <a href="https://t.me/virentora" target="_blank" rel="noopener" class="btn btn-primary magnet">
           <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M21.9 4.3 18.7 19.4c-.2 1.1-.9 1.3-1.8.8l-5-3.7-2.4 2.3c-.3.3-.5.5-1 .5l.4-5.1 9.3-8.4c.4-.4-.1-.6-.6-.2L6.1 12.8l-4.9-1.5c-1.1-.3-1.1-1 .2-1.5l19.2-7.4c.9-.3 1.7.2 1.3 1.9Z"/></svg>
-          <span data-i="ctab1"></span>
+          <span data-i="ctab1">Написать в Telegram</span>
         </a>
-        <a href="mailto:hello@virentora.com" class="btn btn-ghost magnet" data-i="ctab2"></a>
+        <a href="mailto:hello@virentora.com" class="btn btn-ghost magnet" data-i="ctab2">Отправить на почту</a>
       </div>
     </div>
   </div>
 </section>
 
 <!-- ===================== FOOTER ===================== -->
+</main>
 <footer>
   <div class="wrap">
     <div class="f-top">
       <div class="f-brand">
         <a href="#top" class="brand">
           <svg viewBox="0 0 100 100" aria-hidden="true">
-            <path d="M11 20Q11 15 16 15L25 15Q29 15 31 19L59 76Q61 81 59 86L56 91Q53 95 50.5 92Z" fill="#0a0a0b"/>
+            <path d="M11 20Q11 15 16 15L25 15Q29 15 31 19L59 76Q61 81 59 86L56 91Q53 95 50.5 92Z" fill="currentColor"/>
             <path d="M72 32L79 39L57 64L49 64Z" fill="#a3a3ad"/>
-            <path d="M89 11L89 45L55 92L68 36Z" fill="#0a0a0b"/>
+            <path d="M89 11L89 45L55 92L68 36Z" fill="currentColor"/>
           </svg>
           <span>Virentora</span>
         </a>
-        <p data-i="ftag"></p>
+        <p data-i="ftag">Разработка AI-агентов, Telegram-ботов и интеграций для малого бизнеса.</p>
       </div>
       <div class="f-cols">
         <div class="f-col">
-          <h4 data-i="fc1"></h4>
-          <a href="#services" data-i="nav1"></a>
-          <a href="#cases" data-i="nav2"></a>
-          <a href="#pricing" data-i="nav4"></a>
+          <h4 data-i="fc1">Навигация</h4>
+          <a href="#services" data-i="nav1">Услуги</a>
+          <a href="#cases" data-i="nav2">Работы</a>
+          <a href="#pricing" data-i="nav4">Цены</a>
         </div>
         <div class="f-col">
-          <h4 data-i="fc2"></h4>
+          <h4 data-i="fc2">Контакты</h4>
           <a href="https://t.me/virentora" target="_blank" rel="noopener">Telegram</a>
           <a href="mailto:hello@virentora.com">Email</a>
-          <a href="https://github.com/" target="_blank" rel="noopener">GitHub</a>
+          
         </div>
       </div>
     </div>
     <div class="f-bot">
       <span>© <span id="yr"></span> Virentora</span>
-      <span data-i="fmade"></span>
+      <span data-i="fmade">Сделано в Virentora</span>
     </div>
   </div>
+<div class="wrap asset-credit">Earth textures: <a href="https://www.solarsystemscope.com/textures/" target="_blank" rel="noopener">Solar System Scope</a> · <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>. Adapted by Three.js.</div>
 </footer>
 
 <script>
 /* ===================== I18N ===================== */
 const I = {
-ru:{
- nav1:"Услуги", nav2:"Работы", nav3:"Процесс", nav4:"Цены", nav5:"FAQ", navcta:"Обсудить задачу",
- badge:"Первая консультация — бесплатно",
- h1:'Сайт приводит клиента,<br>бот <span class="grad-text">его не теряет</span>',
- sub:"Делаю лендинги, Telegram-ботов и связку между ними. Сайт собирает заявки, бот отвечает и складывает их в таблицу — без вашего участия. Запуск от 7 дней.",
- cta1:"Обсудить задачу", cta2:"Смотреть работы",
- note:"Бесплатная диагностика процесса — без обязательств",
- chip1:"AI-агенты", chip2:"Telegram", chip3:"Интеграции", chip4:"Боты 24/7",
- st1:"дней до запуска", st2:"работа ботов", st3:"часов рутины в месяц", st4:"дней правок бесплатно",
- s1eye:"Услуги", s1h:"Что мы делаем", s1p:"Собираем решение под конкретный процесс, а не «сайт вообще» и не «бота вообще». Можно взять что-то одно, можно всё вместе.",
- from:"от",
- sv1t:"Telegram-боты", sv1d:"Приём заявок, каталог, запись на время, оплата, рассылки и админ-панель. Бот ведёт клиента по шагам, не теряет ответы и складывает всё в одно место. Живёт на сервере и работает ночью, пока вы спите.",
- sv2t:"AI-агенты и RAG", sv2d:"Загружаете прайсы, регламенты и частые вопросы — агент отвечает по ним со ссылкой на источник. Не выдумывает, а цитирует. Снимает с вас однотипные вопросы, которые повторяются каждый день.",
- sv3t:"Интеграции", sv3d:"Связываем сайт, CRM, таблицы и мессенджеры между собой по API и вебхукам. Заявка с формы сама уходит в CRM, оттуда уведомление менеджеру, оттуда строка в отчёт. Данные перестают жить в пяти местах одновременно.",
- sv4t:"Доработка ботов", sv4d:"Бот сломался или разработчик пропал вместе с доступами? Разбираю чужой код, поднимаю на новом сервере, чиню и дописываю недостающее. Берусь и за то, что писали не мы.",
- sv5t:"Сайты и лендинги", sv5d:"Одностраничник под услугу или нишу: структура, тексты, вёрстка с нуля и адаптив под телефон. Открытый прайс, блок с возражениями и форма заявки, которая уходит прямо вам в Telegram. Домен и хостинг настраиваю сам.",
- sv6t:"Поддержка", sv6d:"Хостинг, мониторинг, бэкапы и мелкие правки по ходу. Если что-то упало — узнаю об этом раньше вас и поднимаю. Вы не думаете, работает ли всё, и не ищете, кому написать.",
- s2eye:"Работы", s2h:"Сайты, боты и работа с базой знаний", s2p:"Откройте сайты и Telegram-ботов, посмотрите их сценарии. Отдельный проект ниже — ассистент, который ищет ответы во внутренних документах.",
- ragCategory:"Собственный проект · AI-ассистент",
- ragDescription:"Telegram-ассистент по базе знаний компании: находит нужный фрагмент регламента и показывает источники ответа. Собственный проект Virentora с базой из 20 примерных документов.",
- ragPoint1:"Поиск по документам; при подключении AI — формулировка ответа на основе найденных фрагментов.",
- ragPoint2:"Если информации недостаточно — предложение передать вопрос человеку. Можно оценить полезность ответа.",
- ragPoint3:"Для администратора — обращения, статистика вопросов и обновление поискового индекса.",
- ragPreview:"Пример диалога по базе проекта",
- ragQuestion:"Кто согласует отпуск?",
- ragAnswer:"Отпуск согласует непосредственный руководитель.",
- ragSource:"Источник: «Отпуска и отсутствия» → «Планирование и согласование»",
- ragHandoff:"Передать вопрос человеку",
- ragCta:"Обсудить похожий проект →",
- w1c:"Автосервис", w1t:"АвтоТочка", w1d:"Лендинг с прайсом, подбором услуги по симптому и записью на диагностику в первом экране.",
- w2c:"Стоматология", w2t:"Дентлайн", w2d:"Сайт клиники: цены по категориям в табах, расчёт стоимости лечения и запись без телефонных звонков.",
- w3c:"Онлайн-школа · сайт + бот", w3t:"Логика", w3d:"Сайт и бот к нему. На странице программа и тарифы, в боте анкета из шести вопросов: подбирает формат и передаёт заявку с ответами.",
- d1:"Логика-бот", d2:"Подберу формат за шесть вопросов", d3:"Подобрать",
- dsite:"Открыть сайт", dbot:"Открыть бота",
- w4c:"Telegram-бот", w4t:"Бот Virentora", w4d:"Мой рабочий бот: меню услуг, цены и приём заявок прямо в чате. Живёт на сервере, отвечает круглосуточно.",
- wbot:"Открыть в Telegram →",
- tg1:"Привет! Я бот <b>Virentora</b>. Выберите, что интересно:", tg2:"Написать Льву", tg3:"Что я делаю", tg4:"Сколько стоит", tg5:"Оставить заявку",
- wopen:"Открыть сайт →", wgo:"Смотреть",
- s3eye:"Процесс", s3h:"Как идёт работа", s3p:"Без сюрпризов по срокам и без «а это в смету не входило».",
- p1t:"Диагностика", p1d:"Созваниваемся на 20 минут. Разбираю процесс и говорю, что реально стоит автоматизировать, а что нет. Бесплатно.",
- p2t:"ТЗ и смета", p2d:"Присылаю документ: что делаю, за сколько, к какому сроку и что НЕ входит. Цена после этого не меняется.",
- p3t:"Разработка", p3d:"Предоплата 50%, дальше работа. Показываю промежуточный результат каждые 2–3 дня, вы правите на ходу.",
- p4t:"Запуск и поддержка", p4d:"Разворачиваю, обучаю вашу команду, 14 дней правок бесплатно. Дальше — поддержка по желанию.",
- s4eye:"Цены", s4h:"Сколько это стоит", s4p:"Фиксированная сумма за результат, а не почасовка. Итог знаете до старта — в процессе он не двигается.",
- task:"задача", project:"проект", choose:"Обсудить", popular:"Чаще всего берут",
- pl1n:"Лендинг", pl1d:"Одностраничник под услугу или нишу. Заявки приходят вам в Telegram.",
- pl1f1:"Дизайн и вёрстка с нуля", pl1f2:"Домен и хостинг под ключ", pl1f3:"Запуск за 3–5 дней",
- pl2n:"Telegram-бот", pl2d:"Бот под конкретный процесс: приём заявок, каталог, запись, рассылки.",
- pl2f1:"Логика, меню, админка", pl2f2:"Заявки в таблицу или CRM", pl2f3:"Хостинг и деплой", pl2f4:"14 дней правок бесплатно",
- pl3n:"Сайт + бот", pl3d:"Связка целиком: лендинг собирает заявку, бот отвечает и складывает её в таблицу.",
- pl3f1:"Лендинг и бот в одном стиле", pl3f2:"Форма сайта уходит прямо в бот", pl3f3:"Единая база заявок", pl3f4:"Запуск за 7–10 дней",
- pl4n:"AI-агент и интеграции", pl4d:"Агент отвечает по вашим документам, сервисы связаны между собой.",
- pl4f1:"База знаний из ваших файлов", pl4f2:"Ответы со ссылкой на источник", pl4f3:"Связка с CRM и сервисами", pl4f4:"Месяц поддержки в подарок",
- pricenote:"Итоговая цена зависит от объёма. После диагностики называю точную сумму — она фиксируется в смете.",
- s5eye:"FAQ", s5h:"Частые вопросы",
- q1:"Сколько занимает разработка?", a1:"Правка — 1–3 дня. Бот под задачу — 5–10 дней. AI-агент с базой знаний — 2–3 недели. Срок фиксируется в смете до старта, и я его не двигаю без вашего согласия.",
- q2:"Что если результат не подойдёт?", a2:"Промежуточный результат показываю каждые 2–3 дня, поэтому «не подойдёт» на финале почти не случается — вы правите по ходу. После сдачи 14 дней правок бесплатно.",
- q3:"Как происходит оплата?", a3:"Предоплата 50% после согласования сметы, остаток — при сдаче. Работаем по письменному ТЗ, даже если проект маленький.",
- q4:"Нужны ли мне свои серверы?", a4:"Нет. Разворачиваю на облачном хостинге, это 200–500 ₽ в месяц. Если у вас есть свой сервер — разверну на нём.",
- q5:"Кто владеет кодом после сдачи?", a5:"Вы. Отдаю исходники и доступы. Если захотите передать проект другому разработчику — ничего не блокируется.",
- ctah:"Расскажите, что съедает время", ctap:"Отвечаю в течение пары часов. Диагностика бесплатная — даже если работать не начнём, получите разбор своего процесса.",
- ctab1:"Написать в Telegram", ctab2:"Отправить на почту",
- ftag:"Разработка AI-агентов, Telegram-ботов и интеграций для малого бизнеса.",
- fc1:"Навигация", fc2:"Контакты", fmade:"Сделано в Virentora"
-},
-en:{
- nav1:"Services", nav2:"Work", nav3:"Process", nav4:"Pricing", nav5:"FAQ", navcta:"Start a project",
- badge:"First consultation is free",
- h1:'The site brings the lead,<br>the bot <span class="grad-text">never drops it</span>',
- sub:"Landing pages, Telegram bots and the wiring in between. The site collects leads, the bot answers and files them — without you. Live in 7 days.",
- cta1:"Start a project", cta2:"View work",
- note:"Free process audit — no strings attached",
- chip1:"AI agents", chip2:"Telegram", chip3:"Integrations", chip4:"Bots 24/7",
- st1:"days to launch", st2:"bot uptime", st3:"hours saved monthly", st4:"days of free fixes",
- s1eye:"Services", s1h:"What we build", s1p:"We build for a specific process — not \"a site in general\", not \"a bot in general\". Take one piece or the whole thing.",
- from:"from",
- sv1t:"Telegram bots", sv1d:"Lead capture, catalogue, time slots, payments, broadcasts and an admin panel. The bot walks the customer through step by step, never loses an answer and files everything in one place. It lives on a server and works at night while you sleep.",
- sv2t:"AI agents & RAG", sv2d:"Upload your price lists, policies and FAQs — the agent answers from them and cites the source. It quotes instead of inventing, and takes the repetitive questions off your plate.",
- sv3t:"Integrations", sv3d:"We wire your site, CRM, spreadsheets and messengers together over APIs and webhooks. A form submission lands in the CRM, pings the manager and shows up in the report. Data stops living in five places at once.",
- sv4t:"Bot rescue", sv4d:"Bot broken, or the developer vanished along with the credentials? I read the existing code, redeploy it on a fresh server, fix it and add what is missing. Happy to work on code I did not write.",
- sv5t:"Sites & landing pages", sv5d:"A one-pager for a service or a niche: structure, copy, hand-written markup and a real mobile layout. Open pricing, an objections block and a lead form that posts straight to your Telegram. Domain and hosting handled.",
- sv6t:"Support", sv6d:"Hosting, monitoring, backups and small fixes along the way. If something goes down I hear about it before you do and bring it back. You never wonder whether it is running, or who to call.",
- s2eye:"Work", s2h:"Websites, bots and knowledge search", s2p:"Open the websites and Telegram bots to explore their flows. The featured project below is an assistant that finds answers in internal documents.",
- ragCategory:"Independent project · AI assistant",
- ragDescription:"A Telegram knowledge assistant that finds relevant policy passages and shows answer sources. An independent Virentora project with 20 sample documents.",
- ragPoint1:"Document search, with optional AI to compose an answer from the retrieved passages.",
- ragPoint2:"When information is insufficient, offers a handoff to a person. Users can rate answers.",
- ragPoint3:"Admin tools for support tickets, question statistics and search index updates.",
- ragPreview:"Example conversation from the project knowledge base",
- ragQuestion:"Who approves time off?",
- ragAnswer:"Time off is approved by the employee’s direct manager.",
- ragSource:"Source: Time off and absences → Planning and approval",
- ragHandoff:"Pass the question to a person",
- ragCta:"Discuss a similar project →",
- w1c:"Auto service", w1t:"AvtoTochka", w1d:"Landing page with an open price list, symptom-based service picker and booking in the first screen.",
- w2c:"Dental clinic", w2t:"Dentline", w2d:"Clinic site: prices grouped in tabs, treatment cost breakdown and booking without phone calls.",
- w3c:"Online school · site + bot", w3t:"Logika", w3d:"A site and its bot. The page holds the curriculum and plans; the bot asks six questions, picks a format and passes the lead on with the answers.",
- d1:"Logika bot", d2:"Six questions and I will pick your format", d3:"Start",
- dsite:"Open site", dbot:"Open bot",
- w4c:"Telegram bot", w4t:"Virentora bot", w4d:"My working bot: service menu, pricing and lead capture right inside the chat. Runs on a server, answers around the clock.",
- wbot:"Open in Telegram →",
- tg1:"Hi! I am the <b>Virentora</b> bot. Pick what you need:", tg2:"Message Lev", tg3:"What I do", tg4:"Pricing", tg5:"Leave a request",
- wopen:"Open site →", wgo:"View",
- s3eye:"Process", s3h:"How we work", s3p:"No deadline surprises and no \"that wasn't in the quote\".",
- p1t:"Audit", p1d:"A 20-minute call. I map your process and tell you what's worth automating — and what isn't. Free.",
- p2t:"Spec & quote", p2d:"You get a document: what I build, for how much, by when, and what's excluded. The price doesn't move after that.",
- p3t:"Build", p3d:"50% upfront, then work starts. I show progress every 2–3 days so you can steer as we go.",
- p4t:"Launch & support", p4d:"I deploy, train your team, and fix anything free for 14 days. Ongoing support is optional.",
- s4eye:"Pricing", s4h:"What it costs", s4p:"A fixed sum for an outcome, not hourly billing. You know the total before we start — and it does not move.",
- task:"task", project:"project", choose:"Discuss", popular:"Most popular",
- pl1n:"Landing page", pl1d:"A one-pager for a service or a niche. Leads land in your Telegram.",
- pl1f1:"Design and markup from scratch", pl1f2:"Domain and hosting handled", pl1f3:"Live in 3–5 days",
- pl2n:"Telegram bot", pl2d:"A bot for one specific process: leads, catalogue, booking, broadcasts.",
- pl2f1:"Logic, menus, admin panel", pl2f2:"Leads into a sheet or CRM", pl2f3:"Hosting and deployment", pl2f4:"14 days of free fixes",
- pl3n:"Site + bot", pl3d:"The whole loop: the landing collects the lead, the bot answers and files it.",
- pl3f1:"Landing and bot in one style", pl3f2:"The form posts straight into the bot", pl3f3:"One place for every lead", pl3f4:"Live in 7–10 days",
- pl4n:"AI agent & integrations", pl4d:"An agent answers from your documents; your services talk to each other.",
- pl4f1:"Knowledge base from your files", pl4f2:"Answers with source citations", pl4f3:"Wired into CRM and services", pl4f4:"One month of support included",
- pricenote:"Final price depends on scope. After the audit I give an exact number and lock it into the quote.",
- s5eye:"FAQ", s5h:"Common questions",
- q1:"How long does it take?", a1:"A quick fix takes 1–3 days. A custom bot 5–10 days. An AI agent with a knowledge base 2–3 weeks. The deadline is locked in the quote and I don't move it without your agreement.",
- q2:"What if I don't like the result?", a2:"I show progress every 2–3 days, so a bad surprise at the end is rare — you steer as we go. After delivery you get 14 days of free fixes.",
- q3:"How does payment work?", a3:"50% upfront once the quote is agreed, the rest on delivery. We always work from a written spec, even on small projects.",
- q4:"Do I need my own servers?", a4:"No. I deploy to cloud hosting, roughly 200–500 ₽ a month. If you already have a server, I'll deploy there instead.",
- q5:"Who owns the code?", a5:"You do. I hand over the source and all credentials. If you ever move to another developer, nothing is locked.",
- ctah:"Tell me what's eating your time", ctap:"I reply within a couple of hours. The audit is free — even if we never work together, you leave with a map of your process.",
- ctab1:"Message on Telegram", ctab2:"Send an email",
- ftag:"AI agents, Telegram bots and integrations for small business.",
- fc1:"Navigation", fc2:"Contact", fmade:"Built by Virentora"
-}};
+  "ru": {
+    "nav1": "Услуги",
+    "nav2": "Работы",
+    "nav3": "Процесс",
+    "nav4": "Цены",
+    "nav5": "FAQ",
+    "navcta": "Обсудить задачу",
+    "badge": "СТУДИЯ ЦИФРОВОЙ РАЗРАБОТКИ",
+    "earthLabel": "Один мир. Бесконечные возможности.",
+    "explore": "Исследуйте возможности",
+    "motion": "Движение планеты",
+    "h1": "Ваш бизнес.<br><span class=\"hero-outline\">Без границ.</span>",
+    "sub": "Сайты, AI-агенты и автоматизация.<br>Соединяем технологии, чтобы ваш бизнес двигался дальше.",
+    "cta1": "Обсудить задачу",
+    "cta2": "Смотреть работы",
+    "note": "Бесплатная диагностика процесса — без обязательств",
+    "chip1": "AI-агенты",
+    "chip2": "Telegram",
+    "chip3": "Интеграции",
+    "chip4": "Боты 24/7",
+    "st1": "дней до запуска",
+    "st2": "работа ботов",
+    "st3": "часов рутины в месяц",
+    "st4": "дней правок бесплатно",
+    "s1eye": "Услуги",
+    "s1h": "Технологии.<br>Собранные в систему.",
+    "s1p": "От первого знакомства с брендом до заявки и её обработки. Разрабатываем отдельные продукты и связываем их в единую систему.",
+    "from": "от",
+    "sv1t": "Telegram-боты",
+    "sv1d": "Заявки, запись, каталог и оплата — в одном диалоге. Бот ведёт клиента по сценарию и передаёт данные вашей команде.",
+    "sv2t": "AI-агенты и RAG",
+    "sv2d": "AI-ассистент по документам компании. Находит нужные фрагменты, показывает источники и передаёт сложные вопросы человеку.",
+    "sv3t": "Интеграции",
+    "sv3d": "Сайт, CRM, таблицы и мессенджеры работают вместе. Заявки и уведомления передаются автоматически, без ручного переноса.",
+    "sv4t": "Доработка ботов",
+    "sv4d": "Восстанавливаем работу бота, исправляем ошибки и развиваем сценарии. Разбираемся в существующем коде и переносим на новый сервер.",
+    "sv5t": "Сайты и лендинги",
+    "sv5d": "От структуры и текстов до дизайна и запуска. Адаптивный сайт с понятным предложением и заявками прямо в Telegram.",
+    "sv6t": "Поддержка",
+    "sv6d": "Хостинг, мониторинг, резервные копии и обновления. Поддерживаем работу проекта и помогаем развивать его после запуска.",
+    "s2eye": "Работы",
+    "s2h": "Идеи становятся<br>реальностью.",
+    "s2p": "Откройте сайты и Telegram-ботов, посмотрите их сценарии. Отдельный проект ниже — ассистент, который ищет ответы во внутренних документах.",
+    "ragCategory": "Собственный проект · AI-ассистент",
+    "ragDescription": "Telegram-ассистент по базе знаний компании: находит нужный фрагмент регламента и показывает источники ответа. Собственный проект Virentora с базой из 20 примерных документов.",
+    "ragPoint1": "Поиск по документам; при подключении AI — формулировка ответа на основе найденных фрагментов.",
+    "ragPoint2": "Если информации недостаточно — предложение передать вопрос человеку. Можно оценить полезность ответа.",
+    "ragPoint3": "Для администратора — обращения, статистика вопросов и обновление поискового индекса.",
+    "ragPreview": "Пример диалога по базе проекта",
+    "ragQuestion": "Кто согласует отпуск?",
+    "ragAnswer": "Отпуск согласует непосредственный руководитель.",
+    "ragSource": "Источник: «Отпуска и отсутствия» → «Планирование и согласование»",
+    "ragHandoff": "Передать вопрос человеку",
+    "ragCta": "Обсудить похожий проект →",
+    "w1c": "Автосервис",
+    "w1t": "АвтоТочка",
+    "w1d": "Лендинг с прайсом, подбором услуги по симптому и записью на диагностику в первом экране.",
+    "w2c": "Стоматология",
+    "w2t": "Дентлайн",
+    "w2d": "Сайт клиники: цены по категориям в табах, расчёт стоимости лечения и запись без телефонных звонков.",
+    "w3c": "Онлайн-школа · сайт + бот",
+    "w3t": "Логика",
+    "w3d": "Сайт и бот к нему. На странице программа и тарифы, в боте анкета из шести вопросов: подбирает формат и передаёт заявку с ответами.",
+    "d1": "Логика-бот",
+    "d2": "Подберу формат за шесть вопросов",
+    "d3": "Подобрать",
+    "dsite": "Открыть сайт",
+    "dbot": "Открыть бота",
+    "w4c": "Telegram-бот",
+    "w4t": "Бот Virentora",
+    "w4d": "Мой рабочий бот: меню услуг, цены и приём заявок прямо в чате. Живёт на сервере, отвечает круглосуточно.",
+    "wbot": "Открыть в Telegram →",
+    "tg1": "Привет! Я бот <b>Virentora</b>. Выберите, что интересно:",
+    "tg2": "Написать Льву",
+    "tg3": "Что я делаю",
+    "tg4": "Сколько стоит",
+    "tg5": "Оставить заявку",
+    "wopen": "Открыть сайт →",
+    "wgo": "Смотреть",
+    "s3eye": "Процесс",
+    "s3h": "Как идёт работа",
+    "s3p": "Без сюрпризов по срокам и без «а это в смету не входило».",
+    "p1t": "Диагностика",
+    "p1d": "Созваниваемся на 20 минут. Разбираю процесс и говорю, что реально стоит автоматизировать, а что нет. Бесплатно.",
+    "p2t": "ТЗ и смета",
+    "p2d": "Присылаю документ: что делаю, за сколько, к какому сроку и что НЕ входит. Цена после этого не меняется.",
+    "p3t": "Разработка",
+    "p3d": "Предоплата 50%, дальше работа. Показываю промежуточный результат каждые 2–3 дня, вы правите на ходу.",
+    "p4t": "Запуск и поддержка",
+    "p4d": "Разворачиваю, обучаю вашу команду, 14 дней правок бесплатно. Дальше — поддержка по желанию.",
+    "s4eye": "Цены",
+    "s4h": "Сколько это стоит",
+    "s4p": "Фиксированная сумма за результат, а не почасовка. Итог знаете до старта — в процессе он не двигается.",
+    "task": "задача",
+    "project": "проект",
+    "choose": "Обсудить",
+    "popular": "Чаще всего берут",
+    "pl1n": "Лендинг",
+    "pl1d": "Одностраничник под услугу или нишу. Заявки приходят вам в Telegram.",
+    "pl1f1": "Дизайн и вёрстка с нуля",
+    "pl1f2": "Домен и хостинг под ключ",
+    "pl1f3": "Запуск за 3–5 дней",
+    "pl2n": "Telegram-бот",
+    "pl2d": "Бот под конкретный процесс: приём заявок, каталог, запись, рассылки.",
+    "pl2f1": "Логика, меню, админка",
+    "pl2f2": "Заявки в таблицу или CRM",
+    "pl2f3": "Хостинг и деплой",
+    "pl2f4": "14 дней правок бесплатно",
+    "pl3n": "Сайт + бот",
+    "pl3d": "Связка целиком: лендинг собирает заявку, бот отвечает и складывает её в таблицу.",
+    "pl3f1": "Лендинг и бот в одном стиле",
+    "pl3f2": "Форма сайта уходит прямо в бот",
+    "pl3f3": "Единая база заявок",
+    "pl3f4": "Запуск за 7–10 дней",
+    "pl4n": "AI-агент и интеграции",
+    "pl4d": "Агент отвечает по вашим документам, сервисы связаны между собой.",
+    "pl4f1": "База знаний из ваших файлов",
+    "pl4f2": "Ответы со ссылкой на источник",
+    "pl4f3": "Связка с CRM и сервисами",
+    "pl4f4": "Месяц поддержки в подарок",
+    "pricenote": "Итоговая цена зависит от объёма. После диагностики называю точную сумму — она фиксируется в смете.",
+    "s5eye": "FAQ",
+    "s5h": "Частые вопросы",
+    "q1": "Сколько занимает разработка?",
+    "a1": "Правка — 1–3 дня. Бот под задачу — 5–10 дней. AI-агент с базой знаний — 2–3 недели. Срок фиксируется в смете до старта, и я его не двигаю без вашего согласия.",
+    "q2": "Что если результат не подойдёт?",
+    "a2": "Промежуточный результат показываю каждые 2–3 дня, поэтому «не подойдёт» на финале почти не случается — вы правите по ходу. После сдачи 14 дней правок бесплатно.",
+    "q3": "Как происходит оплата?",
+    "a3": "Предоплата 50% после согласования сметы, остаток — при сдаче. Работаем по письменному ТЗ, даже если проект маленький.",
+    "q4": "Нужны ли мне свои серверы?",
+    "a4": "Нет. Разворачиваю на облачном хостинге, это 200–500 ₽ в месяц. Если у вас есть свой сервер — разверну на нём.",
+    "q5": "Кто владеет кодом после сдачи?",
+    "a5": "Вы. Отдаю исходники и доступы. Если захотите передать проект другому разработчику — ничего не блокируется.",
+    "ctah": "Следующий шаг.<br>Начинается с вас.",
+    "ctap": "Отвечаю в течение пары часов. Диагностика бесплатная — даже если работать не начнём, получите разбор своего процесса.",
+    "ctab1": "Написать в Telegram",
+    "ctab2": "Отправить на почту",
+    "ftag": "Разработка AI-агентов, Telegram-ботов и интеграций для малого бизнеса.",
+    "fc1": "Навигация",
+    "fc2": "Контакты",
+    "fmade": "Сделано в Virentora"
+  },
+  "en": {
+    "nav1": "Services",
+    "nav2": "Work",
+    "nav3": "Process",
+    "nav4": "Pricing",
+    "nav5": "FAQ",
+    "navcta": "Start a project",
+    "badge": "DIGITAL DEVELOPMENT STUDIO",
+    "earthLabel": "One world. Endless possibilities.",
+    "explore": "Explore the possibilities",
+    "motion": "Planet motion",
+    "h1": "Your business.<br><span class=\"hero-outline\">Beyond limits.</span>",
+    "sub": "Websites, AI agents and automation.<br>Connecting technology to move your business forward.",
+    "cta1": "Start a project",
+    "cta2": "View work",
+    "note": "Free process audit — no strings attached",
+    "chip1": "AI agents",
+    "chip2": "Telegram",
+    "chip3": "Integrations",
+    "chip4": "Bots 24/7",
+    "st1": "days to launch",
+    "st2": "bot uptime",
+    "st3": "hours saved monthly",
+    "st4": "days of free fixes",
+    "s1eye": "Services",
+    "s1h": "Technology.<br>Working as one.",
+    "s1p": "From discovering your brand to making and processing an enquiry. We build individual products and connect them into one system.",
+    "from": "from",
+    "sv1t": "Telegram bots",
+    "sv1d": "Leads, bookings, catalogues and payments in one conversation. The bot guides customers through your flow and passes the details to your team.",
+    "sv2t": "AI agents & RAG",
+    "sv2d": "An AI assistant grounded in your company documents. Finds relevant passages, cites sources and hands complex questions to a person.",
+    "sv3t": "Integrations",
+    "sv3d": "Your website, CRM, spreadsheets and messengers work together. Leads and notifications move automatically, without manual copying.",
+    "sv4t": "Bot rescue",
+    "sv4d": "Restore your bot, fix issues and extend its workflows. We work with existing code and migrate it to a new server when needed.",
+    "sv5t": "Sites & landing pages",
+    "sv5d": "From structure and copy to design and launch. A responsive website with a clear offer and enquiries delivered directly to Telegram.",
+    "sv6t": "Support",
+    "sv6d": "Hosting, monitoring, backups and updates. We keep the project running and help it grow after launch.",
+    "s2eye": "Work",
+    "s2h": "Ideas become<br>reality.",
+    "s2p": "Open the websites and Telegram bots to explore their flows. The featured project below is an assistant that finds answers in internal documents.",
+    "ragCategory": "Independent project · AI assistant",
+    "ragDescription": "A Telegram knowledge assistant that finds relevant policy passages and shows answer sources. An independent Virentora project with 20 sample documents.",
+    "ragPoint1": "Document search, with optional AI to compose an answer from the retrieved passages.",
+    "ragPoint2": "When information is insufficient, offers a handoff to a person. Users can rate answers.",
+    "ragPoint3": "Admin tools for support tickets, question statistics and search index updates.",
+    "ragPreview": "Example conversation from the project knowledge base",
+    "ragQuestion": "Who approves time off?",
+    "ragAnswer": "Time off is approved by the employee’s direct manager.",
+    "ragSource": "Source: Time off and absences → Planning and approval",
+    "ragHandoff": "Pass the question to a person",
+    "ragCta": "Discuss a similar project →",
+    "w1c": "Auto service",
+    "w1t": "AvtoTochka",
+    "w1d": "Landing page with an open price list, symptom-based service picker and booking in the first screen.",
+    "w2c": "Dental clinic",
+    "w2t": "Dentline",
+    "w2d": "Clinic site: prices grouped in tabs, treatment cost breakdown and booking without phone calls.",
+    "w3c": "Online school · site + bot",
+    "w3t": "Logika",
+    "w3d": "A site and its bot. The page holds the curriculum and plans; the bot asks six questions, picks a format and passes the lead on with the answers.",
+    "d1": "Logika bot",
+    "d2": "Six questions and I will pick your format",
+    "d3": "Start",
+    "dsite": "Open site",
+    "dbot": "Open bot",
+    "w4c": "Telegram bot",
+    "w4t": "Virentora bot",
+    "w4d": "My working bot: service menu, pricing and lead capture right inside the chat. Runs on a server, answers around the clock.",
+    "wbot": "Open in Telegram →",
+    "tg1": "Hi! I am the <b>Virentora</b> bot. Pick what you need:",
+    "tg2": "Message Lev",
+    "tg3": "What I do",
+    "tg4": "Pricing",
+    "tg5": "Leave a request",
+    "wopen": "Open site →",
+    "wgo": "View",
+    "s3eye": "Process",
+    "s3h": "How we work",
+    "s3p": "No deadline surprises and no \"that wasn't in the quote\".",
+    "p1t": "Audit",
+    "p1d": "A 20-minute call. I map your process and tell you what's worth automating — and what isn't. Free.",
+    "p2t": "Spec & quote",
+    "p2d": "You get a document: what I build, for how much, by when, and what's excluded. The price doesn't move after that.",
+    "p3t": "Build",
+    "p3d": "50% upfront, then work starts. I show progress every 2–3 days so you can steer as we go.",
+    "p4t": "Launch & support",
+    "p4d": "I deploy, train your team, and fix anything free for 14 days. Ongoing support is optional.",
+    "s4eye": "Pricing",
+    "s4h": "What it costs",
+    "s4p": "A fixed sum for an outcome, not hourly billing. You know the total before we start — and it does not move.",
+    "task": "task",
+    "project": "project",
+    "choose": "Discuss",
+    "popular": "Most popular",
+    "pl1n": "Landing page",
+    "pl1d": "A one-pager for a service or a niche. Leads land in your Telegram.",
+    "pl1f1": "Design and markup from scratch",
+    "pl1f2": "Domain and hosting handled",
+    "pl1f3": "Live in 3–5 days",
+    "pl2n": "Telegram bot",
+    "pl2d": "A bot for one specific process: leads, catalogue, booking, broadcasts.",
+    "pl2f1": "Logic, menus, admin panel",
+    "pl2f2": "Leads into a sheet or CRM",
+    "pl2f3": "Hosting and deployment",
+    "pl2f4": "14 days of free fixes",
+    "pl3n": "Site + bot",
+    "pl3d": "The whole loop: the landing collects the lead, the bot answers and files it.",
+    "pl3f1": "Landing and bot in one style",
+    "pl3f2": "The form posts straight into the bot",
+    "pl3f3": "One place for every lead",
+    "pl3f4": "Live in 7–10 days",
+    "pl4n": "AI agent & integrations",
+    "pl4d": "An agent answers from your documents; your services talk to each other.",
+    "pl4f1": "Knowledge base from your files",
+    "pl4f2": "Answers with source citations",
+    "pl4f3": "Wired into CRM and services",
+    "pl4f4": "One month of support included",
+    "pricenote": "Final price depends on scope. After the audit I give an exact number and lock it into the quote.",
+    "s5eye": "FAQ",
+    "s5h": "Common questions",
+    "q1": "How long does it take?",
+    "a1": "A quick fix takes 1–3 days. A custom bot 5–10 days. An AI agent with a knowledge base 2–3 weeks. The deadline is locked in the quote and I don't move it without your agreement.",
+    "q2": "What if I don't like the result?",
+    "a2": "I show progress every 2–3 days, so a bad surprise at the end is rare — you steer as we go. After delivery you get 14 days of free fixes.",
+    "q3": "How does payment work?",
+    "a3": "50% upfront once the quote is agreed, the rest on delivery. We always work from a written spec, even on small projects.",
+    "q4": "Do I need my own servers?",
+    "a4": "No. I deploy to cloud hosting, roughly 200–500 ₽ a month. If you already have a server, I'll deploy there instead.",
+    "q5": "Who owns the code?",
+    "a5": "You do. I hand over the source and all credentials. If you ever move to another developer, nothing is locked.",
+    "ctah": "Your next chapter.<br>Starts here.",
+    "ctap": "I reply within a couple of hours. The audit is free — even if we never work together, you leave with a map of your process.",
+    "ctab1": "Message on Telegram",
+    "ctab2": "Send an email",
+    "ftag": "AI agents, Telegram bots and integrations for small business.",
+    "fc1": "Navigation",
+    "fc2": "Contact",
+    "fmade": "Built by Virentora"
+  }
+};
 
 const MQ = ["Python","Aiogram","OpenAI API","Claude API","LangChain","n8n","PostgreSQL","Redis","Docker","Google Sheets","amoCRM","Bitrix24","FastAPI","Webhooks","Make.com","Qdrant"];
 
@@ -1111,13 +1250,7 @@ if(matchMedia("(pointer:fine)").matches && !matchMedia("(prefers-reduced-motion:
   });
 }
 
-/* ===================== SPOTLIGHT ===================== */
-(function(){
-  const s = document.getElementById("spot");
-  let x=0,y=0,tx=0,ty=0,on=false;
-  addEventListener("pointermove", e=>{ tx=e.clientX; ty=e.clientY; if(!on){on=true; s.style.opacity=1;} },{passive:true});
-  (function loop(){ x+=(tx-x)*.09; y+=(ty-y)*.09; s.style.left=x+"px"; s.style.top=y+"px"; requestAnimationFrame(loop); })();
-})();
 </script>
+<script type="module" src="earth.js"></script>
 </body>
 </html>
