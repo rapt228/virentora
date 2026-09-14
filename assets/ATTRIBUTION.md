@@ -17,3 +17,5 @@ Recommended public credit: Earth textures by Solar System Scope (CC BY 4.0), res
 
 Library: Three.js r170 (npm version 0.170.0), MIT license. Existing source header retained.
 - https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js
+
+Static Earth posters: browser captures of the Virentora Three.js scene, using the attributed textures above. Captured at 1440×900, 768×1024 and 390×844.
