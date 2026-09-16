@@ -37,3 +37,7 @@ All three source JPEGs are 8192×4096. Day has no baked cloud layer. Converted t
 ## 2026-09-15: compact mobile maps
 
 The mobile profile uses additional technical downscales of the same licensed maps: `earth-day-2k.webp` 2048×1024 q90; `earth-clouds-2k.webp` 2048×1024 grayscale q85; `earth-night-1k.webp` 1024×512 q88; `earth-details-1k.webp` 1024×512 RGB q90. Lanczos resizing, no upscaling or artistic changes. Total 923,170 bytes. Packed detail channels retain their meanings. The full desktop maps remain available. Posters are now used for graphics failure only, not for ordinary startup.
+
+## 2026-09-16: logo and library packaging
+The replacement Virentora mark was traced to vector from the logo supplied by the owner (photo_2026-09-12_12-25-37.jpg); it is not a new identity. Social preview is an HTML composition with that mark and the existing attributed Earth scene poster.
+Three.js remains r170, locally minified using Terser 5.44.1 (module, mangle, compress:false; licence comments retained). Source/output hashes and byte counts: three-build.json. Normal desktop retains the 8K surface. Mobile maps are unchanged. Unused legacy day/night JPEGs and cinematic-sky.png were removed; historical source links above remain provenance.

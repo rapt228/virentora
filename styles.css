@@ -36,5 +36,41 @@ html[data-motion=paused] .hero-copy,html[data-motion=paused] .journey-copy{trans
 
 @media(min-width:601px) and (max-width:800px){.hero-copy{padding-top:120px}.hero-note,.earth-label{display:none}.hero-copy .hero-lead,.hero-copy .hero-sub{max-width:470px}.journey-copy{top:17%}.journey-copy h2{font-size:60px}.journey-copy p{max-width:390px}}
 
-/* Touch scrolling does not blur a continuously changing framebuffer. */
-@media(max-width:800px),(pointer:coarse){#hdr.stuck{backdrop-filter:none;background:#050b13f5}.mobile-menu::backdrop{backdrop-filter:none}.hero-scene{contain:paint}}
+/* Readable detail without changing the dark visual language. */
+.brand svg{width:29px;height:29px;flex:none}
+.section{padding-block:96px}.section-description{color:#bbc9d4}
+.micro-label,.tech-label,.work-index,.plan-number,.hero-note{color:#aebfcd}
+.project-status,.demo-note,.source-card small,.handoff-label,.footer-main p,.footer-bottom{font-size:13px;color:#b4c5d2}
+.case-details{border-top:1px solid var(--line);margin-top:22px;text-align:left}
+.case-details summary{display:flex;align-items:center;justify-content:space-between;gap:16px;list-style:none;min-height:52px;cursor:pointer;color:#d9e8f0;font-size:14px}
+.case-details summary::-webkit-details-marker{display:none}.case-details summary>span[aria-hidden]{display:none}.case-details summary::after{content:'+';font-size:22px;font-weight:400;color:var(--blue)}.case-details[open] summary::after{content:'−'}
+.case-facts{margin:6px 0 0;display:grid;gap:17px;font-size:14px;line-height:1.8}.case-facts dt{color:#e2eaf0;font-weight:600;margin-bottom:4px}.case-facts dd{margin:0;color:#b7c8d6}
+.work-limitation{font-size:13px!important;line-height:1.8!important;color:#b1c1cf!important;margin-top:18px;padding:15px 0;border-top:1px solid #b0cde31c}
+.founder-section{display:grid;grid-template-columns:160px 1fr;gap:60px;align-items:start;border-top:1px solid var(--line)}
+.founder-symbol{width:128px;height:128px;border:1px solid #aecce238;border-radius:32px;display:grid;place-items:center;background:radial-gradient(ellipse at top,#26475b55,#0a1520);color:#e7f1f5;font:72px var(--serif)}
+.founder-symbol svg{width:62px;height:62px;fill:currentColor}.founder-copy h2{font-size:58px;margin:16px 0 22px}.founder-copy>p{max-width:730px;color:#bbcad5}.founder-points{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin:28px 0 0;padding:0;list-style:none;font-size:14px;color:#c5d3de}.founder-points li{padding-top:16px;border-top:1px solid var(--line)}
+.plan>.plan-timeline{min-height:0;color:#d8e5ed;font-size:13px;margin-top:16px}.plan>.plan-scope{min-height:0;font-size:13px;line-height:1.8;margin:0 0 14px;color:#b9c9d5}.plan>.plan-exclusion{min-height:0;font-size:12px;line-height:1.8;margin:0 0 22px;color:#aebfce}.plan ul{margin:20px 0}.plan>.button{margin-top:auto}.pricing-note{max-width:880px;font-size:13px;line-height:1.8;margin-top:22px;color:#b6c5d0}
+.contact-content>.contact-next{max-width:630px;color:#c5d3de;font-size:15px;margin-top:16px}.contact-form{width:min(650px,100%);margin:35px auto 0;padding:30px;text-align:left;border:1px solid #b6d3e53a;border-radius:26px;background:linear-gradient(145deg,#122433d9,#09131fc9)}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:18px}.form-field{display:grid;gap:8px;margin-bottom:20px;font-size:14px;color:#d8e5ee}.form-field label small{font-size:12px;color:#afc0ce}.form-field input,.form-field textarea{width:100%;border:1px solid #bad3e63b;border-radius:13px;color:#edf5f9;background:#030c1580;padding:13px 14px;min-height:50px;font:16px/1.6 var(--sans);outline-offset:3px}.form-field textarea{resize:vertical;min-height:120px}.form-field input::placeholder,.form-field textarea::placeholder{color:#93a7b7}.form-field input:focus,.form-field textarea:focus{border-color:#acd7ec}.form-submit-row{display:flex;gap:20px;align-items:center}.form-privacy{font-size:12px;line-height:1.7;color:#aebfcd}.form-privacy a{text-decoration:underline;text-underline-offset:3px}.form-honeypot{display:none}.contact-actions{margin-top:25px}
+@media(max-width:800px){.section{padding-block:74px}.founder-section{grid-template-columns:90px 1fr;gap:26px}.founder-symbol{width:84px;height:84px;border-radius:24px;font-size:46px}.founder-symbol svg{width:44px;height:44px}.founder-copy h2{font-size:45px}.founder-points{grid-template-columns:1fr;gap:12px}}
+@media(max-width:600px){.section{padding-block:64px}.project-status{font-size:12px}.founder-section{grid-template-columns:1fr;gap:24px}.founder-copy h2{font-size:42px;margin-top:14px}.contact-form{padding:22px 19px;border-radius:22px}.form-row{grid-template-columns:1fr;gap:0}.form-submit-row{flex-direction:column;align-items:stretch;gap:16px}.form-submit-row .button{width:100%}.contact-content>.contact-next{max-width:100%;font-size:14px}.plan>.plan-exclusion{font-size:13px}.hero-copy .hero-lead,.hero-copy .hero-sub{font-size:15px}}
+/* Keep the scroll-directed camera, with simpler WebGL compositing on touch. */
+@media (max-width:800px), (pointer:coarse) {
+  .hero-scene {
+    overflow:hidden;
+    isolation:auto;
+    contain:none;
+  }
+  /* No negative layer behind a moving sticky WebGL surface. */
+  .hero-sky { z-index:0; }
+  #earth-stage { z-index:1; }
+  .hero-vignette { z-index:2; }
+  .hero-copy {
+    z-index:3;
+  }
+  .journey-copy { z-index:3; }
+  .earth-label,.scene-progress { z-index:3; }
+  .hero-bottom { z-index:4; }
+}
+.plan>.plan-timeline{display:block;color:#d8e5ed;font-size:13px;margin-top:16px}.plan-scope strong{display:block;color:#dae6ee;font-weight:500;margin-bottom:5px}.plan-scope span{display:block}.founder-copy>p+p{margin-top:16px}@media(max-width:800px),(pointer:coarse){#hdr.stuck{backdrop-filter:none;background:#050b13f5}.mobile-menu::backdrop{backdrop-filter:none}}
+@media(max-width:360px){.hero-copy h1{font-size:44px}.hero-copy .hero-lead,.hero-copy .hero-sub{font-size:14px}.hero-actions{gap:10px}.hero-actions .button{padding-inline:14px;gap:10px}.hero-actions .text-link{font-size:12px;gap:6px}}

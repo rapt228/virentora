@@ -1,0 +1,19 @@
+{
+  "source": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+  "revision": "170",
+  "sourceSha256": "ce1fa418de16a19495a9f72495580e3015d7745c296d3ce0485897f902ddedfb",
+  "outputSha256": "553a613b8ea618d5c0dd8f92c7540357c79da18b4fac4243408bb30aea1b9173",
+  "sourceBytes": 1314681,
+  "outputBytes": 718263,
+  "sourceGzipBytes": 265698,
+  "outputGzipBytes": 174489,
+  "minifier": "terser 5.44.1",
+  "flags": {
+    "module": true,
+    "ecma": 2020,
+    "compress": false,
+    "mangle": true,
+    "licenseComments": true
+  },
+  "notes": "Identifier mangling and whitespace removal only, compression optimizations disabled to reduce runtime risk. No library upgrade or external Three.js download."
+}

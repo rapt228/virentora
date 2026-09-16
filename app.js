@@ -1,6 +1,7 @@
 (() => {
   const root = document.documentElement;
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+  const compactScene = matchMedia('(max-width: 800px), (pointer: coarse)');
   const header = document.querySelector('#hdr');
   const hero = document.querySelector('#top');
   const heroScene = document.querySelector('.hero-scene');
@@ -37,7 +38,7 @@
     menu.setAttribute('aria-label', lang === 'ru' ? 'Навигация по сайту' : 'Site navigation');
     document.querySelector('.bot-preview').setAttribute('aria-label', lang === 'ru' ? 'Пример интерфейса бота' : 'Example bot interface');
     document.title = lang === 'ru' ? 'Virentora — сайты, Telegram-боты и автоматизация' : 'Virentora — websites, Telegram bots & automation';
-    document.querySelector('meta[name="description"]').content = lang === 'ru' ? 'Сайты, Telegram-боты, AI-ассистенты и интеграции для бизнеса. Собственные и демонстрационные проекты, понятный процесс и стоимость до начала работы.' : 'Websites, Telegram bots, AI assistants and business integrations. Personal and demo projects, a clear process and costs agreed before work begins.';
+    document.querySelector('meta[name="description"]').content = lang === 'ru' ? 'Сайты, Telegram-боты, AI-ассистенты и интеграции для бизнеса. Работы, понятный процесс, объём и стоимость до начала разработки.' : 'Websites, Telegram bots, AI assistants and business integrations. Work, a clear process, scope and costs agreed before development starts.';
     updateMotionLabel();
     try { localStorage.setItem('virentora-language',lang); } catch {}
   }
@@ -99,6 +100,8 @@
     ticking=false;
     const y=scrollY, stuck=y>25;
     if(stuck!==wasStuck) {header.classList.toggle('stuck',stuck);wasStuck=stuck;}
+    // One measured scroll progress drives both the camera and text on all
+    // devices. No animation-frame layout reads are needed for the scene.
     if(reduced.matches) sceneProgress=0;
     else if(!paused) sceneProgress=Math.min(1,Math.max(0,(y-heroTop)/scrollRange));
     const p=sceneProgress;
@@ -118,6 +121,7 @@
   heroObserver.observe(hero);
   heroObserver.observe(heroScene);
   document.fonts.ready.then(measureHero);
+  compactScene.addEventListener('change', measureHero);
   measureHero();
   document.querySelector('#year').textContent = new Date().getFullYear();
 })();

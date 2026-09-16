@@ -1,5 +1,5 @@
-import * as THREE from './assets/three.module.js';
-import { createCosmicBackground } from './cosmic-background.js?v=20260914-smooth3';
+import * as THREE from './assets/three.module.min.js';
+import { createCosmicBackground } from './cosmic-background.js?v=20260916-mobile4';
 
 // A static Earth is mounted only if graphics fail, never during normal loading.
 // Content and navigation never depend on this progressively enhanced scene.
@@ -40,14 +40,17 @@ async function initialiseScene() {
   let paused = document.documentElement.dataset.motion === 'paused';
   let width = Math.max(1, host.clientWidth);
   let height = Math.max(1, host.clientHeight);
-  let mobile = matchMedia('(max-width: 800px)').matches;
-  const compact = matchMedia('(max-width: 800px), (pointer: coarse)').matches;
+  const compactMedia = matchMedia('(max-width: 800px), (pointer: coarse)');
+  let mobile = compactMedia.matches;
+  const compact = mobile;
   host.dataset.profile = compact ? 'mobile' : 'desktop';
   let qualityRatio = compact ? 1.5 : 2;
   const effectiveRatio = () => Math.min(devicePixelRatio || 1,qualityRatio,Math.sqrt((compact ? 900000 : 6000000)/(width*height)));
   let pixelRatio = effectiveRatio();
   let nextRender = 0;
-  let qualityElapsed = 0, slowElapsed = 0;
+  let qualityElapsed = 0, slowElapsed = 0, nextQualityChange = 0;
+  let pendingResize = null;
+  let forceFrame = true;
   let targetProgress = Number.parseFloat(hero.style.getPropertyValue('--scene-progress')) || 0;
   let introStart = 0;
   let lastTime = 0;
@@ -194,6 +197,8 @@ async function initialiseScene() {
 
   const loader = new THREE.TextureLoader();
   let textures;
+  // Preserve the detailed desktop surface; startup is accelerated by early
+  // parallel preloads, not by replacing it with a low-resolution texture.
   const use8k = !compact && matchMedia('(min-width: 1100px)').matches && renderer.capabilities.maxTextureSize >= 8192 && !navigator.connection?.saveData;
   const surfacePath = compact ? './assets/earth-day-2k.webp' : use8k ? './assets/earth-day-8k.webp' : './assets/earth-day-4k.webp';
   try {
@@ -380,16 +385,31 @@ async function initialiseScene() {
 
   function resize(force=false) {
     const nextWidth = Math.max(1,host.clientWidth), nextHeight = Math.max(1,host.clientHeight);
-    if (!force && nextWidth===width && nextHeight===height) return;
-    width=nextWidth; height=nextHeight;
-    mobile=matchMedia('(max-width: 800px)').matches;
+    if (!force && !pendingResize && nextWidth===width && nextHeight===height && mobile===compactMedia.matches) return;
+    // ResizeObserver runs after layout, potentially after this frame's rAF.
+    // Never clear the visible framebuffer here: keep its last complete image
+    // until draw() can resize and render the replacement in the same callback.
+    pendingResize = { width: nextWidth, height: nextHeight, rebuild: force || Boolean(pendingResize?.rebuild) };
+    requestFrame(true);
+  }
+
+  function applyPendingResize() {
+    if (!pendingResize) return;
+    const next = pendingResize;
+    pendingResize = null;
+    width=next.width; height=next.height;
+    mobile=compactMedia.matches;
     pixelRatio=effectiveRatio();
     host.dataset.renderRatio=pixelRatio.toFixed(2);
-    renderer.setDrawingBufferSize(width,height,pixelRatio);
+    if (renderer.domElement.width !== Math.floor(width*pixelRatio) || renderer.domElement.height !== Math.floor(height*pixelRatio)) {
+      renderer.setDrawingBufferSize(width,height,pixelRatio);
+    }
     starMaterial.uniforms.pixelRatio.value=pixelRatio;
     camera.aspect=width/height; camera.updateProjectionMatrix();
-    scatterStars(); cosmicSky.resize(width,height,force);
-    applyCamera(); requestFrame();
+    scatterStars(); cosmicSky.resize(width,height,next.rebuild);
+    qualityElapsed=slowElapsed=0;
+    // A resize/context restore is not a representative steady-state sample.
+    lastTime=0;
   }
 
   function applyCamera() {
@@ -410,7 +430,8 @@ async function initialiseScene() {
     stars.rotation.x = pointerY * 0.001;
   }
 
-  function requestFrame() {
+  function requestFrame(force=false) {
+    if (force) forceFrame=true;
     if (frame || failed || !visible || document.hidden) return;
     frame = requestAnimationFrame(draw);
   }
@@ -418,23 +439,31 @@ async function initialiseScene() {
   function draw(now) {
     frame = 0;
     if (failed || !visible || document.hidden) { lastTime = 0; return; }
-    if (compact && ready && canMove() && now < nextRender-0.5) { requestFrame(); return; }
-    if (nextRender < now-100) nextRender=now;
+    const required = forceFrame || Boolean(pendingResize) || !ready;
+    if (!required && compact && canMove() && now < nextRender-0.5) { requestFrame(); return; }
+    forceFrame=false;
+    applyPendingResize();
+    if (failed) return;
+    if (required || nextRender < now-100) nextRender=now;
     nextRender += 1000/60;
-    const delta = lastTime ? Math.min((now - lastTime) / 1000, 0.05) : 0;
+    const elapsed = lastTime ? (now-lastTime)/1000 : 0;
+    const delta = Math.min(elapsed,0.05);
     lastTime = now;
     if (!introStart) introStart=now;
     reveal.value = paused || reducedMotion.matches ? 1 : Math.min(1,(now-introStart)/300);
-    if (compact && delta && canMove()) {
-      qualityElapsed += delta;
-      if (delta > 0.027) slowElapsed += delta;
-      if (qualityElapsed > 2) {
-        if (slowElapsed/qualityElapsed > 0.2 && pixelRatio > 1.05) {
+    if (compact && !required && elapsed > 0 && elapsed < 0.15 && canMove() && now >= nextQualityChange) {
+      qualityElapsed += elapsed;
+      if (elapsed > 0.028) slowElapsed += elapsed;
+      if (qualityElapsed > 4) {
+        if (slowElapsed/qualityElapsed > 0.25 && pixelRatio > 1.05) {
           qualityRatio=Math.max(1,qualityRatio-0.25);
           pixelRatio=effectiveRatio();
           renderer.setDrawingBufferSize(width,height,pixelRatio);
           starMaterial.uniforms.pixelRatio.value=pixelRatio;
           host.dataset.renderRatio=pixelRatio.toFixed(2);
+          // One direction, infrequent steps: scrolling cannot make quality
+          // oscillate or repeatedly reallocate GPU buffers.
+          nextQualityChange=now+10000;
         }
         qualityElapsed=slowElapsed=0;
       }
@@ -492,14 +521,22 @@ async function initialiseScene() {
       cancelAnimationFrame(frame);
       frame = 0;
       lastTime = 0;
-    } else requestFrame();
-  });
+      qualityElapsed=slowElapsed=0;
+    } else requestFrame(true);
+  }, { rootMargin: '160px 0px', threshold: 0 });
   intersectionObserver.observe(host);
+
+  compactMedia.addEventListener('change', () => {
+    mobile=compactMedia.matches;
+    if (mobile) pointerX=pointerY=targetPointerX=targetPointerY=0;
+    resize(true);
+  });
 
   window.addEventListener('virentora:motion', event => {
     paused = Boolean(event.detail?.paused);
     lastTime = 0;
-    requestFrame();
+    qualityElapsed=slowElapsed=0;
+    requestFrame(true);
   });
   reducedMotion.addEventListener('change', () => {
     if (reducedMotion.matches) {
@@ -507,14 +544,15 @@ async function initialiseScene() {
       pointerX = pointerY = targetPointerX = targetPointerY = 0;
     }
     lastTime = 0;
-    requestFrame();
+    requestFrame(true);
   });
   document.addEventListener('visibilitychange', () => {
     if (document.hidden) {
       cancelAnimationFrame(frame);
       frame = 0;
       lastTime = 0;
-    } else requestFrame();
+      qualityElapsed=slowElapsed=0;
+    } else requestFrame(true);
   });
   window.addEventListener('virentora:scroll', event => {
     targetProgress=clamp(event.detail.progress);
@@ -528,10 +566,12 @@ async function initialiseScene() {
     requestFrame();
   }, { passive: true });
   hero.addEventListener('pointerleave', () => { targetPointerX = targetPointerY = 0; });
-  window.addEventListener('pagehide', () => { cancelAnimationFrame(frame); frame = 0; lastTime = 0; });
-  window.addEventListener('pageshow', requestFrame);
+  window.addEventListener('pagehide', () => { cancelAnimationFrame(frame); frame = 0; lastTime = 0; qualityElapsed=slowElapsed=0; });
+  window.addEventListener('pageshow', () => { resize(); requestFrame(true); });
   // A visitor can pause while the textures are loading.
   paused = document.documentElement.dataset.motion === 'paused';
   applyCamera();
-  requestFrame();
+  // Texture loading may have overlapped a viewport/orientation change.
+  resize();
+  requestFrame(true);
 }
