@@ -109,19 +109,22 @@ html[data-motion=paused] .hero-copy,html[data-motion=paused] .journey-copy{trans
 @media(max-width:800px){.bot-case.portfolio-feature,.rag-section.portfolio-feature{grid-template-columns:1fr}.portfolio-feature .bot-description,.portfolio-feature .rag-copy{max-width:100%}.portfolio-feature .bot-preview,.portfolio-feature .rag-demo{width:100%;max-width:560px}.rag-section.portfolio-feature{margin-block:54px}}
 @media(max-width:600px){.work-grid{gap:26px}.work-grid>.work{padding:16px;border-radius:24px}.work-grid>.work-wide{padding:20px;gap:26px}.work-info h3{font-size:42px}.work-info .eyebrow{font-size:12px}.work-index,.case-number{width:40px;height:40px;font-size:18px}.case-kicker{gap:12px;font-size:12px;letter-spacing:.05em}.portfolio-feature{padding:26px 22px;border-radius:26px;gap:30px}.portfolio-feature::before{left:22px}.bot-case.portfolio-feature{margin-top:32px}.rag-section.portfolio-feature{margin-block:42px}.portfolio-feature .bot-description h3,.portfolio-feature .rag-copy h2{font-size:44px}.portfolio-feature .work-statement{font-size:26px}.portfolio-feature .bot-preview,.portfolio-feature .rag-demo{padding:20px 17px;border-radius:20px}.bot-preview .message,.rag-demo .message,.rag-response p{font-size:15px}.rag-response{gap:9px}.source-card{padding:11px;gap:8px}.source-card strong{font-size:14px}.source-card small,.demo-note,.handoff-label{font-size:13px}.source-card .document-symbol{display:none}.price strong{font-size:64px}}
 @media(max-width:360px){.portfolio-feature{padding:24px 17px}.portfolio-feature .bot-description h3,.portfolio-feature .rag-copy h2{font-size:38px}.work-grid>.work{padding:14px}.work-info{gap:10px}.work-info h3{font-size:38px}.preview-options>span{font-size:12px;padding:8px}.portfolio-feature .bot-preview,.portfolio-feature .rag-demo{padding:17px 13px}.source-card{flex-wrap:wrap}.source-card>span:last-child{margin-left:0}}
-/* Content is visible without JS, before intersection and after completion.
-   This class exists only during an actual, single entrance animation. */
+/* Only targets below the viewport receive this class after JS/IO is ready.
+   Layout and keyboard access remain intact; the hero is never a target. */
+.reveal-pending { opacity:0; }
 .reveal-enter {
-  animation:virentora-enter 500ms cubic-bezier(.22,.61,.36,1) both;
+  animation:virentora-enter 650ms cubic-bezier(.22,.61,.36,1) both;
   animation-delay:var(--reveal-delay,0ms);
   will-change:opacity,translate;
 }
 @keyframes virentora-enter {
-  from { opacity:.68; translate:0 14px; }
+  from { opacity:.08; translate:0 28px; }
   to { opacity:1; translate:0 0; }
 }
 /* Keyboard focus is immediately fully visible even before the JS listener. */
 .reveal-enter:focus-within { animation:none!important; }
+.reveal-pending:focus-within { opacity:1; }
 @media (prefers-reduced-motion:reduce) {
+  .reveal-pending { opacity:1; }
   .reveal-enter { animation:none!important; will-change:auto; }
 }

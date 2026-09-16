@@ -1,11 +1,12 @@
-// Progressive enhancement: nothing is hidden while waiting for JavaScript or
-// intersection events. Only a short, one-shot entrance applies visual styles.
+// Progressive enhancement: only offscreen targets are prepared after boot.
+// Content stays available without JS, on anchor/focus and with reduced motion.
 (() => {
   if (!('IntersectionObserver' in window)) return;
 
   const selector = '.service, .work-grid > .work, .bot-case, .rag-section, .founder-section, .process-step, .plan, .section-heading';
   const motion = matchMedia('(prefers-reduced-motion: reduce)');
   const seen = new WeakSet();
+  const pending = new Set();
   const running = new Map();
   let observer;
 
@@ -18,6 +19,8 @@
     function settle(node) {
       seen.add(node);
       observer?.unobserve(node);
+      pending.delete(node);
+      node.classList.remove('reveal-pending');
       const animation = running.get(node);
       if (!animation) return;
       clearTimeout(animation.timer);
@@ -32,12 +35,14 @@
       if (seen.has(node)) return;
       seen.add(node);
       observer.unobserve(node);
+      pending.delete(node);
+      node.classList.remove('reveal-pending');
       if (motion.matches || document.hidden || node.contains(document.activeElement)) return;
 
       const finish = event => {
         if (!event || (event.target === node && event.animationName === 'virentora-enter')) settle(node);
       };
-      const timer = setTimeout(() => settle(node), 700 + delay);
+      const timer = setTimeout(() => settle(node), 850 + delay);
       running.set(node, { finish, timer });
       node.addEventListener('animationend', finish);
       node.addEventListener('animationcancel', finish);
@@ -50,9 +55,9 @@
       const viewport = document.documentElement.clientHeight;
       for (const entry of entries) {
         if (!entry.isIntersecting || seen.has(entry.target)) continue;
-        // Observe 48 px before entry. If a fast scroll or history/anchor jump
-        // already brought the block into view, do not flash it back to dimmed.
-        if (motion.matches || document.hidden || entry.boundingClientRect.top < viewport - 24) {
+        // Begin 48 px inside the screen, so a slow scroll still shows the lift.
+        // A large jump deep into the viewport should reveal content immediately.
+        if (motion.matches || document.hidden || entry.boundingClientRect.top < viewport * .4) {
           settle(entry.target);
           continue;
         }
@@ -68,13 +73,13 @@
             rowTop = entry.boundingClientRect.top;
             column = 0;
           }
-          reveal(entry.target, Math.min(column++, 2) * 45);
+          reveal(entry.target, Math.min(column++, 2) * 60);
         }
       }
     }
 
     try {
-      observer = new IntersectionObserver(onEntries, { rootMargin: '0px 0px 48px 0px', threshold: 0 });
+      observer = new IntersectionObserver(onEntries, { rootMargin: '0px 0px -48px 0px', threshold: 0 });
     } catch {
       return;
     }
@@ -82,20 +87,26 @@
     function refresh() {
       observer.disconnect();
       for (const node of [...running.keys()]) settle(node);
+      for (const node of pending) node.classList.remove('reveal-pending');
+      pending.clear();
       if (motion.matches || document.hidden) return;
       const viewport = document.documentElement.clientHeight;
       const positions = targets.filter(node => !seen.has(node)).map(node => ({ node, top: node.getBoundingClientRect().top }));
       for (const { node, top } of positions) {
         // Includes blocks above the viewport after restoring scroll position.
         if (top < viewport) settle(node);
-        else observer.observe(node);
+        else {
+          pending.add(node);
+          node.classList.add('reveal-pending');
+          observer.observe(node);
+        }
       }
     }
 
-    function settleTarget(target) {
+    function settleTarget(target, includeChildren = true) {
       if (!target) return;
       for (const node of targets) {
-        if (node === target || node.contains(target) || target.contains(node)) settle(node);
+        if (node === target || node.contains(target) || (includeChildren && target.contains(node))) settle(node);
       }
     }
 
@@ -105,7 +116,8 @@
       catch { return null; }
     }
 
-    document.addEventListener('focusin', event => settleTarget(event.target));
+    // Restoring focus to body must not mark every offscreen card as visited.
+    document.addEventListener('focusin', event => settleTarget(event.target, false));
     // Do this before the browser starts native/smooth anchor scrolling.
     document.addEventListener('click', event => {
       const link = event.target.closest?.('a[href]');
