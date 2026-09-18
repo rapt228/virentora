@@ -86,7 +86,9 @@
     else burger.focus({preventScroll:true});
   });
   menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
-    menuDestination = document.querySelector(a.hash);
+    // Contact CTAs can leave the page; only local anchors have a focus target.
+    const href = a.getAttribute('href');
+    menuDestination = href?.startsWith('#') ? document.getElementById(href.slice(1)) : null;
     closeMenu();
   }));
   matchMedia('(min-width: 801px)').addEventListener('change', e => { if(e.matches && menu.open) closeMenu(); });

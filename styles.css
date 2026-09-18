@@ -128,3 +128,26 @@ html[data-motion=paused] .hero-copy,html[data-motion=paused] .journey-copy{trans
   .reveal-pending { opacity:1; }
   .reveal-enter { animation:none!important; will-change:auto; }
 }
+
+/* A direct Telegram conversation is the main contact route. */
+.contact-content>.contact-intro{max-width:540px;font-size:17px;line-height:1.85;color:#c6d5df}
+.contact-section .contact-actions{margin-top:30px}
+.contact-actions .telegram-primary{min-height:68px;min-width:320px;padding:18px 28px;gap:18px;font-size:17px;border:1px solid #e4f4ffb3;box-shadow:0 8px 38px #78b9e222,inset 0 1px 0 #ffffffa1}
+.telegram-icon{width:23px;height:23px;flex:none}
+.contact-content>.contact-handle{max-width:none;margin-top:16px;color:#b7cbd8;font-size:14px;line-height:1.8}
+.contact-handle>span[aria-hidden]{padding-inline:8px;color:#7f9daf}
+.contact-content>.contact-next{max-width:490px;margin-top:18px;font-size:15px;color:#aebfcd}
+.contact-form-option{width:min(650px,100%);margin:34px auto 0;border-top:1px solid #b6d3e522}
+.contact-form-option>summary{display:flex;align-items:center;justify-content:center;gap:13px;min-height:58px;padding:17px 0;cursor:pointer;list-style:none;color:#aebfcd;font-size:14px;line-height:1.6;transition:color .2s}
+.contact-form-option>summary::-webkit-details-marker{display:none}
+.contact-form-option>summary:hover,.contact-form-option[open]>summary{color:#e3edf4}
+.form-option-plus{position:relative;display:block;width:12px;height:12px;flex:none}
+.form-option-plus::before,.form-option-plus::after{content:'';position:absolute;top:5px;left:0;width:12px;height:1px;background:currentColor}
+.form-option-plus::after{transform:rotate(90deg);transition:transform .2s}
+.contact-form-option[open] .form-option-plus::after{transform:rotate(0)}
+.contact-form-intro{margin:0 auto 17px;font-size:14px;color:#b8cad6;line-height:1.8}
+.contact-form-option .contact-form{margin:0 auto 22px}
+.contact-email{display:inline-flex;align-items:center;gap:9px;padding:9px 0;font-size:13px;color:#aebfcd;transition:color .2s}
+.contact-email:hover{color:#e3edf4}.contact-email .arrow{width:15px;height:15px}
+@media(max-width:600px){.contact-content>.contact-intro{font-size:16px;max-width:360px}.contact-actions .telegram-primary{min-width:0;width:min(100%,350px);padding:17px 19px;gap:13px;font-size:16px;min-height:62px}.contact-content>.contact-handle{font-size:13px}.contact-content>.contact-next{font-size:14px;max-width:330px}.contact-form-option{margin-top:28px}.contact-form-option>summary{font-size:13px;gap:9px}.contact-form-intro{font-size:13px}}
+@media(max-width:360px){.contact-actions .telegram-primary{padding-inline:15px;gap:10px;font-size:14px}.telegram-primary .telegram-icon{width:20px;height:20px}.contact-content>.contact-handle{max-width:240px}.plan .button{padding-inline:15px;gap:10px}}
