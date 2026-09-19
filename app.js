@@ -36,7 +36,7 @@
     burger.setAttribute('aria-label', lang === 'ru' ? 'Открыть меню' : 'Open menu');
     closeButton.setAttribute('aria-label', lang === 'ru' ? 'Закрыть меню' : 'Close menu');
     menu.setAttribute('aria-label', lang === 'ru' ? 'Навигация по сайту' : 'Site navigation');
-    document.querySelector('.bot-preview').setAttribute('aria-label', lang === 'ru' ? 'Пример интерфейса бота' : 'Example bot interface');
+    document.querySelector('.bot-preview').setAttribute('aria-label', lang === 'ru' ? 'Сценарий работы бота' : 'Bot workflow');
     document.title = lang === 'ru' ? 'Virentora — сайты, Telegram-боты и автоматизация' : 'Virentora — websites, Telegram bots & automation';
     document.querySelector('meta[name="description"]').content = lang === 'ru' ? 'Сайты, Telegram-боты, AI-ассистенты и интеграции для бизнеса. Работы, понятный процесс, объём и стоимость до начала разработки.' : 'Websites, Telegram bots, AI assistants and business integrations. Work, a clear process, scope and costs agreed before development starts.';
     updateMotionLabel();

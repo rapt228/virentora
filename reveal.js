@@ -3,7 +3,7 @@
 (() => {
   if (!('IntersectionObserver' in window)) return;
 
-  const selector = '.service, .work-grid > .work, .bot-case, .rag-section, .founder-section, .process-step, .plan, .section-heading';
+  const selector = '.service, .project-card, .founder-section, .process-step, .plan, .section-heading';
   const motion = matchMedia('(prefers-reduced-motion: reduce)');
   const seen = new WeakSet();
   const pending = new Set();
