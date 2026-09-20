@@ -181,3 +181,17 @@
 @media (prefers-reduced-motion: reduce) {
   .services-clarity .clarity-service { transition: none; }
 }
+
+/* Portfolio addition: the existing cards retain their layout. */
+.project-amocrm{background:radial-gradient(ellipse at 100% 0,#37647528,transparent 70%),linear-gradient(135deg,#102331,#0a141f)}
+.project-amocrm h4{font-size:46px;max-width:460px}
+.project-amocrm .project-purpose{font-size:15px;line-height:1.85;max-width:none}
+.project-amocrm-tags{font-size:12px;line-height:1.9;color:#b7d2e1;margin:22px 0}
+.project-amocrm-origin{font-size:12px;line-height:1.8;color:#a9c1d1;margin-top:20px}
+.project-amocrm-shot{min-width:0;margin:0;border:1px solid #bad6e333;border-radius:18px;overflow:hidden;background:#1a2d3a}
+.project-amocrm-shot>a{display:block;padding:14px 14px 0}.project-amocrm-shot img{display:block;width:100%;height:auto;border-radius:8px;box-shadow:0 8px 22px #0002}
+.project-amocrm-image-link{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 4px;font-size:13px;line-height:1.7;color:#daebf3}.project-amocrm-shot a:hover .project-amocrm-image-link{color:#fff}
+.project-amocrm-shot figcaption{border-top:1px solid #bad6e321;padding:15px 18px;font-size:12px;line-height:1.8;color:#b2cbd9}
+@media(max-width:1000px){.project-amocrm{grid-template-columns:1fr;gap:28px}.project-amocrm h4{max-width:none}.project-amocrm-shot{max-width:680px;width:100%}}
+@media(max-width:650px){.project-amocrm h4{font-size:40px}.project-amocrm .project-purpose{font-size:14px}.project-amocrm-shot>a{padding:9px 9px 0}.project-amocrm-shot figcaption{padding:13px 14px}.project-amocrm-image-link{font-size:12px}}
+@media(max-width:360px){.project-amocrm h4{font-size:36px}}
