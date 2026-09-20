@@ -5,21 +5,21 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="theme-color" content="#03070c">
   <title>Приём заявок в amoCRM — Virentora</title>
-  <meta name="description" content="Проект для портфолио: обращения из формы и Telegram в amoCRM, история, задачи и уведомления. Настоящие скриншоты работающей интеграции на искусственных данных.">
+  <meta name="description" content="Приём заявок из формы и Telegram в amoCRM: контакты, сделки, история обращений, задачи и уведомления. Как устроена интеграция проекта «КлиматЛайн».">
   <link rel="canonical" href="https://virentora.com/projects/amocrm.html">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Приём заявок в amoCRM — Virentora">
-  <meta property="og:description" content="Форма и Telegram → контакт и сделка → задача → уведомление. Проект для портфолио на искусственных данных.">
+  <meta property="og:description" content="Форма и Telegram → контакт и сделка → задача → уведомление. Сценарий, выполненная работа и правила повторных обращений.">
   <meta property="og:url" content="https://virentora.com/projects/amocrm.html">
   <meta property="og:image" content="https://virentora.com/assets/projects/amocrm/crm-history.jpg">
-  <meta property="og:image:alt" content="Настоящая карточка amoCRM с историей обращений из сайта и Telegram на искусственных данных">
+  <meta property="og:image:alt" content="Карточка amoCRM с историей обращений из сайта и Telegram">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../styles.css?v=20260918-telegram1">
-  <link rel="stylesheet" href="project.css?v=20260920-amo1">
+  <link rel="stylesheet" href="project.css?v=20260921-copy1">
   <script src="project.js?v=20260920-amo1" defer></script>
 </head>
 <body class="case-page">
@@ -35,50 +35,62 @@
   </header>
   <main id="project-content">
     <section class="case-intro wrap" aria-labelledby="case-title">
-      <div class="eyebrow"><span data-en="Integration">Интеграция</span><span aria-hidden="true">/</span><span data-en="Portfolio project">Проект для портфолио</span></div>
+      <div class="eyebrow"><span data-en="Integration">Интеграция</span><span aria-hidden="true">/</span><span data-en="KlimatLine">КлиматЛайн</span></div>
       <h1 id="case-title"><span data-en="Enquiry intake">Приём заявок</span><br><em data-en="in amoCRM.">в amoCRM.</em></h1>
       <p class="case-lead" data-en="Enquiries from a website and Telegram go into one CRM: contacts, deals, tasks and notifications. Repeat enquiries are kept in the history according to defined rules.">Обращения с сайта и из Telegram поступают в одну CRM: контакты, сделки, задачи и уведомления. Повторные обращения сохраняются в истории по заданным правилам.</p>
       <ul class="case-tags" aria-label="Технологии" data-aria-en="Technologies"><li>amoCRM</li><li>Telegram</li><li>API</li><li data-en="Automation">Автоматизация</li></ul>
-      <p class="case-origin" data-en="KlimatLine is a portfolio project about air conditioner installation and servicing. The integration uses real amoCRM and Telegram services with artificial data. This is not a client deployment.">«КлиматЛайн» — проект для портфолио об установке и обслуживании кондиционеров. Интеграция работает с настоящими amoCRM и Telegram; для проверки использованы искусственные данные. Это не клиентское внедрение.</p>
+      <p class="case-origin" data-en="The KlimatLine project connects two enquiry channels for air conditioner installation and servicing. The website form and Telegram questionnaire feed a shared handler, which sends the information to amoCRM and notifies the person responsible on Telegram.">В проекте «КлиматЛайн» связаны два канала обращений по установке и обслуживанию кондиционеров. Форма сайта и Telegram-анкета передают данные в общий обработчик, а он направляет их в amoCRM и уведомляет ответственного в Telegram.</p>
+    </section>
+
+
+    <section class="case-section wrap" aria-labelledby="work-title">
+      <div class="case-section-heading"><span class="eyebrow" aria-hidden="true">01</span><h2 id="work-title" data-en="What was built.">Что было сделано.</h2></div>
+<p class="case-work-intro" data-en="The goal was to bring enquiries from different channels into one workflow: save the request, connect it to a contact and deal, create a task and give the person responsible a direct route to the record. Separate rules handle repeated deliveries and new enquiries from the same person.">Задача — собрать обращения из разных каналов в одном процессе: сохранить запрос, связать его с контактом и сделкой, поставить задачу и дать ответственному быстрый переход к работе. Отдельно настроены правила для повторных отправок и новых обращений одного человека.</p>
+      <div class="case-work-grid">
+        <article><h3 data-en="Two enquiry channels">Два входа для заявки</h3><p data-en="Built a website form and a short Telegram questionnaire. Both collect a name, phone number, service and comment. A shared handler sends the data to the CRM, applying the same processing rules to both channels.">Разработаны форма сайта и короткая анкета в Telegram. В обоих сценариях собираются имя, телефон, нужная услуга и комментарий. Передача в CRM идёт через один обработчик, поэтому дальнейшие правила одинаковы для обоих каналов.</p></article>
+        <article><h3 data-en="A contact and the right deal">Контакт и подходящая сделка</h3><p data-en="Configured contact lookup by phone number and deal selection by service. Matching records are reused. If a contact or an appropriate deal is missing, the integration creates and links the records.">Настроен поиск контакта по телефону и сделки по выбранной услуге. При подходящем совпадении используются существующие записи. Если контакта или нужной сделки нет, интеграция создаёт их и связывает между собой.</p></article>
+        <article><h3 data-en="A history of every enquiry">История каждого обращения</h3><p data-en="Each enquiry adds a separate history entry with the service, comment and channel. Website enquiries also include the source page and any supplied UTM tags. The deal keeps its original source, while later enquiries from other channels appear in the history.">В сделку добавляется отдельная запись с услугой, комментарием и каналом обращения. Для сайта сохраняются страница и переданные UTM-метки. Первоначальный источник сделки остаётся прежним, а новые обращения из других каналов видны в истории.</p></article>
+        <article><h3 data-en="A task and a notification">Задача и уведомление</h3><p data-en="Each new deal receives an initial follow-up task. The person responsible gets the enquiry details and a link to the amoCRM card in Telegram, so they can open the record and continue working in the CRM.">Для новой сделки создаётся первичная задача на обработку. Ответственный получает в Telegram сведения о заявке и ссылку на карточку amoCRM: из уведомления можно сразу перейти к деталям обращения и продолжить работу в CRM.</p></article>
+      </div>
     </section>
 
     <section class="case-section wrap" aria-labelledby="flow-title">
-      <div class="case-section-heading"><span class="eyebrow" aria-hidden="true">01</span><h2 id="flow-title" data-en="From enquiry to action.">От обращения — к обработке.</h2></div>
+      <div class="case-section-heading"><span class="eyebrow" aria-hidden="true">02</span><h2 id="flow-title" data-en="From enquiry to action.">От обращения — к обработке.</h2></div>
       <ol class="case-flow">
-        <li><span class="case-step-number" aria-hidden="true">01</span><h3 data-en="Form or Telegram">Форма или Telegram</h3><p data-en="The person chooses a service and leaves their contact details.">Человек выбирает услугу и оставляет контакт.</p><span class="case-flow-arrow" aria-hidden="true">→</span></li>
-        <li><span class="case-step-number" aria-hidden="true">02</span><h3 data-en="Contact and deal">Контакт и сделка</h3><p data-en="Find existing records or create new ones. Save the source and enquiry history.">Найти существующие или создать новые. Сохранить источник и историю обращения.</p><span class="case-flow-arrow" aria-hidden="true">→</span></li>
-        <li><span class="case-step-number" aria-hidden="true">03</span><h3 data-en="Follow-up task">Задача</h3><p data-en="Create a task to follow up on the enquiry.">Создать задачу на обработку заявки.</p><span class="case-flow-arrow" aria-hidden="true">→</span></li>
-        <li><span class="case-step-number" aria-hidden="true">04</span><h3 data-en="Notification">Уведомление</h3><p data-en="Send a Telegram notification with a link to the deal.">Отправить в Telegram уведомление со ссылкой на сделку.</p></li>
+        <li><span class="case-step-number" aria-hidden="true">01</span><h3 data-en="Form or Telegram">Форма или Telegram</h3><p data-en="The person chooses installation or servicing, leaves their contact details and describes the task. The enquiry is saved before it is sent to the CRM.">Человек выбирает установку или обслуживание, оставляет контакт и описывает задачу. Обращение сохраняется перед передачей в CRM.</p><span class="case-flow-arrow" aria-hidden="true">→</span></li>
+        <li><span class="case-step-number" aria-hidden="true">02</span><h3 data-en="Contact and deal">Контакт и сделка</h3><p data-en="The integration finds or creates a contact and an appropriate deal, then adds the enquiry details to its history.">Интеграция находит или создаёт контакт и подходящую сделку. Сведения об обращении добавляются в историю.</p><span class="case-flow-arrow" aria-hidden="true">→</span></li>
+        <li><span class="case-step-number" aria-hidden="true">03</span><h3 data-en="Follow-up task">Задача</h3><p data-en="A new deal receives an initial follow-up task. Adding to the same open deal does not create another initial task.">В новой сделке появляется первичная задача на обработку. Дополнение той же открытой сделки не создаёт ещё одну первичную задачу.</p><span class="case-flow-arrow" aria-hidden="true">→</span></li>
+        <li><span class="case-step-number" aria-hidden="true">04</span><h3 data-en="Notification">Уведомление</h3><p data-en="The person responsible gets a Telegram message with a deal link. The contact, selected service and history are available in the CRM card.">Ответственный получает сообщение в Telegram со ссылкой на сделку. Контакт, выбранная услуга и история доступны в карточке CRM.</p></li>
       </ol>
     </section>
 
     <section class="case-section wrap" aria-labelledby="screens-title">
-      <div class="case-section-heading"><span class="eyebrow" aria-hidden="true">02</span><h2 id="screens-title" data-en="The integration in practice.">Как это выглядит в работе.</h2></div>
+      <div class="case-section-heading"><span class="eyebrow" aria-hidden="true">03</span><h2 id="screens-title" data-en="The integration in practice.">Как это выглядит в работе.</h2></div>
       <p class="case-section-note" data-en="Open a screenshot to enlarge it. Use 100% scale to read the CRM text.">Нажмите на снимок, чтобы увеличить. В масштабе 100% можно прочитать текст CRM.</p>
       <div class="case-gallery">
         <figure class="case-shot case-shot-crm">
           <a class="case-shot-link" href="../assets/projects/amocrm/crm-history.jpg" target="_blank" rel="noopener" data-screenshot aria-label="Увеличить: карточка amoCRM" data-aria-en="Enlarge: amoCRM deal card">
-            <img src="../assets/projects/amocrm/crm-history.jpg" width="1528" height="684" alt="Карточка amoCRM: контакт Алексей с искусственным телефоном и история обращений с сайта и из Telegram" data-alt-en="amoCRM deal: Alexey with an artificial phone number and enquiry history from the website and Telegram" decoding="async">
+            <img src="../assets/projects/amocrm/crm-history.jpg" width="1528" height="684" alt="Карточка amoCRM с контактом и историей обращений с сайта и из Telegram" data-alt-en="amoCRM card with a contact and enquiry history from the website and Telegram" decoding="async">
             <span class="case-enlarge"><span aria-hidden="true">↗</span><span data-en="Enlarge screenshot">Увеличить снимок</span></span>
           </a>
-          <figcaption><h3 data-en="amoCRM: enquiries from the website and Telegram">amoCRM: обращения с сайта и из Telegram</h3><p data-en="A shared contact, a deal and the history of both channels.">Общий контакт, сделка и история двух каналов.</p><small data-en="Working integration, September 2026. Artificial data.">Работающая интеграция, сентябрь 2026. Искусственные данные.</small></figcaption>
+          <figcaption><h3 data-en="amoCRM: enquiries from the website and Telegram">amoCRM: обращения с сайта и из Telegram</h3><p data-en="The card brings together website and Telegram enquiries. Each appears as a separate entry with its channel and request details, preserving the sequence of enquiries under a shared contact and an appropriate open deal.">В одной карточке собраны обращения с сайта и из Telegram. Каждое добавлено отдельной записью со своим каналом и описанием запроса. Так можно восстановить последовательность обращений, сохранив общий контакт и подходящую открытую сделку.</p><small data-en="Integration workflow · September 2026.">Работа интеграции · сентябрь 2026.</small></figcaption>
         </figure>
         <figure class="case-shot case-shot-form">
           <a class="case-shot-link" href="../assets/projects/amocrm/form-desktop.jpg" target="_blank" rel="noopener" data-screenshot aria-label="Увеличить: форма приёма заявки" data-aria-en="Enlarge: enquiry form">
-            <img src="../assets/projects/amocrm/form-desktop.jpg" width="1512" height="992" alt="Форма КлиматЛайн с именем, искусственным телефоном, выбором услуги и комментарием" data-alt-en="KlimatLine form with a name, an artificial phone number, service selection and a comment" loading="lazy" decoding="async">
+            <img src="../assets/projects/amocrm/form-desktop.jpg" width="1512" height="992" alt="Форма КлиматЛайн: имя, телефон, выбор услуги и комментарий" data-alt-en="KlimatLine form: name, phone number, service selection and comment" loading="lazy" decoding="async">
             <span class="case-enlarge"><span aria-hidden="true">↗</span><span data-en="Enlarge screenshot">Увеличить снимок</span></span>
           </a>
-          <figcaption><h3 data-en="Enquiry form">Форма приёма заявки</h3><p data-en="Name, phone number, service and comment — the starting point of the workflow.">Имя, телефон, услуга и комментарий — начало сценария.</p><small data-en="Working integration, September 2026. Artificial data.">Работающая интеграция, сентябрь 2026. Искусственные данные.</small></figcaption>
+          <figcaption><h3 data-en="Enquiry form">Форма приёма заявки</h3><p data-en="The form collects a name, phone number, service and comment. It validates required fields, retains the enquiry identifier and shows the submission status. The Telegram questionnaire sends the same information into the shared workflow.">Форма собирает имя, телефон, услугу и комментарий. Добавлены проверка обязательных полей, сохранение идентификатора обращения и отображение статуса отправки. Telegram-анкета передаёт такой же набор данных в общий процесс обработки.</p><small data-en="Integration workflow · September 2026.">Работа интеграции · сентябрь 2026.</small></figcaption>
         </figure>
       </div>
     </section>
 
     <section class="case-section wrap" aria-labelledby="repeat-title">
-      <div class="case-section-heading"><span class="eyebrow" aria-hidden="true">03</span><h2 id="repeat-title" data-en="What happens with repeats.">Что происходит с повторами.</h2></div>
+      <div class="case-section-heading"><span class="eyebrow" aria-hidden="true">04</span><h2 id="repeat-title" data-en="What happens with repeats.">Что происходит с повторами.</h2></div>
       <div class="case-rules">
-        <article><span class="case-rule-label" data-en="Same enquiry">Та же заявка</span><h3 data-en="No new record">Без новой записи</h3><p data-en="Delivering the same enquiry again does not create a new record.">Повторная доставка той же заявки не создаёт новую запись.</p></article>
-        <article><span class="case-rule-label" data-en="New enquiry · same service">Новое обращение · та же услуга</span><h3 data-en="Add to the history">Дополнить историю</h3><p data-en="A new enquiry for the same service is added to the open deal.">Новое обращение по той же услуге добавляется в открытую сделку.</p></article>
-        <article><span class="case-rule-label" data-en="Different service or closed deal">Другая услуга или закрытая сделка</span><h3 data-en="Create a new deal">Создать новую сделку</h3><p data-en="A different service or a previously closed deal requires a new deal.">Другая услуга или закрытая предыдущая сделка требуют новой.</p></article>
+        <article><span class="case-rule-label" data-en="Same enquiry">Та же заявка</span><h3 data-en="No new record">Без новой записи</h3><p data-en="Repeated delivery is recognised by the enquiry identifier. Delivering that same enquiry again does not create another deal or history entry.">Повторная доставка распознаётся по идентификатору заявки. Повтор передачи того же обращения не создаёт ещё одну сделку или запись истории.</p></article>
+        <article><span class="case-rule-label" data-en="New enquiry · same service">Новое обращение · та же услуга</span><h3 data-en="Add to the history">Дополнить историю</h3><p data-en="A new enquiry for the same service is added to the appropriate open deal. For example, someone can follow up through Telegram after using the website form, creating a separate history entry in that deal.">Если человек снова обращается по той же услуге, новый запрос добавляется в историю подходящей открытой сделки. Например, после формы сайта можно уточнить задачу через Telegram — это отдельное обращение в той же сделке.</p></article>
+        <article><span class="case-rule-label" data-en="Different service or closed deal">Другая услуга или закрытая сделка</span><h3 data-en="Create a new deal">Создать новую сделку</h3><p data-en="A different service gets a separate deal: installation and servicing are handled separately. If the previous deal is closed, the next enquiry also starts a new deal while reusing the matching contact.">Для другой услуги создаётся отдельная сделка: установка и обслуживание обрабатываются отдельно. Если предыдущая сделка уже закрыта, следующее обращение также начинает новую сделку с сохранением найденного контакта.</p></article>
       </div>
       <p class="case-review-note" data-en="If a write result cannot be confirmed or several matches are found, processing stops for review. It does not blindly retry the write.">Если результат записи нельзя подтвердить или найдено несколько совпадений, обработка останавливается для сверки. Запись вслепую не повторяется.</p>
     </section>
@@ -88,7 +100,7 @@
       <h2 id="case-contact-title"><span data-en="Connect your enquiries">Связать обращения</span><br><em data-en="with your CRM.">с вашей CRM.</em></h2>
       <p data-en="Tell Lev where your enquiries come from and how you process them today.">Расскажите Льву, откуда приходят заявки и как вы обрабатываете их сейчас.</p>
       <a class="button button-primary" href="https://t.me/virentora" target="_blank" rel="noopener noreferrer"><span data-en="Discuss a similar integration">Обсудить похожую интеграцию</span><span aria-hidden="true">↗</span></a>
-      <p class="case-scope" data-en="This project covers enquiry intake and processing. Telephony, sales analytics and a full CRM rollout are outside its scope. The screenshots document the working local version in September 2026.">Проект показывает приём и обработку заявок. Телефония, аналитика продаж и полное внедрение CRM в его объём не входят. Снимки фиксируют работу локальной версии в сентябре 2026 года.</p>
+      <p class="case-scope" data-en="Scope of the work: website form, Telegram questionnaire, amoCRM connection, enquiry history, tasks, notifications and repeat-handling rules. Fields, services and actions can be agreed for a different workflow.">В составе работы: форма сайта, Telegram-анкета, подключение amoCRM, история обращений, задачи, уведомления и правила повторной обработки. Конкретный набор полей, услуг и действий можно согласовать под другой процесс.</p>
     </section>
   </main>
   <footer class="case-footer wrap"><span>Virentora</span><a href="../index.html#amocrm-project" data-en="← Back to portfolio">← Вернуться к портфолио</a></footer>
