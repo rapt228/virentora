@@ -1,5 +1,9 @@
 (() => {
   const root = document.documentElement;
+  const pageTitle = {ru:document.title, en:document.querySelector('title').dataset.titleEn || 'Website and Telegram inquiries in amoCRM — Virentora'};
+  const description = document.querySelector('meta[name="description"]');
+  const metadata = [...document.querySelectorAll('meta[data-content-en]')].map(node => ({node,ru:node.content,en:node.dataset.contentEn}));
+  if (description && !description.hasAttribute('data-content-en')) metadata.push({node:description,ru:description.content,en:'Two inquiry channels in one CRM. Staff can see the source, customer history, task and notification.'});
   const translations = [...document.querySelectorAll('[data-en]')].map(node => ({node, ru:node.textContent, en:node.dataset.en}));
   const attributes = [...document.querySelectorAll('[data-aria-en],[data-alt-en]')].flatMap(node => ['aria','alt'].filter(type => node.hasAttribute(`data-${type}-en`)).map(type => ({node, name:type==='aria'?'aria-label':'alt', ru:node.getAttribute(type==='aria'?'aria-label':'alt'), en:node.getAttribute(`data-${type}-en`)})));
   const viewer = document.querySelector('.image-viewer');
@@ -23,8 +27,8 @@
     translations.forEach(item => {item.node.textContent=item[lang];});
     attributes.forEach(item => item.node.setAttribute(item.name,item[lang]));
     document.querySelectorAll('[data-lang]').forEach(button => button.setAttribute('aria-pressed',String(button.dataset.lang===lang)));
-    document.title = lang === 'ru' ? 'Заявки с сайта и из Telegram в amoCRM — Virentora' : 'Website and Telegram inquiries in amoCRM — Virentora';
-    document.querySelector('meta[name="description"]').content = lang === 'ru' ? 'Обращения из двух каналов в одной CRM. Сотрудник видит источник, историю клиента, задачу и уведомление.' : 'Two inquiry channels in one CRM. Staff can see the source, customer history, task and notification.';
+    document.title = pageTitle[lang];
+    metadata.forEach(item => {item.node.content=item[lang];});
     zoomLabel();
     if (viewer?.open && opener) image.alt = opener.querySelector('img').alt;
     try {localStorage.setItem('virentora-language',lang);} catch {}

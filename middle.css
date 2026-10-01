@@ -198,3 +198,16 @@
 @media(max-width:360px){.project-amocrm h4{font-size:36px}}
 .project-amocrm h4{max-width:540px;font-size:clamp(36px,3.4vw,46px);line-height:1.08}
 .project-amocrm .project-amocrm-tags{margin-block:23px}
+
+/* GetCourse portfolio addition; the separate Logika landing remains unchanged. */
+.project-getcourse{background:radial-gradient(ellipse at 100% 0,#59587330,transparent 70%),linear-gradient(135deg,#152332,#0c1521)}
+.project-getcourse h4{font-size:clamp(36px,3.4vw,46px);max-width:510px;line-height:1.1}
+.project-getcourse .project-purpose{max-width:none;font-size:15px;line-height:1.85}
+.project-getcourse-tags{font-size:12px;line-height:1.9;color:#bfd1e0;margin:22px 0}
+.project-getcourse-shot{min-width:0;margin:0;border:1px solid #bad6e338;border-radius:18px;overflow:hidden;background:#1b2939}
+.project-getcourse-shot>a{display:block;padding:12px 12px 0}
+.project-getcourse-shot img{display:block;width:100%;height:auto;border-radius:8px}
+.project-getcourse-image-link{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 4px;font-size:13px;line-height:1.7;color:#daebf3}
+.project-getcourse-shot a:hover .project-getcourse-image-link{color:#fff}
+@media(max-width:1000px){.project-getcourse{grid-template-columns:1fr;gap:28px}.project-getcourse h4{max-width:none}.project-getcourse-shot{width:100%;max-width:740px}}
+@media(max-width:650px){.project-getcourse .project-purpose{font-size:14px}.project-getcourse-shot>a{padding:9px 9px 0}.project-getcourse-image-link{font-size:12px}}
