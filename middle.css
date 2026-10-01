@@ -196,3 +196,5 @@
 @media(max-width:1000px){.project-amocrm{grid-template-columns:1fr;gap:28px}.project-amocrm h4{max-width:none}.project-amocrm-shot{max-width:680px;width:100%}}
 @media(max-width:650px){.project-amocrm h4{font-size:40px}.project-amocrm .project-purpose{font-size:14px}.project-amocrm-shot>a{padding:9px 9px 0}.project-amocrm-shot figcaption{padding:13px 14px}.project-amocrm-image-link{font-size:12px}}
 @media(max-width:360px){.project-amocrm h4{font-size:36px}}
+.project-amocrm h4{max-width:540px;font-size:clamp(36px,3.4vw,46px);line-height:1.08}
+.project-amocrm .project-amocrm-tags{margin-block:23px}

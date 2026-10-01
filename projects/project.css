@@ -1,4 +1,59 @@
 /* Project page only. Shared colours, fonts and buttons come from styles.css. */
+/* The amoCRM walkthrough is scoped to this case. */
+.amocrm-case [hidden]{display:none!important}
+.amocrm-case .case-intro h1{font-size:clamp(52px,6.2vw,94px);max-width:1080px;line-height:1.02}
+.amocrm-case .case-lead{max-width:780px}
+.amocrm-case .case-origin{margin-top:25px;font-size:13px}
+.amocrm-actions{display:flex;flex-wrap:wrap;gap:14px}
+.amocrm-actions .button{font-size:14px;white-space:normal;text-align:center}
+.amocrm-result{margin:44px 0 24px;padding:24px 28px;border:1px solid #b9d8e435;border-radius:20px;background:linear-gradient(110deg,#18334085,#b5d2df08)}
+.amocrm-result-label{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:#a9c8d8;margin-bottom:10px}
+.amocrm-result-summary{font-size:clamp(17px,2vw,23px);line-height:1.7;color:#e4f0f5;letter-spacing:-.025em}
+.amocrm-case .amocrm-hero-shot figcaption{padding:18px 24px}
+.amocrm-case .amocrm-hero-shot figcaption p{margin:0;color:#b9cdd9}
+.amocrm-saved-note{font-size:13px;line-height:1.85;color:#a9c1d1;margin:0 0 22px}
+.amocrm-flow-line{font-size:14px;line-height:1.9;color:#c5dce7;max-width:960px;margin:0 0 30px}
+.amocrm-step-tabs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:24px}
+.amocrm-step-tabs button{min-width:0;display:flex;align-items:center;gap:12px;text-align:left;padding:18px 16px;border:1px solid #b6d3e52a;border-radius:16px;background:#0b1722;color:#adc3d1;font-size:13px;line-height:1.6;transition:background .2s,border-color .2s,color .2s}
+.amocrm-tab-number{font-size:11px;font-variant-numeric:tabular-nums;color:#89a9bc}
+.amocrm-step-tabs button:hover{background:#1a3040;color:#fff}
+.amocrm-step-tabs button[aria-selected=true]{background:linear-gradient(120deg,#c3dce9,#a6c7d9);border-color:#daedf6;color:#0a1b27;box-shadow:0 4px 24px #a9d6ec10}
+.amocrm-step-tabs button[aria-selected=true] .amocrm-tab-number{color:#37596e}
+.amocrm-step-tabs button:focus-visible{outline:2px solid #e1c7a0;outline-offset:4px}
+.amocrm-step-panel{display:grid;grid-template-columns:minmax(0,.7fr) minmax(0,1.3fr);gap:32px;align-items:start;padding:32px;border:1px solid #b7d3e32d;border-radius:24px;background:radial-gradient(ellipse at 100% 0,#37516a20,transparent 65%),#0b1620}
+.amocrm-step-panel+.amocrm-step-panel{margin-top:24px}
+.amocrm-step-tabs:not([hidden])+.amocrm-step-panels .amocrm-step-panel{margin-top:0}
+.amocrm-step-copy{min-width:0}
+.amocrm-step-copy h3{font:400 37px/1.12 var(--serif);letter-spacing:-.02em;margin:17px 0 20px}
+.amocrm-step-copy p{font-size:15px;line-height:1.85;color:#c3d5e1}
+.amocrm-step-copy p.amocrm-step-note{font-size:13px;line-height:1.85;color:#aac3d3;margin-top:20px}
+.amocrm-step-copy p.amocrm-read-hint{font-size:12px;line-height:1.8;color:#a9c8d9;margin-top:23px;padding-top:18px;border-top:1px solid #b6d3e525}
+.amocrm-step-media{min-width:0}
+.amocrm-shot-frame{display:block;border-radius:8px}
+.amocrm-pan-hint{display:none}
+.amocrm-case .amocrm-step-media .case-shot-link{padding:12px 12px 0}
+.amocrm-case .amocrm-step-media .case-enlarge{position:static;justify-content:center;margin:12px 0 0;box-shadow:none}
+.amocrm-case .amocrm-step-media figcaption{padding:16px 20px 20px}
+.amocrm-case .amocrm-step-media figcaption p{font-size:12px;line-height:1.8;margin:0;color:#bed2df}
+.amocrm-mobile-form{margin-top:16px;border-top:1px solid #b6d3e52a}
+.amocrm-mobile-form summary{display:flex;align-items:center;justify-content:space-between;gap:14px;cursor:pointer;padding:18px 4px;font-size:13px;line-height:1.75;color:#c1d9e5;list-style:none}
+.amocrm-mobile-form summary::-webkit-details-marker{display:none}
+.amocrm-case .amocrm-mobile-shot{max-width:330px;margin-inline:auto}
+.amocrm-rules{counter-reset:rule;list-style:none;padding:0;margin:0;display:grid;grid-template-columns:1fr 1fr;gap:0 38px}
+.amocrm-rules li{counter-increment:rule;display:flex;align-items:baseline;gap:18px;padding:23px 0;border-top:1px solid #b6d3e531;min-width:0}
+.amocrm-rules li:before{content:'0' counter(rule);color:#b3d2e2;font-size:12px;flex-shrink:0}
+.amocrm-rules p{font-size:15px;line-height:1.85;color:#c4d5e1}
+.amocrm-rules+.amocrm-saved-note{margin:24px 0 0}
+.amocrm-work-grid{display:grid;grid-template-columns:1fr 1fr;gap:38px}
+.amocrm-work-grid article{border-top:1px solid #b6d3e531;padding-top:23px;min-width:0}
+.amocrm-work-grid h3{font:400 34px/1.15 var(--serif);margin-bottom:17px}
+.amocrm-work-grid p{font-size:15px;line-height:1.9;color:#bfd3e0}
+.amocrm-scope{font-size:13px;line-height:1.85;color:#a7c0d0;margin-top:28px;max-width:880px}
+.amocrm-case .viewer-scroll{touch-action:pan-x pan-y}
+.amocrm-case .image-viewer.is-actual .viewer-scroll img{width:auto;height:auto;max-width:none;max-height:none}
+@media(max-width:600px){.amocrm-case .amocrm-crm-shot .amocrm-shot-frame{overflow-x:auto;overscroll-behavior-x:contain}.amocrm-case .amocrm-crm-shot .amocrm-shot-frame img{width:760px;max-width:none}.amocrm-case .amocrm-crm-shot figcaption p.amocrm-pan-hint{display:block;font-size:11px;color:#a4c0d0;margin-top:12px}}
+@media(max-width:900px){.amocrm-step-tabs{grid-template-columns:1fr 1fr}.amocrm-step-panel{grid-template-columns:1fr;padding:25px;gap:25px}.amocrm-step-copy h3{margin:12px 0 15px}.amocrm-step-copy p.amocrm-read-hint{margin-top:18px}.amocrm-case .case-intro h1{font-size:clamp(50px,8vw,72px)}}
+@media(max-width:600px){.amocrm-case .case-intro h1{font-size:clamp(43px,11vw,60px);line-height:1.04}.amocrm-actions{gap:11px}.amocrm-actions .button{width:100%;font-size:13px;padding-inline:18px;gap:13px}.amocrm-result{margin-top:32px;padding:21px 20px}.amocrm-result-summary{font-size:18px;line-height:1.8}.amocrm-case .amocrm-hero-shot figcaption{padding:16px 19px}.amocrm-case .amocrm-hero-shot figcaption p{font-size:12px}.amocrm-step-tabs{gap:8px}.amocrm-step-tabs button{padding:14px 12px;gap:8px;font-size:12px}.amocrm-step-panel{padding:20px 16px;border-radius:19px}.amocrm-step-copy h3{font-size:33px}.amocrm-step-copy p{font-size:14px}.amocrm-flow-line{font-size:13px}.amocrm-rules,.amocrm-work-grid{grid-template-columns:1fr}.amocrm-rules li{padding:20px 0}.amocrm-rules p,.amocrm-work-grid p{font-size:14px}.amocrm-work-grid{gap:27px}.amocrm-work-grid h3{font-size:31px}.amocrm-case .viewer-toolbar{flex-wrap:wrap}.amocrm-case .viewer-toolbar h2{max-width:none;flex:1;min-width:95px}.amocrm-case .viewer-scroll img{max-height:calc(100dvh - 210px)}}
 .case-page{background:radial-gradient(ellipse at 95% 0,#19314645,transparent 30%),var(--bg)}
 .case-header{border-bottom:1px solid var(--line);background:#060d15}
 .case-header-inner{min-height:88px;display:flex;align-items:center;justify-content:space-between;gap:24px}
