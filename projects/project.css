@@ -96,3 +96,20 @@
 @media(max-width:1000px){.case-flow{grid-template-columns:repeat(2,minmax(0,1fr))}.case-flow h3{margin-top:16px}.case-rules{gap:18px}}
 @media(max-width:600px){.case-header-inner{min-height:76px;gap:12px}.case-header .brand{font-size:20px}.case-header-tools{gap:15px}.case-back{font-size:12px;gap:6px}.case-intro{padding-block:46px}.case-intro h1{font-size:59px;margin-block:24px}.case-lead{font-size:16px;line-height:1.85}.case-origin{font-size:13px;padding-left:15px}.case-section{padding-block:38px 44px}.case-section-heading{gap:13px;align-items:flex-start;margin-bottom:25px}.case-section-heading .eyebrow{padding-top:8px}.case-section h2{font-size:37px;line-height:1.08}.case-flow{grid-template-columns:1fr;gap:12px}.case-flow li{padding:21px 23px}.case-flow h3{margin-top:11px;font-size:19px}.case-flow-arrow{transform:rotate(90deg)}.case-gallery{gap:24px}.case-shot{border-radius:19px}.case-shot-link{padding:10px 10px 0}.case-shot-link img{border-radius:8px}.case-enlarge{position:static;justify-content:center;box-shadow:none;margin:10px 0 0;padding:9px 12px;font-size:12px}.case-shot figcaption{padding:19px 20px 23px}.case-shot h3{font-size:18px}.case-shot small{font-size:12px}.case-rules{grid-template-columns:1fr;gap:26px}.case-rule-label{min-height:0}.case-rules h3{font-size:33px;margin-top:10px}.case-review-note{padding:20px;font-size:13px}.case-contact{padding-block:48px}.case-contact h2{font-size:50px}.case-contact .button{font-size:13px;gap:14px;padding-inline:19px;width:100%;max-width:360px}.case-footer{flex-wrap:wrap;gap:5px;padding-block:20px}.image-viewer{width:calc(100% - 16px);max-height:calc(100dvh - 24px);border-radius:14px}.viewer-toolbar{gap:10px;padding:10px 12px}.viewer-toolbar h2{font-size:13px}.viewer-actions{gap:8px}.viewer-zoom{font-size:11px;padding-inline:10px}.viewer-hint{padding:0 12px 12px;font-size:11px}.viewer-scroll img{max-height:calc(100dvh - 168px)}}
 @media(max-width:360px){.case-header-inner{flex-wrap:wrap;padding-block:12px;gap:4px}.case-header-tools{width:100%;justify-content:space-between}.case-intro h1{font-size:51px}.case-intro .eyebrow{font-size:10px;letter-spacing:.05em}.case-contact h2{font-size:44px}.viewer-toolbar h2{max-width:70px}}
+
+/* Shared case typography: useful labels and controls stay legible on narrow screens. */
+.case-page .case-section-heading>.eyebrow{font-size:18px;letter-spacing:0;font-variant-numeric:tabular-nums}
+.case-page .case-enlarge,.case-page .case-back,.case-page .case-footer{font-size:14px}
+.case-page .case-tags li{font-size:13px}
+.case-page .case-shot figcaption p,.case-page .case-shot small{font-size:14px;line-height:1.8}
+.case-page .case-section-heading{flex-wrap:wrap}
+.case-page .case-origin,.case-page .amocrm-saved-note,.case-page .amocrm-scope{font-size:14px}
+.case-page .amocrm-step-tabs button{font-size:15px;line-height:1.65}
+.case-page .amocrm-tab-number,.case-page .amocrm-rules li:before{font-size:18px}
+.case-page .amocrm-step-copy p,.case-page .amocrm-rules p,.case-page .amocrm-work-grid p{font-size:16px;line-height:1.85}
+.case-page .amocrm-step-copy p.amocrm-step-note,.case-page .amocrm-step-copy p.amocrm-read-hint,.case-page .amocrm-flow-line{font-size:14px}
+.case-page .amocrm-result-label{font-size:12px;color:#bfd8e6}
+.case-page .viewer-hint,.case-page .viewer-zoom{font-size:13px}
+.case-page .case-section,.case-page .case-intro{overflow-wrap:break-word}
+@media(max-width:600px){.case-page .amocrm-step-tabs button{flex-direction:column;align-items:flex-start;gap:8px;padding:16px 13px}.case-page .case-shot figcaption{padding:16px}.case-page .case-contact .button,.case-page .amocrm-actions .button{font-size:14px}.case-page .viewer-toolbar h2{font-size:14px}}
+@media(prefers-reduced-motion:reduce){.case-page .amocrm-step-tabs button{transition:none}}

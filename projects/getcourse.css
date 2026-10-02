@@ -15,10 +15,10 @@
 .getcourse-case .case-enlarge{position:static;justify-content:center;margin:12px 0 0;box-shadow:none;background:#9abbd80a;border-color:#b9d5e52a}
 .getcourse-case .case-shot figcaption{padding:15px 19px 19px}
 .getcourse-case .case-shot figcaption p{font-size:12px;line-height:1.85;margin:0;color:#bed2df}
-.gc-flow{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;list-style:none;padding:0;margin:0}
-.gc-flow li{min-width:0;padding:18px;border-radius:14px;border:1px solid #b6d3e52c;background:#11202cc9}
-.gc-flow li>span{display:block;color:#a9c9dd;font-size:12px;margin-bottom:12px}
-.gc-flow strong{font-weight:500;font-size:14px;line-height:1.7;display:block}
+
+
+
+
 .gc-concepts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:35px;margin-top:38px}
 .gc-concepts article{padding-top:19px;border-top:1px solid #b6d3e534}
 .gc-concepts h3{font:400 30px/1.2 var(--serif);margin-bottom:12px}
@@ -48,5 +48,55 @@
 .gc-open p{font-size:14px;line-height:1.9;max-width:620px;margin-top:20px}
 .gc-open>div:last-child{text-align:right}
 .getcourse-case .case-contact h2{font-size:clamp(44px,5vw,70px)}
-@media(max-width:1050px){.gc-hero-grid{grid-template-columns:1fr;gap:35px}.gc-hero-copy{max-width:760px}.gc-hero-media{max-width:760px}.getcourse-case .case-intro h1{font-size:clamp(48px,7vw,68px)}.gc-chapter{grid-template-columns:1fr;gap:24px}.gc-chapter-copy{max-width:850px}.gc-chapter h3{margin:16px 0}.gc-flow{grid-template-columns:repeat(3,minmax(0,1fr))}.gc-format{padding:20px}.gc-format>p{min-height:130px}}
-@media(max-width:650px){.getcourse-case .case-intro{padding-block:40px 46px}.getcourse-case .case-intro h1{font-size:clamp(41px,10.5vw,58px);line-height:1.05}.getcourse-case .case-lead,.gc-section-intro{font-size:15px;line-height:1.85}.gc-actions .button{width:100%;font-size:13px;padding-inline:15px}.gc-note{font-size:12px;margin-top:20px}.getcourse-case .case-tags{gap:7px;margin:23px 0}.getcourse-case .case-tags li{padding:5px 11px;font-size:11px}.gc-flow{grid-template-columns:1fr 1fr;gap:9px}.gc-flow li{padding:15px 13px}.gc-flow strong{font-size:12px;line-height:1.65}.gc-concepts,.gc-formats,.gc-decisions{grid-template-columns:1fr;gap:25px}.gc-concepts{gap:22px}.gc-chapter{padding:22px 16px;border-radius:19px;gap:22px}.gc-chapter h3,.gc-decisions h3{font-size:33px}.gc-chapter-copy>p,.gc-decisions p{font-size:14px}.gc-format{padding:19px 12px}.gc-format h4,.gc-format>p{margin-inline:5px}.gc-format>p{min-height:0}.getcourse-case .case-shot-link{padding:9px 9px 0}.getcourse-case .case-shot figcaption{padding:14px}.gc-scope{padding:22px 18px}.gc-scope li{font-size:13px}.gc-open{grid-template-columns:1fr;gap:24px}.gc-open>div:last-child{text-align:left}.gc-open .button{width:100%;font-size:13px}.getcourse-case .viewer-toolbar{flex-wrap:wrap}.getcourse-case .viewer-toolbar h2{min-width:95px;max-width:none;flex:1}.getcourse-case .viewer-scroll img{max-height:calc(100dvh - 210px)}}
+@media(max-width:1050px){.gc-hero-grid{grid-template-columns:1fr;gap:35px}.gc-hero-copy{max-width:760px}.gc-hero-media{max-width:760px}.getcourse-case .case-intro h1{font-size:clamp(48px,7vw,68px)}.gc-chapter{grid-template-columns:1fr;gap:24px}.gc-chapter-copy{max-width:850px}.gc-chapter h3{margin:16px 0}.gc-format{padding:20px}.gc-format>p{min-height:130px}}
+@media(max-width:650px){.getcourse-case .case-intro{padding-block:40px 46px}.getcourse-case .case-intro h1{font-size:clamp(41px,10.5vw,58px);line-height:1.05}.getcourse-case .case-lead,.gc-section-intro{font-size:15px;line-height:1.85}.gc-actions .button{width:100%;font-size:13px;padding-inline:15px}.gc-note{font-size:12px;margin-top:20px}.getcourse-case .case-tags{gap:7px;margin:23px 0}.getcourse-case .case-tags li{padding:5px 11px;font-size:11px}.gc-concepts,.gc-formats,.gc-decisions{grid-template-columns:1fr;gap:25px}.gc-concepts{gap:22px}.gc-chapter{padding:22px 16px;border-radius:19px;gap:22px}.gc-chapter h3,.gc-decisions h3{font-size:33px}.gc-chapter-copy>p,.gc-decisions p{font-size:14px}.gc-format{padding:19px 12px}.gc-format h4,.gc-format>p{margin-inline:5px}.gc-format>p{min-height:0}.getcourse-case .case-shot-link{padding:9px 9px 0}.getcourse-case .case-shot figcaption{padding:14px}.gc-scope{padding:22px 18px}.gc-scope li{font-size:13px}.gc-open{grid-template-columns:1fr;gap:24px}.gc-open>div:last-child{text-align:left}.gc-open .button{width:100%;font-size:13px}.getcourse-case .viewer-toolbar{flex-wrap:wrap}.getcourse-case .viewer-toolbar h2{min-width:95px;max-width:none;flex:1}.getcourse-case .viewer-scroll img{max-height:calc(100dvh - 210px)}}
+
+/* Nine-step guide. All panels remain readable before/without enhancement. */
+.getcourse-case [hidden]{display:none!important}
+.getcourse-case .gc-note,.getcourse-case .gc-decisions .gc-note{font-size:14px;color:#bcd0de}
+.getcourse-case .case-lead,.getcourse-case .gc-section-intro,.getcourse-case .gc-chapter-copy>p,.getcourse-case .gc-decisions p{font-size:16px}
+.getcourse-case .gc-kicker{font-size:13px;letter-spacing:.035em;color:#bed5e4}
+.getcourse-case .gc-kicker>span:first-child{font-size:21px;font-variant-numeric:tabular-nums}
+.getcourse-case .gc-concepts p,.getcourse-case .gc-format>p,.getcourse-case .gc-scope li,.getcourse-case .gc-open p{font-size:15px}
+.getcourse-case .gc-format>p{min-height:0}
+.getcourse-case .case-shot figcaption p{font-size:14px}
+.getcourse-case .gc-actions .button,.getcourse-case .gc-open .button{font-size:14px}
+.gc-journey.is-interactive{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:30px;align-items:start}
+.gc-step-navigation,.gc-preview{min-width:0;scroll-margin-top:24px}
+.gc-step-hint{font-size:14px;color:#bdd1df;line-height:1.8;margin-bottom:18px;max-width:36em}
+.gc-step-tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.gc-step-tabs button{display:flex;flex-direction:column;align-items:flex-start;gap:12px;min-width:0;min-height:132px;padding:16px 13px;text-align:left;border:1px solid #b6d3e540;border-radius:15px;background:#11202c;color:#d0e0eb;font:500 15px/1.55 var(--sans);overflow-wrap:break-word;transition:background .18s,border-color .18s,color .18s}
+.gc-step-tabs button:hover{background:#203747;border-color:#b6d3e575;color:#f3f7fa}
+.gc-step-tabs button[aria-selected=true]{background:linear-gradient(135deg,#c5deec,#accbdc);color:#0b202e;border-color:#e0eff6}
+.gc-step-number{font-size:21px;line-height:1.2;font-variant-numeric:tabular-nums;color:#bdd9e9}
+.gc-step-tabs button[aria-selected=true] .gc-step-number{color:#395b71}
+.gc-step-tabs button:focus-visible,.gc-step-controls button:focus-visible,.gc-step-panel:focus-visible{outline:2px solid #dfc7a3;outline-offset:4px}
+.gc-step-controls{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:18px;min-height:44px}
+.gc-step-position{font-size:14px;color:#c8dfeb;white-space:nowrap;margin-right:auto}
+.gc-step-position [data-current]{font-size:20px;font-variant-numeric:tabular-nums;color:#edf4f8}
+.gc-sequence{display:flex;gap:8px}
+.gc-step-controls button{border:1px solid #b6d3e547;border-radius:99px;background:#142532;color:#e1edf4;min-height:44px;padding:9px 14px;font:500 14px/1.6 var(--sans);display:inline-flex;gap:10px;align-items:center;justify-content:center}
+.gc-step-controls button:hover{background:#223d4e}
+.gc-step-controls button[aria-disabled=true]{opacity:.42;cursor:default;background:#142532}
+.gc-step-controls .gc-all-steps{display:none}
+.gc-panels{display:grid;gap:24px}
+.gc-step-panel{min-width:0;border:1px solid #b6d3e545;border-radius:20px;overflow:hidden;background:linear-gradient(140deg,#152735,#0d1a25)}
+.gc-step-copy{padding:24px}
+.gc-step-copy h3{font:400 36px/1.15 var(--serif);letter-spacing:-.02em;margin:16px 0}
+.gc-step-copy>p{font-size:16px;line-height:1.8;color:#c9dce7}
+.getcourse-case .gc-step-shot{border:0;border-top:1px solid #b6d3e52c;border-radius:0;background:#08141e}
+.getcourse-case .gc-step-shot .case-shot-link{padding:16px 16px 0}
+.gc-step-image{display:flex;align-items:center;justify-content:center;aspect-ratio:16/9;max-height:300px;width:100%;background:#06101a;border-radius:7px;overflow:hidden}
+.getcourse-case .gc-step-image img{width:100%;height:100%;object-fit:contain}
+.getcourse-case .gc-step-shot figcaption{padding:16px 20px 20px;min-height:6.7em}
+.gc-order-explanation{padding:28px 24px;border-top:1px solid #b6d3e52c;background:#08141e}
+.gc-order-label{font-size:13px;color:#abc9db}
+.gc-order-explanation ol{list-style:none;margin:20px 0;padding:0;display:grid;gap:0}
+.gc-order-explanation li{padding:16px 0;font-size:16px;line-height:1.8;border-bottom:1px solid #b6d3e529;color:#e2edf4}
+.gc-step-caption{font-size:14px;line-height:1.8;color:#bed2df}
+.gc-journey.is-interactive .gc-step-panel{animation:gc-panel-enter .18s ease-out}
+@keyframes gc-panel-enter{from{opacity:.7;transform:translateY(3px)}to{opacity:1;transform:none}}
+@media(max-width:1100px){.gc-journey.is-interactive{grid-template-columns:1fr;gap:24px}.gc-step-tabs button{min-height:104px}.gc-step-controls .gc-all-steps{display:inline-flex}.gc-step-copy h3,.gc-step-copy>p{min-height:0}.gc-step-image{max-height:390px;aspect-ratio:16/9}.getcourse-case .gc-step-shot figcaption{min-height:0}}
+@media(max-width:650px){.gc-step-tabs{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.gc-step-tabs button{padding:16px 13px;font-size:15px;min-height:116px}.gc-step-tabs button:last-child{grid-column:1/-1;min-height:76px;flex-direction:row;align-items:center;gap:16px}.gc-step-hint{font-size:14px}.gc-step-copy{padding:22px 18px}.gc-step-copy h3{font-size:32px;margin-block:14px}.gc-step-copy>p{font-size:16px}.gc-step-image{aspect-ratio:16/11}.gc-step-controls{gap:10px}.gc-step-position{flex:1}.gc-step-controls .gc-all-steps{order:-1}.gc-step-controls .gc-sequence{order:1;width:100%}.gc-sequence button{flex:1}.getcourse-case .gc-step-shot .case-shot-link{padding:10px 10px 0}.getcourse-case .gc-step-shot figcaption{padding:14px 16px 18px}.gc-order-explanation{padding:22px 18px}.gc-preview{scroll-margin-top:18px}.getcourse-case .gc-chapter h3{overflow-wrap:break-word}}
+@media(prefers-reduced-motion:reduce){.gc-journey.is-interactive .gc-step-panel{animation:none}.gc-step-tabs button{transition:none}}
+@media(max-width:360px){.gc-step-tabs{grid-template-columns:1fr}.gc-step-tabs button{min-height:72px;flex-direction:row;align-items:center;gap:16px}.gc-step-number{flex:none}.gc-step-tabs button>span:last-child{min-width:0;overflow-wrap:anywhere}}

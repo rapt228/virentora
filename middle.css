@@ -211,3 +211,35 @@
 .project-getcourse-shot a:hover .project-getcourse-image-link{color:#fff}
 @media(max-width:1000px){.project-getcourse{grid-template-columns:1fr;gap:28px}.project-getcourse h4{max-width:none}.project-getcourse-shot{width:100%;max-width:740px}}
 @media(max-width:650px){.project-getcourse .project-purpose{font-size:14px}.project-getcourse-shot>a{padding:9px 9px 0}.project-getcourse-image-link{font-size:12px}}
+
+/* Portfolio readability, scoped so the hero and contact retain their original styling. */
+.portfolio-section .project-card{border-color:#b6d3e545;box-shadow:0 12px 36px #0002}
+.portfolio-section .automation-projects{gap:36px}
+.portfolio-section .project-number{font-size:21px;line-height:1.25;color:#c5dce9}
+.portfolio-section .project-meta{font-size:12px;line-height:1.7;letter-spacing:.045em;align-items:center}
+.portfolio-section .project-purpose{font-size:16px;line-height:1.8}
+.portfolio-section .project-points{font-size:15px;line-height:1.75}
+.portfolio-section .project-actions .text-link,.portfolio-section .project-details summary{font-size:14px;color:#c3d8e6;min-height:44px}
+.portfolio-section .project-details dl{font-size:15px;line-height:1.8}
+.portfolio-section .project-details dt{font-size:12px;color:#bed5e3}
+.portfolio-section .scenario-preview{border-color:#bad6e357;background:linear-gradient(145deg,#203748,#152a39);box-shadow:0 12px 28px #0002}
+.portfolio-section .knowledge-preview{background:linear-gradient(145deg,#203c40,#152b33);border-color:#b5d6ce57}
+.portfolio-section .scenario-caption{font-size:16px;line-height:1.6;align-items:baseline;border-bottom-color:#bad6e339}
+.portfolio-section .scenario-platform{font-size:11px;flex:none;color:#c4dbe8}
+.portfolio-section .scenario-label{font-size:12px;color:#c0d7e5;letter-spacing:.06em}
+.portfolio-section .scenario-number{width:34px;height:34px;font-size:16px;border-color:#bad6e35e;color:#d4e8f3}
+.portfolio-section .scenario-steps li:not(:last-child)::after{left:16px;top:40px}
+.portfolio-section .scenario-steps strong,.portfolio-section .scenario-steps p{font-size:15px}
+.portfolio-section .scenario-steps p{color:#bfd2df}
+.portfolio-section .scenario-preview .scenario-note{font-size:14px;color:#bed1df;line-height:1.75}
+.portfolio-section .knowledge-question p,.portfolio-section .knowledge-answer>p{font-size:16px}
+.portfolio-section .knowledge-answer{background:#09171f80;border-color:#bad6cf40}
+.portfolio-section .answer-source small{font-size:12px;color:#b4d4cf}
+.portfolio-section .answer-source strong,.portfolio-section .answer-source div>span{font-size:14px;color:#c9e0dd}
+.portfolio-section .project-amocrm-tags,.portfolio-section .project-getcourse-tags{font-size:13px}
+.portfolio-section .project-amocrm-details,.portfolio-section .project-amocrm-origin{font-size:14px}
+.portfolio-section .project-amocrm-image-link,.portfolio-section .project-getcourse-image-link,.portfolio-section .project-amocrm-shot figcaption{font-size:14px}
+.portfolio-section .project-body,.portfolio-section .scenario-preview{overflow-wrap:break-word}
+@media(max-width:900px){.portfolio-section .project-feature{grid-template-columns:1fr;gap:28px}.portfolio-section .project-feature .project-purpose,.portfolio-section .project-feature .project-details{max-width:none}.portfolio-section .project-feature h4{max-width:none}}
+@media(max-width:650px){.portfolio-section .project-feature{padding:24px 20px}.portfolio-section .scenario-preview{padding:20px 16px}.portfolio-section .project-body{padding:24px 20px}.portfolio-section .project-feature>.project-body{padding:0}.portfolio-section .project-number{font-size:20px}.portfolio-section .project-meta{font-size:11px}.portfolio-section .scenario-caption{gap:8px}.portfolio-section .portfolio-jump{font-size:14px}.portfolio-section .project-group-heading p{font-size:14px}}
+@media(max-width:360px){.portfolio-section .project-feature{padding:22px 16px}.portfolio-section .project-body{padding:22px 16px}.portfolio-section .project-feature>.project-body{padding:0}.portfolio-section .scenario-preview{padding:18px 14px}.portfolio-section .scenario-caption{flex-wrap:wrap}.portfolio-section .project-feature .project-actions .button{font-size:14px;white-space:normal;text-align:left}}
