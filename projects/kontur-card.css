@@ -1,0 +1,28 @@
+/* Only the new portfolio card and its quick preview. */
+.portfolio-section .project-kontur{grid-column:1/-1;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);align-items:center;gap:0;background:linear-gradient(120deg,#10202a,#0b1620);scroll-margin-top:110px}
+.project-kontur .kontur-cover{display:block;position:relative;margin:24px 0 24px 24px;border:1px solid #b6d3e52d;border-radius:16px;overflow:hidden;background:#08131b}
+.project-kontur .kontur-cover img{display:block;width:100%;height:auto}
+.kontur-cover-hint{display:flex;gap:12px;justify-content:space-between;padding:14px 18px;font-size:13px;color:#cfdfeb;border-top:1px solid #b6d3e52d}
+.project-kontur .kontur-cover:hover .kontur-cover-hint{background:#b6d3e511}
+.portfolio-section .project-kontur .project-body{padding:30px 34px}
+.portfolio-section .project-kontur h4{font-family:var(--serif);font-weight:500;font-size:clamp(40px,4vw,62px);letter-spacing:-.025em;line-height:1.08;margin:12px 0 18px}
+.portfolio-section .project-kontur .project-purpose{font-size:20px;line-height:1.6}
+.project-kontur .kontur-card-note{font-size:15px;color:#bed1dd;line-height:1.8;margin-top:12px}
+.kontur-card-tags{display:flex;flex-wrap:wrap;gap:8px;list-style:none;padding:0;margin:20px 0;color:#bed5e3;font-size:12px}
+.kontur-card-tags li{border:1px solid #b6d3e52d;border-radius:50px;padding:5px 12px}
+.portfolio-section .project-kontur .project-actions{gap:18px;align-items:center}
+.project-kontur .button{white-space:normal;text-align:center}
+.kontur-preview{padding:0;border:1px solid #b6d3e540;border-radius:22px;background:#0a1520;color:#eef4f7;width:calc(100% - 48px);max-width:1200px;max-height:calc(100dvh - 48px);overflow:hidden}
+.kontur-preview::backdrop{background:#01060bea}
+.kontur-preview[open]{display:flex;flex-direction:column}
+.kontur-preview-top{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:17px 24px;border-bottom:1px solid #b6d3e525;flex-shrink:0}
+.kontur-preview h2{font:500 23px/1.3 var(--sans);letter-spacing:-.02em}
+.kontur-preview-close{width:44px;height:44px;flex-shrink:0;border:1px solid #b6d3e54a;background:#b6d3e510;color:inherit;border-radius:50%;font-size:28px;cursor:pointer}
+.kontur-preview-content{overflow:auto;overscroll-behavior:contain;padding:24px;min-height:0}
+.kontur-preview-content img{display:block;width:auto;max-width:100%;height:auto;max-height:56dvh;object-fit:contain;margin:0 auto 22px;border-radius:12px}
+.kontur-preview-content p{font-size:17px;line-height:1.75;color:#c9dce7;max-width:850px}
+.kontur-preview-actions{display:flex;flex-wrap:wrap;align-items:center;gap:20px;margin-top:22px}
+.kontur-preview-actions .button{white-space:normal;text-align:center}
+.kontur-preview :focus-visible,.project-kontur :focus-visible{outline:2px solid #e1c7a0;outline-offset:4px}
+@media(max-width:900px){.portfolio-section .project-kontur{grid-template-columns:1fr}.project-kontur .kontur-cover{margin:22px 22px 0}.portfolio-section .project-kontur .project-body{padding:28px}.portfolio-section .project-kontur h4{font-size:48px}}
+@media(max-width:600px){.project-kontur .kontur-cover{margin:14px 14px 0;border-radius:12px}.portfolio-section .project-kontur .project-body{padding:24px 20px}.portfolio-section .project-kontur .project-purpose{font-size:18px}.portfolio-section .project-kontur .project-actions{align-items:flex-start;flex-direction:column}.kontur-cover-hint{padding:12px;font-size:12px}.kontur-preview{width:calc(100% - 16px);max-height:calc(100dvh - 24px);border-radius:16px}.kontur-preview-top{padding:12px 16px;gap:12px}.kontur-preview h2{font-size:20px}.kontur-preview-content{padding:16px}.kontur-preview-content p{font-size:15px}.kontur-preview-actions{gap:20px}.kontur-preview-actions .button{width:100%;font-size:14px}}

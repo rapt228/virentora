@@ -1,0 +1,67 @@
+/* Dedicated case: all rules stay inside .kontur-case. */
+.kontur-case .case-intro{padding-block:48px 52px}
+.kontur-case .case-intro h1{font-size:clamp(48px,5.5vw,78px);line-height:1.04;max-width:1040px;margin:20px 0 22px;text-wrap:balance}
+.kontur-case .case-lead{font-size:18px;line-height:1.8;max-width:830px}
+.kontur-case .case-tags{margin:21px 0;font-size:13px}
+.kontur-case .case-origin{margin-top:23px;font-size:14px;color:#bfd1dd}
+.kontur-case .kontur-actions{display:flex;flex-wrap:wrap;align-items:center;gap:22px}
+.kontur-case .kontur-actions .button{font-size:15px;white-space:normal;text-align:center}
+.kontur-case .kontur-hero-shot{margin-top:30px}
+.kontur-case .case-shot-link{padding:14px 14px 0}
+.kontur-case .case-shot-link img{display:block;max-width:100%;margin-inline:auto}
+.kontur-case .case-enlarge{position:static;justify-content:center;width:fit-content;max-width:100%;margin:12px 0 0 auto;box-shadow:none;font-size:13px}
+.kontur-case .case-shot figcaption{padding:18px 24px 22px}
+.kontur-case .case-shot figcaption p{font-size:14px;line-height:1.75;color:#bfd1dd}
+.kontur-case .case-shot h3{font-size:18px}
+.kontur-case .case-section-heading{gap:20px}
+.kontur-case .case-section-heading .eyebrow{font-size:14px;font-variant-numeric:tabular-nums}
+.kontur-case .kontur-copy{color:#c7d8e3;font-size:16px;line-height:1.9;max-width:850px}
+.kontur-case .kontur-copy p+p{margin-top:16px}
+.kontur-case .kontur-copy+.case-shot{margin-top:28px}
+.kontur-case .kontur-facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;margin:30px 0 0}
+.kontur-case .kontur-facts div{padding:22px 0;border-top:1px solid #b6d3e53d}
+.kontur-case .kontur-facts dt{font:500 52px/1.1 var(--serif);color:#dfecf3;margin-bottom:10px;font-variant-numeric:lining-nums}
+.kontur-case .kontur-facts dd{font-size:15px;line-height:1.7;color:#bed1df}
+.kontur-case .kontur-scope-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px;margin-top:34px}
+.kontur-case .kontur-scope-grid article{border-top:1px solid #b6d3e53d;padding-top:22px}
+.kontur-case .kontur-scope-grid h3{font:500 29px/1.2 var(--serif);margin-bottom:12px}
+.kontur-case .kontur-scope-grid p{font-size:15px;line-height:1.85;color:#c3d4df}
+.kontur-case .kontur-path{padding:28px;margin-top:26px;border:1px solid #b6d3e531;border-radius:24px;background:linear-gradient(135deg,#122530,#0b1621)}
+.kontur-case .kontur-path-top{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:30px;align-items:start;margin-bottom:25px}
+.kontur-case .kontur-path h3{font:500 34px/1.15 var(--serif);margin:8px 0 16px}
+.kontur-case .kontur-path p{font-size:16px;line-height:1.85;color:#c5d8e4}
+.kontur-case .kontur-route{list-style:none;display:flex;flex-wrap:wrap;gap:9px;padding:0;margin:18px 0 0;font-size:14px;line-height:1.7;color:#d5e5ef}
+.kontur-case .kontur-route li{border:1px solid #b6d3e539;border-radius:12px;padding:8px 12px;background:#c5e4f007}
+.kontur-case .kontur-route li:not(:last-child)::after{content:' →';color:#c9ad83}
+.kontur-case .kontur-mobile-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;align-items:start;margin-top:28px}
+.kontur-case .kontur-phone{max-width:375px;justify-self:center;width:100%}
+.kontur-case .kontur-phone img{width:auto;max-width:100%;max-height:650px}
+.kontur-case .kontur-phone figcaption{padding:18px 18px 22px}
+.kontur-case .kontur-mobile-grid .case-enlarge{margin-inline:auto}
+.kontur-case .kontur-exports{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:24px;margin-top:24px;align-items:start}
+.kontur-case .kontur-exports img{width:auto;max-height:400px;object-fit:contain}
+.kontur-case .kontur-exports .case-shot-link{background:#c1d9e506}
+.kontur-case .kontur-subtitle{font:500 30px/1.2 var(--serif);margin:34px 0 16px}
+.kontur-case .kontur-checks{list-style:none;padding:0;margin:28px 0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.kontur-case .kontur-checks li{padding:22px 24px;border:1px solid #b6d3e531;border-radius:18px;background:#b6d3e507;font-size:15px;line-height:1.85;color:#c5d8e4}
+.kontur-case .kontur-checks strong{display:block;color:#e4eef4;margin-bottom:9px;font-size:17px;font-weight:500}
+.kontur-case .kontur-fixes{display:grid;gap:0;list-style:none;margin:0;padding:0}
+.kontur-case .kontur-fixes li{display:grid;grid-template-columns:35px minmax(0,.8fr) minmax(0,1.4fr);gap:22px;padding:25px 0;border-top:1px solid #b6d3e52b}
+.kontur-case .kontur-fixes .kontur-fix-number{font-size:18px;color:#c4aa83}
+.kontur-case .kontur-fixes h4{font:500 25px/1.3 var(--serif)}
+.kontur-case .kontur-fixes p{font-size:15px;line-height:1.85;color:#c5d8e4}
+.kontur-case .kontur-limits{border-block:1px solid #b6d3e538;margin-top:22px}
+.kontur-case .kontur-limits summary{cursor:pointer;padding:22px 4px;font-size:17px;color:#e0ebf2}
+.kontur-case .kontur-limits ul{padding:0 0 20px 22px;margin:0;max-width:900px}
+.kontur-case .kontur-limits li{font-size:14px;line-height:1.9;margin-bottom:10px;color:#bccfdc}
+.kontur-case .kontur-origin{padding:26px;border-left:2px solid #bba482;background:#cbb18c06;max-width:920px;margin-top:26px}
+.kontur-case .kontur-origin p{font-size:14px;line-height:1.9;color:#c6d5de}
+.kontur-case .case-contact p.kontur-future{font-size:14px;max-width:740px;margin-top:23px;color:#b8cedc}
+.kontur-case .viewer-toolbar{flex-wrap:wrap}.kontur-case .viewer-toolbar h2{max-width:none;flex:1;min-width:95px}
+.kontur-case .image-viewer.is-actual .viewer-scroll img{width:auto;height:auto;max-width:none;max-height:none}
+.kontur-case .viewer-scroll{touch-action:pan-x pan-y}
+.kontur-case :focus-visible{outline:2px solid #e1c7a0;outline-offset:4px}
+@media(max-width:900px){.kontur-case .kontur-path-top{grid-template-columns:1fr;gap:12px}.kontur-case .kontur-mobile-grid{gap:14px}.kontur-case .kontur-phone figcaption{padding:16px}.kontur-case .kontur-scope-grid{gap:22px}.kontur-case .kontur-fixes li{grid-template-columns:30px 1fr}.kontur-case .kontur-fixes p{grid-column:2}}
+@media(max-width:600px){.kontur-case .case-intro{padding-block:30px 34px}.kontur-case .case-intro h1{font-size:clamp(40px,10.4vw,57px);margin:16px 0 18px}.kontur-case .case-intro .eyebrow{font-size:10px;letter-spacing:.065em}.kontur-case .case-lead{font-size:16px;line-height:1.7}.kontur-case .case-tags{font-size:12px;margin:18px 0;gap:7px}.kontur-case .case-tags li{padding:4px 10px}.kontur-case .kontur-actions{gap:16px}.kontur-case .kontur-actions .button{width:100%;padding-inline:18px;font-size:14px;gap:10px}.kontur-case .case-origin{font-size:13px;line-height:1.65;margin-top:20px}.kontur-case .kontur-hero-shot{margin-top:22px}.kontur-case .case-shot-link{padding:10px 10px 0}.kontur-case .case-shot figcaption{padding:16px 18px 20px}.kontur-case .case-shot figcaption p{font-size:13px}.kontur-case .case-enlarge{font-size:12px;margin-inline:auto}.kontur-case .kontur-copy{font-size:15px}.kontur-case .kontur-facts{grid-template-columns:1fr;gap:0;margin-top:22px}.kontur-case .kontur-facts div{display:flex;align-items:center;gap:24px;padding:19px 0}.kontur-case .kontur-facts dt{font-size:44px;min-width:28px;margin:0}.kontur-case .kontur-facts dd{font-size:15px}.kontur-case .kontur-scope-grid,.kontur-case .kontur-exports,.kontur-case .kontur-checks{grid-template-columns:1fr}.kontur-case .kontur-mobile-grid{grid-template-columns:1fr;gap:26px}.kontur-case .kontur-phone{max-width:375px}.kontur-case .kontur-path{padding:20px 16px;border-radius:18px}.kontur-case .kontur-path h3{font-size:31px}.kontur-case .kontur-path p{font-size:15px}.kontur-case .kontur-route{font-size:13px;gap:7px}.kontur-case .kontur-checks li{padding:20px}.kontur-case .kontur-fixes li{gap:14px}.kontur-case .kontur-origin{padding:20px}.kontur-case .viewer-scroll img{max-height:calc(100dvh - 210px)}}
+@media(max-width:360px){.kontur-case .case-intro{padding-top:22px}.kontur-case .case-tags{margin-block:12px}.kontur-case .case-origin{margin-top:14px}.kontur-case .kontur-actions{gap:12px}}
+@media(prefers-reduced-motion:reduce){.kontur-case{scroll-behavior:auto}.kontur-case *{scroll-behavior:auto;transition:none!important}}
