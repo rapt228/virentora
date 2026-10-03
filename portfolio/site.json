@@ -5,7 +5,7 @@
   "email": "pavlovlev39@gmail.com",
   "website": "https://virentora.com",
   "botUsername": "virentora_portfolio_bot",
-  "telegramAppEnabled": false,
+  "telegramAppEnabled": true,
   "appName": "",
   "publicUrl": "https://virentora.com/portfolio/",
   "updated": "2026-10-03",
