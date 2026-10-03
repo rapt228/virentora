@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="ru" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#141615">
+  <meta name="description" content="Лев · Virentora. Сайты, Telegram-боты, CRM и автоматизация. Проекты, реальные интерфейсы и разбор решений.">
+  <meta property="og:title" content="Virentora — портфолио разработчика">
+  <meta property="og:description" content="Сайты, Telegram-боты и автоматизация. Проекты Льва: задача, решение, реальные интерфейсы.">
+  <title>Virentora — портфолио разработчика</title>
+  <link rel="icon" href="./assets/mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./styles.css">
+  <script id="telegram-sdk" src="https://telegram.org/js/telegram-web-app.js?63" async></script>
+  <script type="module" src="./app.js"></script>
+</head>
+<body data-contact-url="https://t.me/levvirentora">
+  <a class="skip-link" href="#main">К содержанию</a>
+  <header class="site-header wrap">
+    <a href="#/" class="brand" aria-label="Virentora — на главную"><span class="brand-mark" aria-hidden="true">V<span>·</span></span>virentora<span class="brand-dot">·</span></a>
+    <nav class="desktop-nav" aria-label="Основная навигация"><a href="#/projects">Проекты</a><a href="#/about">Обо мне</a><a href="#/contact">Связаться <span aria-hidden="true">↗</span></a></nav>
+    <span class="header-note">РАЗРАБОТЧИК / 2026</span>
+    <button class="theme-toggle icon-button" data-action="theme" aria-label="Включить светлую тему"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M19 5l-1.5 1.5m-11 11L5 19"/></svg></button>
+  </header>
+  <main id="main" class="wrap" tabindex="-1"><div class="loading-state" role="status">Загружаю проекты…</div></main>
+  <footer class="site-footer wrap"><a class="brand footer-brand" href="#/">virentora<span class="brand-dot">·</span></a><span>Разработано Львом · 2026</span><a href="#/contact">Давайте обсудим вашу задачу ↗</a></footer>
+  <nav class="mobile-nav" aria-label="Навигация приложения"><a href="#/projects" data-nav="projects"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>Проекты</a><a href="#/about" data-nav="about"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21v-2a8 8 0 0 1 16 0v2"/></svg>Обо мне</a><a href="#/contact" data-nav="contact"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m21 3-6 18-4-8-8-4 18-6ZM11 13 21 3"/></svg>Связаться</a></nav>
+  <dialog id="gallery" aria-labelledby="gallery-title" aria-describedby="gallery-caption"><div class="gallery-toolbar"><span id="gallery-title">Материалы проекта</span><div><button class="icon-button" data-action="zoom" aria-label="Увеличить изображение">＋</button><button class="icon-button" data-action="close-gallery" aria-label="Закрыть изображение">×</button></div></div><div class="gallery-viewport"><img id="gallery-image" alt=""></div><div class="gallery-bottom"><button class="icon-button" data-action="prev-image" aria-label="Предыдущее изображение">←</button><p id="gallery-caption"></p><button class="icon-button" data-action="next-image" aria-label="Следующее изображение">→</button></div><div class="gallery-thumbs" role="group" aria-label="Выбрать изображение"></div></dialog>
+  <div id="toast" role="status" aria-live="polite"></div>
+  <noscript><p class="wrap">Для просмотра проектов включите JavaScript. Связаться со мной: <a href="https://t.me/levvirentora">@levvirentora</a>.</p></noscript>
+</body>
+</html>

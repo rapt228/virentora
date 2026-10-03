@@ -1,0 +1,34 @@
+{
+  "name": "Virentora",
+  "owner": "Лев",
+  "telegram": "levvirentora",
+  "email": "pavlovlev39@gmail.com",
+  "website": "https://virentora.com",
+  "botUsername": "virentora_portfolio_bot",
+  "telegramAppEnabled": false,
+  "appName": "",
+  "publicUrl": "https://virentora.com/portfolio/",
+  "updated": "2026-10-03",
+  "taskExamples": [
+    {
+      "title": "Сайт или каталог",
+      "text": "Услуги, товары и путь к обращению.",
+      "project": "kontur"
+    },
+    {
+      "title": "Заявки в CRM",
+      "text": "Сайт и Telegram связаны с рабочим процессом.",
+      "project": "klimatline"
+    },
+    {
+      "title": "Онлайн-обучение",
+      "text": "Доступы, практика и обратная связь.",
+      "project": "logika"
+    },
+    {
+      "title": "Ответы по документам",
+      "text": "Поиск по разделам с указанием источников.",
+      "project": "knowledge"
+    }
+  ]
+}
