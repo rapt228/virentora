@@ -41,14 +41,16 @@
     document.querySelector('meta[name="description"]').content = lang === 'ru' ? 'Сайты, Telegram-боты, AI-ассистенты и интеграции для бизнеса. Работы, понятный процесс, объём и стоимость до начала разработки.' : 'Websites, Telegram bots, AI assistants and business integrations. Work, a clear process, scope and costs agreed before development starts.';
     updateMotionLabel();
     try { localStorage.setItem('virentora-language',lang); } catch {}
+    window.dispatchEvent(new CustomEvent('virentora:language', {detail:{language:lang}}));
   }
   document.querySelectorAll('[data-lang]').forEach(button => button.addEventListener('click', () => updateLanguage(button.dataset.lang)));
   try { updateLanguage(localStorage.getItem('virentora-language') || 'ru'); } catch { updateLanguage('ru'); }
 
   function applyMotion() {
-    root.dataset.motion = paused ? 'paused' : 'running';
+    const scenePaused = paused || root.dataset.view === 'forma';
+    root.dataset.motion = scenePaused ? 'paused' : 'running';
     updateMotionLabel();
-    window.dispatchEvent(new CustomEvent('virentora:motion',{detail:{paused}}));
+    window.dispatchEvent(new CustomEvent('virentora:motion',{detail:{paused:scenePaused}}));
     updateScroll();
   }
   motionButton.addEventListener('click', () => {
@@ -94,12 +96,14 @@
   matchMedia('(min-width: 801px)').addEventListener('change', e => { if(e.matches && menu.open) closeMenu(); });
 
   function measureHero() {
+    if (root.dataset.view === 'forma') return;
     heroTop=hero.getBoundingClientRect().top+scrollY;
     scrollRange=Math.max(1,hero.offsetHeight-heroScene.offsetHeight);
     updateScroll();
   }
   function updateScroll() {
     ticking=false;
+    if (root.dataset.view === 'forma') return;
     const y=scrollY, stuck=y>25;
     if(stuck!==wasStuck) {header.classList.toggle('stuck',stuck);wasStuck=stuck;}
     // One measured scroll progress drives both the camera and text on all
@@ -123,6 +127,11 @@
   heroObserver.observe(hero);
   heroObserver.observe(heroScene);
   document.fonts.ready.then(measureHero);
+  window.addEventListener('virentora:view', event => {
+    applyMotion();
+    if (event.detail.view === 'home') { updateLanguage(lang); measureHero(); }
+  });
+  window.addEventListener('virentora:view-layout', measureHero);
   compactScene.addEventListener('change', measureHero);
   measureHero();
   document.querySelector('#year').textContent = new Date().getFullYear();

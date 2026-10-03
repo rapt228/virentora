@@ -1,3 +1,7 @@
+let started = false;
+function startScene() {
+  if (started) return;
+  started = true;
 // Loading is a live scene, never a stretched Earth photograph.
 // Start the matching maps while Three.js is still being loaded and parsed.
 // The texture loader reuses these same URLs; phones never fetch desktop maps.
@@ -19,3 +23,7 @@ import('./earth.js?v=20260916-mobile4').catch(error => {
   window.dispatchEvent(new CustomEvent('virentora:scene-error'));
   console.warn('Virentora: the 3D module is unavailable.', error);
 });
+
+}
+if (document.documentElement.dataset.view !== 'forma') startScene();
+window.addEventListener('virentora:view', event => { if (event.detail.view === 'home') startScene(); });
